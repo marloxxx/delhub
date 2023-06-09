@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "763702457558",
+    "project_id": "delhub-a8a93",
+    "storage_bucket": "delhub-a8a93.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763702457558:android:9ddb7846404ed7bf480577",
+        "android_client_info": {
+          "package_name": "com.example.delhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763702457558-qtrnd36msqaso2on0slrr3p6019481hl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvaoIPHdHXFxPDmxV4WgDb2afmzeDMuMM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763702457558-qtrnd36msqaso2on0slrr3p6019481hl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
