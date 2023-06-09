@@ -98,9 +98,32 @@ class Body extends StatelessWidget {
                 color: Colors.white,
                 child: Column(
                   children: [
+                    Column(
+                      children: [
+                        const SizedBox(height: 20),
+                        Padding(
+                          padding:
+                              const EdgeInsets.only(left: 15.0, right: 15.0),
+                          child: Container(
+                            height: 100, // Set the desired height to 100 pixels
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: AssetImage(
+                                    'assets/images/visi_misi.jpg'), // Replace with your image path
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(15),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     Activity(user),
                     RecordGuidance(requestList),
-                    Announcement(),
+                    //Announcement(),
                   ],
                 ),
               ),
