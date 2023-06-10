@@ -28,8 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  flutter_html: ^2.2.1
-  auto_route: ^7.2.0
+  auto_route: ^7.4.0
   awesome_notifications: ^0.7.4+1
   bloc: ^8.1.1
   cached_network_image: ^3.2.3
@@ -46,6 +45,7 @@ dependencies:
   flutter_bloc: ^8.1.2
   flutter_dropzone: ^3.0.5
   flutter_easyloading: ^3.0.5
+  flutter_html: ^3.0.0-beta.2
   font_awesome_flutter: ^10.4.0
   freezed: ^2.3.2
   freezed_annotation: ^2.2.0

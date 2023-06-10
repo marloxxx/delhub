@@ -34,13 +34,8 @@ class LoginUserUsecase {
       await serviceLocator<LocalTokenCacheService>().deleteToken();
       String role = serviceLocator<LocalDataCacheService>().user!.role;
       if (role == 'mahasiswa') {
-        if (serviceLocator<LocalDataCacheService>().mahasiswa!.kelompok !=
-            null) {
-          await serviceLocator<LocalDataCacheService>().deleteMahasiswa();
-          await serviceLocator<LocalDataCacheService>().deleteKelompok();
-        } else {
-          await serviceLocator<LocalDataCacheService>().deleteMahasiswa();
-        }
+        await serviceLocator<LocalDataCacheService>().deleteMahasiswa();
+        await serviceLocator<LocalDataCacheService>().deleteKelompok();
       } else if (role == 'dosen') {
         await serviceLocator<LocalDataCacheService>().deleteDosen();
       }
