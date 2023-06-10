@@ -26,8 +26,7 @@ class GuidanceStatus extends StatelessWidget {
   List<Request> get approvedRequest {
     return requestList
         .where((element) =>
-            (element.status == 'approved' || element.status == 'reschedule') &&
-            element.waktu!.day == DateTime.now().day)
+            element.status == 'approve' || element.status == 'reschedule')
         .toList()
         .take(5)
         .toList();

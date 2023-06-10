@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import '../../../../core/failure.dart';
 import '../../../../core/request.dart';
 import '../../../../core/service_locator.dart';
@@ -158,6 +159,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       data['kelompok_id'] = user!.mahasiswa!.kelompok!.id;
       data['ruangan_id'] = requestModel.ruangan!.id;
       final response = await request.post('/requests', data: data);
+      debugPrint(response.data.toString());
       if (response.statusCode == 200) {
         return const Right(true);
       } else {
