@@ -8,7 +8,6 @@ import '../../../blocs/dashboard_student/dashboard_student_bloc.dart';
 import '../../../blocs/dashboard_student/dashboard_student_event.dart';
 import '../../../widgets/background.dart';
 import 'activity.dart';
-import 'announcement.dart';
 import 'record_guidance.dart';
 
 class Body extends StatelessWidget {
