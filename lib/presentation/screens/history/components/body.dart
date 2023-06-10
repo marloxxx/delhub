@@ -139,24 +139,28 @@ class Body extends StatelessWidget {
                                       Container(
                                         padding: const EdgeInsets.all(3.5),
                                         decoration: BoxDecoration(
+                                          // if status is approve, color is blue, if reject, color is red, else color is yellow
                                           color: requestList[index].status ==
-                                                  'approved'
+                                                  'approve'
                                               ? const Color(0xFF3493C9)
                                               : requestList[index].status ==
-                                                      'rejected'
+                                                      'reject'
                                                   ? const Color(0xFFE74C3C)
                                                   : const Color(0xFFEDCB19),
                                           borderRadius:
                                               BorderRadius.circular(10),
                                         ),
                                         child: Text(
-                                          requestList[index].status ==
-                                                  'approved'
+                                          // if status is approve, text is "Disetujui", if reject, text is "Ditolak", else if status is reschedule, text is "Reschedule", else text is "Menunggu"
+                                          requestList[index].status == 'approve'
                                               ? 'Disetujui'
                                               : requestList[index].status ==
-                                                      'rejected'
+                                                      'reject'
                                                   ? 'Ditolak'
-                                                  : 'Menunggu',
+                                                  : requestList[index].status ==
+                                                          'reschedule'
+                                                      ? 'Reschedule'
+                                                      : 'Menunggu',
                                           style: const TextStyle(
                                             color: Colors.white,
                                             fontSize: 12,
