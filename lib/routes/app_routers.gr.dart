@@ -40,7 +40,7 @@ abstract class _$FlutterRouter extends RootStackRouter {
     DetailMemberRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const DetailMember(),
+        child: const Assessment(),
       );
     },
     GroupOtherRoute.name: (routeData) {

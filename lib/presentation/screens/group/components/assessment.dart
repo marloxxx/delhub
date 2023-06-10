@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../../../widgets/background.dart';
 
 @RoutePage(name: 'DetailMemberRoute')
-class DetailMember extends StatelessWidget {
-  const DetailMember({Key? key}) : super(key: key);
+class Assessment extends StatelessWidget {
+  const Assessment({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -152,23 +152,7 @@ class DetailMember extends StatelessWidget {
                                         child: Row(
                                           children: [
                                             const Text(
-                                              '15%',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 10, right: 10),
-                                              width: 2,
-                                              height: 10,
-                                              color: const Color.fromARGB(
-                                                  255, 255, 255, 255),
-                                            ),
-                                            const Text(
-                                              '20 %',
+                                              '15',
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.white,
@@ -226,23 +210,7 @@ class DetailMember extends StatelessWidget {
                                         child: Row(
                                           children: [
                                             const Text(
-                                              '15%',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 10, right: 10),
-                                              width: 2,
-                                              height: 10,
-                                              color: const Color.fromARGB(
-                                                  255, 255, 255, 255),
-                                            ),
-                                            const Text(
-                                              '20 %',
+                                              '15',
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.white,
@@ -300,23 +268,7 @@ class DetailMember extends StatelessWidget {
                                         child: Row(
                                           children: [
                                             const Text(
-                                              '25%',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 10, right: 10),
-                                              width: 2,
-                                              height: 10,
-                                              color: const Color.fromARGB(
-                                                  255, 255, 255, 255),
-                                            ),
-                                            const Text(
-                                              '30 %',
+                                              '25',
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.white,
@@ -374,23 +326,7 @@ class DetailMember extends StatelessWidget {
                                         child: Row(
                                           children: [
                                             const Text(
-                                              '15%',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 10, right: 10),
-                                              width: 2,
-                                              height: 10,
-                                              color: const Color.fromARGB(
-                                                  255, 255, 255, 255),
-                                            ),
-                                            const Text(
-                                              '20 %',
+                                              '15',
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.white,
@@ -448,23 +384,7 @@ class DetailMember extends StatelessWidget {
                                         child: Row(
                                           children: [
                                             const Text(
-                                              '8%',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 10, right: 10),
-                                              width: 2,
-                                              height: 10,
-                                              color: const Color.fromARGB(
-                                                  255, 255, 255, 255),
-                                            ),
-                                            const Text(
-                                              '10 %',
+                                              '8',
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.white,
@@ -519,23 +439,7 @@ class DetailMember extends StatelessWidget {
                                         child: Row(
                                           children: [
                                             const Text(
-                                              '78%',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            Container(
-                                              margin: const EdgeInsets.only(
-                                                  left: 10, right: 10),
-                                              width: 2,
-                                              height: 10,
-                                              color: const Color.fromARGB(
-                                                  255, 255, 255, 255),
-                                            ),
-                                            const Text(
-                                              '100 %',
+                                              '78',
                                               style: TextStyle(
                                                 fontSize: 14,
                                                 color: Colors.white,

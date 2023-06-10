@@ -11,8 +11,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FirebaseMessagingService.initialize();
   await setUpServiceLocator();
-  final token = await FirebaseMessaging.instance.getToken();
-  debugPrint('Token: $token');
+  // final token = await FirebaseMessaging.instance.getToken();
+  // debugPrint('Token: $token');
   Intl.defaultLocale = 'id';
   initializeDateFormatting();
 
