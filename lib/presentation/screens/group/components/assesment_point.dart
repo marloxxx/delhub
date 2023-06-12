@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:delhub/presentation/screens/group/components/assesment_point.dart';
+import 'package:delhub/presentation/screens/assesment/assessment.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -9,9 +9,9 @@ import '../../../../shared/theme.dart';
 import '../../../widgets/background.dart';
 
 @RoutePage(name: 'GroupOtherRoute')
-class Other extends StatelessWidget {
+class AssesmentPoint extends StatelessWidget {
   final Kelompok kelompok;
-  const Other({Key? key, required this.kelompok}) : super(key: key);
+  const AssesmentPoint({Key? key, required this.kelompok}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +92,7 @@ class Other extends StatelessWidget {
                                           ),
                                           const SizedBox(width: 10),
                                           const Text(
-                                            "Jadwal Bimbingan",
+                                            "Administrasi",
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
@@ -142,7 +142,7 @@ class Other extends StatelessWidget {
                                         ),
                                         const SizedBox(width: 10),
                                         const Text(
-                                          "Penilaian",
+                                          "Bimbingan",
                                           style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold,
@@ -158,9 +158,7 @@ class Other extends StatelessWidget {
                                             context,
                                             MaterialPageRoute(
                                               builder: (context) {
-                                                return const AssesmentPoint(
-                                                  kelompok: null,
-                                                );
+                                                return const Assessment();
                                               },
                                             ),
                                           );
@@ -212,7 +210,7 @@ class Other extends StatelessWidget {
                                           ),
                                           const SizedBox(width: 10),
                                           const Text(
-                                            "Detail Kelompok",
+                                            "Seminar",
                                             style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
