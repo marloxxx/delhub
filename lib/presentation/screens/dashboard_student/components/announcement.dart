@@ -3,14 +3,19 @@ import 'package:flutter/material.dart';
 class Announcement extends StatelessWidget {
   final List<Map<String, String>> announcements = [
     {
-      'title': 'Pengumuman 1',
+      'title': 'Pengumuman Artefak PA 2',
       'description':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel ......'
+          'Selamat siang mahasiswa sekalian berikut adalah jadwal seminar PA 2 angkatan 21'
     },
     {
-      'title': 'Pengumuman 2',
+      'title': 'Pengumuman Artefak PA 1',
       'description':
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nunc vel ......'
+          'Selamat siang mahasiswa sekalian berikut adalah jadwal seminar PA 1 angkatan 22'
+    },
+    {
+      'title': 'Pengumuman Artefak PA 3',
+      'description':
+          'Selamat siang mahasiswa sekalian berikut adalah jadwal seminar PA 3 angkatan 20 prodi D4 TRPL'
     },
   ];
 
@@ -66,41 +71,12 @@ class Announcement extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5.0),
-                      child: Row(
-                        children: [
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () {},
-                              child: Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: const BoxDecoration(
-                                  color: Color.fromARGB(255, 52, 147, 201),
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(7),
-                                  ),
-                                ),
-                                child: const Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: <Widget>[
-                                    Text(
-                                      'Selengkapnya',
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    Icon(
-                                      Icons.arrow_forward,
-                                      color: Colors.white,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          )
-                        ],
+                    const Padding(
+                      padding: EdgeInsets.only(top: 10.0),
+                      child: Divider(
+                        height: 1,
+                        thickness: 1,
+                        color: Colors.grey,
                       ),
                     ),
                   ],
