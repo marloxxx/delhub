@@ -27,6 +27,12 @@ abstract class _$FlutterRouter extends RootStackRouter {
         child: const DashboardStudentScreen(),
       );
     },
+    DetailMemberRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const Assessment(),
+      );
+    },
     DetailGroupRoute.name: (routeData) {
       final args = routeData.argsAs<DetailGroupRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -35,12 +41,6 @@ abstract class _$FlutterRouter extends RootStackRouter {
           key: args.key,
           kelompok: args.kelompok,
         ),
-      );
-    },
-    DetailMemberRoute.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const Assessment(),
       );
     },
     GroupOtherRoute.name: (routeData) {
@@ -142,6 +142,20 @@ class DashboardStudentRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [Assessment]
+class DetailMemberRoute extends PageRouteInfo<void> {
+  const DetailMemberRoute({List<PageRouteInfo>? children})
+      : super(
+          DetailMemberRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'DetailMemberRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
 /// [DetailGroup]
 class DetailGroupRoute extends PageRouteInfo<DetailGroupRouteArgs> {
   DetailGroupRoute({
@@ -177,20 +191,6 @@ class DetailGroupRouteArgs {
   String toString() {
     return 'DetailGroupRouteArgs{key: $key, kelompok: $kelompok}';
   }
-}
-
-/// generated route for
-/// [DetailMember]
-class DetailMemberRoute extends PageRouteInfo<void> {
-  const DetailMemberRoute({List<PageRouteInfo>? children})
-      : super(
-          DetailMemberRoute.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'DetailMemberRoute';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

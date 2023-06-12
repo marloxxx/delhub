@@ -1,19 +1,23 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../../../widgets/background.dart';
+import '../../widgets/background.dart';
 
-@RoutePage(name: 'DetailMemberRoute')
-class Assessment extends StatelessWidget {
+@RoutePage(name: 'Assesment')
+class Assessment extends StatefulWidget {
   const Assessment({Key? key}) : super(key: key);
 
+  @override
+  State<Assessment> createState() => _AssessmentState();
+}
+
+class _AssessmentState extends State<Assessment> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Background(
         child: Scaffold(
           backgroundColor: Colors.transparent,
-
           // Body of Dashboard
           body: Column(
             children: <Widget>[
@@ -147,11 +151,11 @@ class Assessment extends StatelessWidget {
                                             255, 220, 218, 218),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(8.0),
                                         child: Row(
                                           children: [
-                                            const Text(
+                                            Text(
                                               '15',
                                               style: TextStyle(
                                                 fontSize: 14,
@@ -205,11 +209,11 @@ class Assessment extends StatelessWidget {
                                             255, 220, 218, 218),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(8.0),
                                         child: Row(
                                           children: [
-                                            const Text(
+                                            Text(
                                               '15',
                                               style: TextStyle(
                                                 fontSize: 14,
@@ -263,11 +267,11 @@ class Assessment extends StatelessWidget {
                                             255, 220, 218, 218),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(8.0),
                                         child: Row(
                                           children: [
-                                            const Text(
+                                            Text(
                                               '25',
                                               style: TextStyle(
                                                 fontSize: 14,
@@ -321,11 +325,11 @@ class Assessment extends StatelessWidget {
                                             255, 220, 218, 218),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(8.0),
                                         child: Row(
                                           children: [
-                                            const Text(
+                                            Text(
                                               '15',
                                               style: TextStyle(
                                                 fontSize: 14,
@@ -379,11 +383,11 @@ class Assessment extends StatelessWidget {
                                             255, 220, 218, 218),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(8.0),
                                         child: Row(
                                           children: [
-                                            const Text(
+                                            Text(
                                               '8',
                                               style: TextStyle(
                                                 fontSize: 14,
@@ -434,11 +438,11 @@ class Assessment extends StatelessWidget {
                                             255, 220, 218, 218),
                                         borderRadius: BorderRadius.circular(12),
                                       ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
+                                      child: const Padding(
+                                        padding: EdgeInsets.all(8.0),
                                         child: Row(
                                           children: [
-                                            const Text(
+                                            Text(
                                               '78',
                                               style: TextStyle(
                                                 fontSize: 14,

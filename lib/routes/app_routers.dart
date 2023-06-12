@@ -6,7 +6,7 @@ import '../data/models/krs_model.dart';
 import '../data/models/request_model.dart';
 import '../data/models/user_model.dart';
 import '../presentation/screens/group/components/detail_group.dart';
-import '../presentation/screens/group/components/assessment.dart';
+import '../presentation/screens/assesment/assessment.dart';
 import '../presentation/screens/group/components/other.dart';
 import '../presentation/screens/login/login_screen.dart';
 import '../presentation/screens/dashboard_student/dashboard_student.dart';
