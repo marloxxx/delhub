@@ -18,6 +18,7 @@ class FirebaseMessagingService {
 
   static Future<void> initialize() async {
     await Firebase.initializeApp();
+    await FirebaseMessaging.instance.getToken();
     await NotificationService.initializedNotification();
     await NotificationService.startListeningNotificationEvents();
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
