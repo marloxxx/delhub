@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
+import '../data/models/assessment_point_model.dart';
 import '../data/models/kelompok_model.dart';
 import '../data/models/krs_model.dart';
 import '../data/models/request_model.dart';
 import '../data/models/user_model.dart';
+import '../presentation/screens/assesment/components/detail_assessment.dart';
 import '../presentation/screens/group/components/detail_group.dart';
 import '../presentation/screens/assesment/assessment.dart';
 import '../presentation/screens/group/components/other.dart';
@@ -36,5 +38,7 @@ class FlutterRouter extends _$FlutterRouter {
     AutoRoute(path: '/group', page: GroupRoute.page),
     AutoRoute(path: '/group/other', page: GroupOtherRoute.page),
     AutoRoute(path: '/group/detail', page: DetailGroupRoute.page),
+    AutoRoute(path: '/assessment', page: AssesmentPointRoute.page),
+    AutoRoute(path: '/assessment/detail', page: DetailAssessmentRoute.page),
   ];
 }

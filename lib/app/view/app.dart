@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:one_context/one_context.dart';
 
 import '../../core/service_locator.dart';
+import '../../presentation/blocs/assesment/assessment_bloc.dart';
 import '../../presentation/blocs/dashboard_lecture/dashboard_lecture_bloc.dart';
 import '../../presentation/blocs/dashboard_student/dashboard_student_bloc.dart';
 import '../../presentation/blocs/detail_guidance/detail_guidance_bloc.dart';
@@ -30,7 +31,8 @@ class App extends StatelessWidget {
         BlocProvider(create: (_) => DetailGuidanceBloc()),
         BlocProvider(create: (_) => RequestBloc()),
         BlocProvider(create: (_) => DashboardLectureBloc()),
-        BlocProvider(create: (_) => GroupBloc())
+        BlocProvider(create: (_) => GroupBloc()),
+        BlocProvider(create: (_) => AssesmentBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

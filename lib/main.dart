@@ -8,8 +8,8 @@ import 'services/firebase_messaging_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FirebaseMessagingService.initialize();
   await setUpServiceLocator();
+  await FirebaseMessagingService.initialize();
   Intl.defaultLocale = 'id';
   initializeDateFormatting();
   bootstrap(() => const App());

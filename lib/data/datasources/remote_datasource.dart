@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:delhub/data/models/assessment_point_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../../core/failure.dart';
@@ -33,6 +34,9 @@ abstract class RemoteDataSource {
 
   Future<Either<Failure, request_model.RequestList>>
       getRequestsFromServerByKelompokId(int kelompokId);
+
+  Future<Either<Failure, AssessmentPointList>> getAssessmentPointsFromServer(
+      Kelompok kelompok);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -256,6 +260,29 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           kelompokList.add(Kelompok.fromJson(item));
         }
         return Right(kelompokList);
+      } else {
+        return Left(ConnectionFailure(response.data['meta']['message']));
+      }
+    } catch (e) {
+      return Left(
+        Exception(e.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, AssessmentPointList>> getAssessmentPointsFromServer(
+      Kelompok kelompok) async {
+    try {
+      final Request request = serviceLocator<Request>();
+      final response = await request.get('/assessment/${kelompok.id}');
+      if (response.statusCode == 200) {
+        AssessmentPointList assessmentPointList = [];
+        final data = response.data['data'];
+        for (var item in data) {
+          assessmentPointList.add(AssessmentPoint.fromJson(item));
+        }
+        return Right(assessmentPointList);
       } else {
         return Left(ConnectionFailure(response.data['meta']['message']));
       }

@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:delhub/presentation/screens/group/components/assesment_point.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -114,59 +113,62 @@ class Other extends StatelessWidget {
                                   thickness: 2,
                                 ),
                                 const SizedBox(height: 10),
-                                Container(
-                                  padding: const EdgeInsets.all(15.0),
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                    border: Border.all(color: primary),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(children: [
-                                        Container(
-                                          width: 50,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            color: const Color(0xFF3493C9),
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                          ),
-                                          child: const Icon(
-                                            FontAwesomeIcons.clipboardList,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        const SizedBox(width: 10),
-                                        const Text(
-                                          "Penilaian",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ]),
-                                      const SizedBox(width: 10),
-                                      IconButton(
-                                        icon: const Icon(Icons.arrow_forward),
-                                        iconSize: 24,
-                                        onPressed: () {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) {
-                                                return const AssesmentPoint(
-                                                  kelompok: null,
-                                                );
-                                              },
-                                            ),
-                                          );
-                                        },
+                                InkWell(
+                                  onTap: () {
+                                    AutoRouter.of(context).push(
+                                      AssesmentPointRoute(
+                                        kelompok: kelompok,
                                       ),
-                                    ],
+                                    );
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(15.0),
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(10),
+                                      ),
+                                      border: Border.all(color: primary),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(children: [
+                                          Container(
+                                            width: 50,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                              color: const Color(0xFF3493C9),
+                                              borderRadius:
+                                                  BorderRadius.circular(50),
+                                            ),
+                                            child: const Icon(
+                                              FontAwesomeIcons.clipboardList,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 10),
+                                          const Text(
+                                            "Penilaian",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ]),
+                                        const SizedBox(width: 10),
+                                        IconButton(
+                                          icon: const Icon(Icons.arrow_forward),
+                                          iconSize: 24,
+                                          onPressed: () {
+                                            AutoRouter.of(context).push(
+                                              AssesmentPointRoute(
+                                                  kelompok: kelompok),
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
 
