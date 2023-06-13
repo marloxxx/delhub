@@ -1,4 +1,4 @@
-import 'package:delhub/presentation/screens/dashboard_student/components/announcement.dart';
+import 'package:delhub/presentation/screens/dashboard_student/components/total_guidance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -123,7 +123,7 @@ class Body extends StatelessWidget {
                       ),
                       Activity(user),
                       RecordGuidance(requestList),
-                      Announcement(),
+                      TotalGuidance(),
                     ],
                   ),
                 ),
