@@ -380,8 +380,7 @@ class _BodyState extends State<Body> {
                                     ),
                                   ],
                                 ),
-                                // if status is_done == true, show image
-                                if (widget.request.is_done == true)
+                                if (widget.request.file.isNotEmpty)
                                   TableRow(
                                     decoration: BoxDecoration(
                                       color: Colors.grey.shade200,

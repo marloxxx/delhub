@@ -48,7 +48,7 @@ class Body extends StatelessWidget {
                           // if user.mahasiswa.kelompok.name == null then "Belum ada kelompok"
                           user.mahasiswa!.kelompok == null
                               ? "Belum ada kelompok"
-                              : user.mahasiswa!.kelompok!.name,
+                              : user.name,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -57,7 +57,7 @@ class Body extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          user.mahasiswa!.prodi,
+                          user.mahasiswa!.kelompok!.topik,
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
