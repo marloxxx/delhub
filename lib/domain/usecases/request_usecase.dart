@@ -22,8 +22,8 @@ class RequestUseCase {
   }
 
   Future<Either<Failure, bool>> updateRequest(
-      int id, String status, String? waktu, DroppedFile? file) {
+      int id, String status, String? waktu, DroppedFile? file, String? result) {
     return serviceLocator<RequestRepository>()
-        .updateRequest(id, status, waktu, file);
+        .updateRequest(id, status, waktu, file, result);
   }
 }

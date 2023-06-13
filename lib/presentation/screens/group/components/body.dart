@@ -88,250 +88,277 @@ class Body extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SingleChildScrollView(
-                          child: ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemCount: groupList.length,
-                            itemBuilder: (context, index) {
-                              // get total bimbingan where request is_done = true
-                              var totalBimbingan = 0;
-                              if (groupList[index].requests != null) {
-                                totalBimbingan = groupList[index]
-                                    .requests!
-                                    .where((element) => element.is_done == true)
-                                    .toList()
-                                    .length;
-                              }
-                              return InkWell(
-                                onTap: () {
-                                  AutoRouter.of(context).push(
-                                    GroupOtherRoute(
-                                      kelompok: groupList[index],
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  padding: const EdgeInsets.all(15.0),
-                                  margin: const EdgeInsets.all(15.0),
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                      Radius.circular(10),
-                                    ),
-                                    border: Border(
-                                      top: BorderSide(
-                                          width: 2.0, color: primary),
-                                      left: BorderSide(
-                                          width: 2.0, color: primary),
-                                      right: BorderSide(
-                                          width: 2.0, color: primary),
-                                      bottom: BorderSide(
-                                          width: 2.0, color: primary),
-                                    ),
-                                  ),
-                                  child: Column(children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          padding: const EdgeInsets.all(8.0),
-                                          width: 50,
-                                          height: 50,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(50),
-                                            border: Border.all(
-                                                color: const Color(0xFF3493C9),
-                                                width: 2),
+                        groupList.isEmpty
+                            ? const Center(
+                                child: Text('Anda belum memiliki kelompok'),
+                              )
+                            : SingleChildScrollView(
+                                child: ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: groupList.length,
+                                  itemBuilder: (context, index) {
+                                    // get total bimbingan where request is_done = true
+                                    var totalBimbingan = 0;
+                                    if (groupList[index].requests != null) {
+                                      totalBimbingan = groupList[index]
+                                          .requests!
+                                          .where((element) =>
+                                              element.is_done == true)
+                                          .toList()
+                                          .length;
+                                    }
+                                    return InkWell(
+                                      onTap: () {
+                                        AutoRouter.of(context).push(
+                                          GroupOtherRoute(
+                                            kelompok: groupList[index],
                                           ),
-                                          child: const Icon(
-                                            FontAwesomeIcons.users,
-                                            size: 25,
-                                            color: Colors.grey,
+                                        );
+                                      },
+                                      child: Container(
+                                        padding: const EdgeInsets.all(15.0),
+                                        margin: const EdgeInsets.all(15.0),
+                                        decoration: BoxDecoration(
+                                          borderRadius: const BorderRadius.all(
+                                            Radius.circular(10),
+                                          ),
+                                          border: Border(
+                                            top: BorderSide(
+                                                width: 2.0, color: primary),
+                                            left: BorderSide(
+                                                width: 2.0, color: primary),
+                                            right: BorderSide(
+                                                width: 2.0, color: primary),
+                                            bottom: BorderSide(
+                                                width: 2.0, color: primary),
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Table(
-                                      columnWidths: const {
-                                        0: FlexColumnWidth(1),
-                                        1: FlexColumnWidth(3),
-                                      },
-                                      children: [
-                                        TableRow(children: [
-                                          Container(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 10),
-                                            child: const Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  'Group ',
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  ': ',
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 10),
-                                            child: Text(
-                                              groupList[index].name,
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                        ]),
-                                        TableRow(children: [
-                                          Container(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 10),
-                                            child: const Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Text(
-                                                  'Prodi ',
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  ': ',
-                                                  style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Container(
-                                            padding: const EdgeInsets.only(
-                                                bottom: 10),
-                                            child: Text(
-                                              groupList[index].prodi,
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                        ]),
-                                        TableRow(children: [
-                                          const Row(
+                                        child: Column(children: [
+                                          Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.center,
                                             children: [
-                                              Text(
-                                                'Angkatan ',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
+                                              Container(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                width: 50,
+                                                height: 50,
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                  border: Border.all(
+                                                      color: const Color(
+                                                          0xFF3493C9),
+                                                      width: 2),
                                                 ),
-                                              ),
-                                              Text(
-                                                ': ',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontWeight: FontWeight.bold,
+                                                child: const Icon(
+                                                  FontAwesomeIcons.users,
+                                                  size: 25,
+                                                  color: Colors.grey,
                                                 ),
                                               ),
                                             ],
                                           ),
-                                          Text(
-                                            groupList[index].angkatan,
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                        ]),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        const Text(
-                                          'Total Bimbingan : ',
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(12),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Container(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                  border: Border.all(
-                                                      color: primary)),
-                                              child: Row(
-                                                children: [
-                                                  // get total bimbingan where is_done = true
-                                                  Text(
-                                                    totalBimbingan.toString(),
+                                          const SizedBox(height: 10),
+                                          Table(
+                                            columnWidths: const {
+                                              0: FlexColumnWidth(1),
+                                              1: FlexColumnWidth(3),
+                                            },
+                                            children: [
+                                              TableRow(children: [
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 10),
+                                                  child: const Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        'Group ',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        ': ',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 10),
+                                                  child: Text(
+                                                    groupList[index].name,
                                                     style: const TextStyle(
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
                                                   ),
-                                                  // divider |
-                                                  SizedBox(
-                                                    height: 15,
-                                                    child: VerticalDivider(
-                                                        color: primary),
+                                                ),
+                                              ]),
+                                              TableRow(children: [
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 10),
+                                                  child: const Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Text(
+                                                        'Prodi ',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        ': ',
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                  const Text(
-                                                    '7',
-                                                    style: TextStyle(
+                                                ),
+                                                Container(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 10),
+                                                  child: Text(
+                                                    groupList[index].prodi,
+                                                    style: const TextStyle(
                                                       fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.bold,
                                                     ),
                                                   ),
-                                                ],
-                                              ),
-                                            ),
+                                                ),
+                                              ]),
+                                              TableRow(children: [
+                                                const Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'Angkatan ',
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      ': ',
+                                                      style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                                Text(
+                                                  groupList[index].angkatan,
+                                                  style: const TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                              ]),
+                                            ],
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ]),
+                                          const SizedBox(height: 10),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              const Text(
+                                                'Total Bimbingan : ',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                ),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Container(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12),
+                                                        border: Border.all(
+                                                            color: primary)),
+                                                    child: Row(
+                                                      children: [
+                                                        // get total bimbingan where is_done = true
+                                                        Text(
+                                                          totalBimbingan
+                                                              .toString(),
+                                                          style:
+                                                              const TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                        // divider |
+                                                        SizedBox(
+                                                          height: 15,
+                                                          child:
+                                                              VerticalDivider(
+                                                                  color:
+                                                                      primary),
+                                                        ),
+                                                        const Text(
+                                                          '7',
+                                                          style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ]),
+                                      ),
+                                    );
+                                  },
                                 ),
-                              );
-                            },
-                          ),
-                        )
+                              )
                       ],
                     ),
                   ),

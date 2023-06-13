@@ -62,12 +62,12 @@ class _HistoryState extends State<History> {
                 requestList: state.requestList,
               );
             } else if (state is HistoryErrorState) {
-              return const Center(
-                child: Text('Something went wrong'),
+              return Center(
+                child: Text("${state.message}. Please restart the page"),
               );
             } else {
               return const Center(
-                child: Text('Something went wrong'),
+                child: Text('Please restart the page'),
               );
             }
           },

@@ -12,7 +12,7 @@ abstract class RequestRepository {
       int kelompokId);
   Future<Either<Failure, bool>> createRequest(Request request);
   Future<Either<Failure, bool>> updateRequest(
-      int id, String status, String? waktu, DroppedFile? file);
+      int id, String status, String? waktu, DroppedFile? file, String? result);
 }
 
 class RequestRepositoryImpl implements RequestRepository {
@@ -35,8 +35,8 @@ class RequestRepositoryImpl implements RequestRepository {
 
   @override
   Future<Either<Failure, bool>> updateRequest(
-      int id, String status, String? waktu, DroppedFile? file) {
+      int id, String status, String? waktu, DroppedFile? file, String? result) {
     return serviceLocator<RemoteDataSource>()
-        .updateRequest(id, status, waktu, file);
+        .updateRequest(id, status, waktu, file, result);
   }
 }

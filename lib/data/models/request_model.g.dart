@@ -14,6 +14,7 @@ _$_Request _$$_RequestFromJson(Map<String, dynamic> json) => _$_Request(
           : DateTime.parse(json['waktu'] as String),
       status: json['status'] as String? ?? '',
       is_done: json['is_done'] as bool? ?? false,
+      result: json['result'] as String? ?? '',
       file: json['file'] as String? ?? '',
       kelompok: json['kelompok'] == null
           ? null
@@ -30,6 +31,7 @@ Map<String, dynamic> _$$_RequestToJson(_$_Request instance) =>
       'waktu': instance.waktu?.toIso8601String(),
       'status': instance.status,
       'is_done': instance.is_done,
+      'result': instance.result,
       'file': instance.file,
       'kelompok': instance.kelompok,
       'ruangan': instance.ruangan,

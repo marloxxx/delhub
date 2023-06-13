@@ -24,6 +24,7 @@ class _BodyState extends State<Body> {
   DateTime? _date;
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _lecturerController = TextEditingController();
 
   Room? _selectedRoom;
 
@@ -61,6 +62,8 @@ class _BodyState extends State<Body> {
 
   @override
   Widget build(BuildContext context) {
+    _lecturerController.text =
+        widget.user.mahasiswa!.kelompok!.pembimbing!.name;
     return Background(
       child: Scaffold(
         backgroundColor: Colors.transparent,
@@ -216,10 +219,10 @@ class _BodyState extends State<Body> {
                                   ],
                                 ),
                                 const SizedBox(height: 10),
-                                TextFormField(
+                                TextField(
+                                  readOnly: true,
+                                  controller: _lecturerController,
                                   decoration: InputDecoration(
-                                    hintText: widget.user.mahasiswa!.kelompok!
-                                        .pembimbing?.name,
                                     border: OutlineInputBorder(
                                       borderRadius: BorderRadius.circular(17.0),
                                     ),

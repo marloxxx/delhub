@@ -15,6 +15,27 @@ abstract class _$FlutterRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AssesmentPointRoute.name: (routeData) {
+      final args = routeData.argsAs<AssesmentPointRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: Assessment(
+          key: args.key,
+          kelompok: args.kelompok,
+        ),
+      );
+    },
+    DetailAssessmentRoute.name: (routeData) {
+      final args = routeData.argsAs<DetailAssessmentRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: DetailAssessment(
+          key: args.key,
+          kelompok: args.kelompok,
+          assessmentPoint: args.assessmentPoint,
+        ),
+      );
+    },
     DashboardLectureRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -104,28 +125,88 @@ abstract class _$FlutterRouter extends RootStackRouter {
         ),
       );
     },
-    AssesmentPointRoute.name: (routeData) {
-      final args = routeData.argsAs<AssesmentPointRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: Assessment(
-          key: args.key,
-          kelompok: args.kelompok,
-        ),
-      );
-    },
-    DetailAssessmentRoute.name: (routeData) {
-      final args = routeData.argsAs<DetailAssessmentRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: DetailAssessment(
-          key: args.key,
-          kelompok: args.kelompok,
-          assessmentPoint: args.assessmentPoint,
-        ),
-      );
-    },
   };
+}
+
+/// generated route for
+/// [Assessment]
+class AssesmentPointRoute extends PageRouteInfo<AssesmentPointRouteArgs> {
+  AssesmentPointRoute({
+    Key? key,
+    required Kelompok kelompok,
+    List<PageRouteInfo>? children,
+  }) : super(
+          AssesmentPointRoute.name,
+          args: AssesmentPointRouteArgs(
+            key: key,
+            kelompok: kelompok,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'AssesmentPointRoute';
+
+  static const PageInfo<AssesmentPointRouteArgs> page =
+      PageInfo<AssesmentPointRouteArgs>(name);
+}
+
+class AssesmentPointRouteArgs {
+  const AssesmentPointRouteArgs({
+    this.key,
+    required this.kelompok,
+  });
+
+  final Key? key;
+
+  final Kelompok kelompok;
+
+  @override
+  String toString() {
+    return 'AssesmentPointRouteArgs{key: $key, kelompok: $kelompok}';
+  }
+}
+
+/// generated route for
+/// [DetailAssessment]
+class DetailAssessmentRoute extends PageRouteInfo<DetailAssessmentRouteArgs> {
+  DetailAssessmentRoute({
+    Key? key,
+    required Kelompok kelompok,
+    required AssessmentPoint assessmentPoint,
+    List<PageRouteInfo>? children,
+  }) : super(
+          DetailAssessmentRoute.name,
+          args: DetailAssessmentRouteArgs(
+            key: key,
+            kelompok: kelompok,
+            assessmentPoint: assessmentPoint,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'DetailAssessmentRoute';
+
+  static const PageInfo<DetailAssessmentRouteArgs> page =
+      PageInfo<DetailAssessmentRouteArgs>(name);
+}
+
+class DetailAssessmentRouteArgs {
+  const DetailAssessmentRouteArgs({
+    this.key,
+    required this.kelompok,
+    required this.assessmentPoint,
+  });
+
+  final Key? key;
+
+  final Kelompok kelompok;
+
+  final AssessmentPoint assessmentPoint;
+
+  @override
+  String toString() {
+    return 'DetailAssessmentRouteArgs{key: $key, kelompok: $kelompok, assessmentPoint: $assessmentPoint}';
+  }
 }
 
 /// generated route for
@@ -432,86 +513,5 @@ class RequestGuidanceRouteArgs {
   @override
   String toString() {
     return 'RequestGuidanceRouteArgs{key: $key, user: $user}';
-  }
-}
-
-/// generated route for
-/// [Assessment]
-class AssesmentPointRoute extends PageRouteInfo<AssesmentPointRouteArgs> {
-  AssesmentPointRoute({
-    Key? key,
-    required Kelompok kelompok,
-    List<PageRouteInfo>? children,
-  }) : super(
-          AssesmentPointRoute.name,
-          args: AssesmentPointRouteArgs(
-            key: key,
-            kelompok: kelompok,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'AssesmentPointRoute';
-
-  static const PageInfo<AssesmentPointRouteArgs> page =
-      PageInfo<AssesmentPointRouteArgs>(name);
-}
-
-class AssesmentPointRouteArgs {
-  const AssesmentPointRouteArgs({
-    this.key,
-    required this.kelompok,
-  });
-
-  final Key? key;
-
-  final Kelompok kelompok;
-
-  @override
-  String toString() {
-    return 'AssesmentPointRouteArgs{key: $key, kelompok: $kelompok}';
-  }
-}
-
-/// generated route for
-/// [DetailAssessment]
-class DetailAssessmentRoute extends PageRouteInfo<DetailAssessmentRouteArgs> {
-  DetailAssessmentRoute({
-    Key? key,
-    required Kelompok kelompok,
-    required AssessmentPoint assessmentPoint,
-    List<PageRouteInfo>? children,
-  }) : super(
-          DetailAssessmentRoute.name,
-          args: DetailAssessmentRouteArgs(
-            key: key,
-            kelompok: kelompok,
-            assessmentPoint: assessmentPoint,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'DetailAssessmentRoute';
-
-  static const PageInfo<DetailAssessmentRouteArgs> page =
-      PageInfo<DetailAssessmentRouteArgs>(name);
-}
-
-class DetailAssessmentRouteArgs {
-  const DetailAssessmentRouteArgs({
-    this.key,
-    required this.kelompok,
-    required this.assessmentPoint,
-  });
-
-  final Key? key;
-
-  final Kelompok kelompok;
-
-  final AssessmentPoint assessmentPoint;
-
-  @override
-  String toString() {
-    return 'DetailAssessmentRouteArgs{key: $key, kelompok: $kelompok, assessmentPoint: $assessmentPoint}';
   }
 }

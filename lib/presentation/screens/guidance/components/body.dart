@@ -60,6 +60,7 @@ class _BodyState extends State<Body> {
             status: 'reschedule',
             waktu: _dateController.text,
             file: null,
+            result: null,
           ),
         );
       });
@@ -299,10 +300,6 @@ class _BodyState extends State<Body> {
                                 TableRow(
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade200,
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(25),
-                                      bottomRight: Radius.circular(25),
-                                    ),
                                   ),
                                   children: [
                                     TableCell(
@@ -327,83 +324,239 @@ class _BodyState extends State<Body> {
                                     ),
                                   ],
                                 ),
+                                // status
+                                TableRow(
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.shade100,
+                                  ),
+                                  children: [
+                                    TableCell(
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                            top: 10.0, left: 15.0),
+                                        child: const Text(
+                                          'Status',
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    TableCell(
+                                      child: Container(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Text(
+                                          widget.request.status == 'waiting'
+                                              ? 'Menunggu'
+                                              : widget.request.status ==
+                                                      'approve'
+                                                  ? 'Disetujui'
+                                                  : widget.request.status ==
+                                                          'reject'
+                                                      ? 'Ditolak'
+                                                      : widget.request.status ==
+                                                              'reschedule'
+                                                          ? 'Reschedule'
+                                                          : 'Selesai',
+                                          style: TextStyle(
+                                            color: widget.request.status ==
+                                                    'waiting'
+                                                ? Colors.orange
+                                                : widget.request.status ==
+                                                        'approve'
+                                                    ? Colors.green
+                                                    : widget.request.status ==
+                                                            'reject'
+                                                        ? Colors.red
+                                                        : widget.request
+                                                                    .status ==
+                                                                'reschedule'
+                                                            ? Colors.yellow
+                                                            : Colors.blue,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                // if status is_done == true, show image
+                                if (widget.request.is_done == true)
+                                  TableRow(
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade200,
+                                    ),
+                                    children: [
+                                      TableCell(
+                                        child: Container(
+                                          padding: const EdgeInsets.only(
+                                              top: 10.0, left: 15.0),
+                                          child: const Text(
+                                            'Dokumentasi',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      TableCell(
+                                        child: Container(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Image.network(
+                                            widget.request.file,
+                                            width: 100,
+                                            height: 100,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                // if result is not null, show result
+                                if (widget.request.result.isNotEmpty)
+                                  TableRow(
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade100,
+                                      borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(25),
+                                        bottomRight: Radius.circular(25),
+                                      ),
+                                    ),
+                                    children: [
+                                      TableCell(
+                                        child: Container(
+                                          padding: const EdgeInsets.only(
+                                              top: 10.0, left: 15.0),
+                                          child: const Text(
+                                            'Hasil Bimbingan',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      TableCell(
+                                        child: Container(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Text(widget.request.result),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                               ],
                             ),
                           ),
                         ),
-                        widget.user.role == 'dosen' &&
-                                widget.request.status == 'waiting'
-                            ? Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      BlocProvider.of<DetailGuidanceBloc>(
-                                              context)
-                                          .add(
-                                        UpdateDataEvent(
-                                          id: widget.request.id,
-                                          status: 'approve',
-                                          waktu: null,
-                                          file: null,
+                        // if user role is dosen
+                        widget.user.role == 'dosen'
+                            ? widget.request.status == 'waiting'
+                                ? Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          BlocProvider.of<DetailGuidanceBloc>(
+                                                  context)
+                                              .add(
+                                            UpdateDataEvent(
+                                              id: widget.request.id,
+                                              status: 'approve',
+                                              waktu: null,
+                                              file: null,
+                                              result: null,
+                                            ),
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          foregroundColor: Colors.white,
+                                          backgroundColor:
+                                              const Color(0xFF3493C9),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(7.0),
+                                          ),
                                         ),
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      foregroundColor: Colors.white,
-                                      backgroundColor: const Color(0xFF3493C9),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(7.0),
+                                        child: const Text('Terima'),
                                       ),
-                                    ),
-                                    child: const Text('Terima'),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      BlocProvider.of<DetailGuidanceBloc>(
-                                              context)
-                                          .add(
-                                        UpdateDataEvent(
-                                          id: widget.request.id,
-                                          status: 'reject',
-                                          waktu: null,
-                                          file: null,
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          BlocProvider.of<DetailGuidanceBloc>(
+                                                  context)
+                                              .add(
+                                            UpdateDataEvent(
+                                              id: widget.request.id,
+                                              status: 'reject',
+                                              waktu: null,
+                                              file: null,
+                                              result: null,
+                                            ),
+                                          );
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          foregroundColor: Colors.white,
+                                          backgroundColor:
+                                              const Color(0xFFD80000),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(7.0),
+                                          ),
                                         ),
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      foregroundColor: Colors.white,
-                                      backgroundColor: const Color(0xFFD80000),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(7.0),
+                                        child: const Text('Tolak'),
                                       ),
-                                    ),
-                                    child: const Text('Tolak'),
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      _pickDateTime(context);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      foregroundColor: Colors.white,
-                                      backgroundColor: const Color(0xFFFFC93C),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(7.0),
+                                      ElevatedButton(
+                                        onPressed: () {
+                                          _pickDateTime(context);
+                                        },
+                                        style: ElevatedButton.styleFrom(
+                                          foregroundColor: Colors.white,
+                                          backgroundColor:
+                                              const Color(0xFFFFC93C),
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(7.0),
+                                          ),
+                                        ),
+                                        child: const Text('Reschedule'),
                                       ),
-                                    ),
-                                    child: const Text('Reschedule'),
-                                  ),
-                                ],
-                              )
+                                    ],
+                                  )
+                                : (widget.request.status == 'approve' ||
+                                            widget.request.status ==
+                                                'reschedule') &&
+                                        widget.request.waktu!
+                                            .isBefore(DateTime.now())
+                                    ? widget.request.is_done == false
+                                        ? ElevatedButton(
+                                            onPressed: () {
+                                              AutoRouter.of(context)
+                                                  .push(
+                                                    StatusUploadRoute(
+                                                        request:
+                                                            widget.request),
+                                                  )
+                                                  .then((value) =>
+                                                      setState(() {}));
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              foregroundColor: Colors.white,
+                                              backgroundColor:
+                                                  const Color(0xFF3493C9),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(7.0),
+                                              ),
+                                            ),
+                                            child: const Text('Selesai'),
+                                          )
+                                        : const SizedBox()
+                                    : const SizedBox()
                             : Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   // check if status is approved and waktu has passed
-                                  widget.request.status == 'approved' &&
+                                  widget.request.status == 'approve' &&
                                           widget.request.waktu!
                                               .isBefore(DateTime.now())
                                       ? widget.request.is_done == false

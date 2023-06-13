@@ -26,8 +26,8 @@ class DetailGuidanceBloc
     );
     on<UpdateDataEvent>(
       (event, emit) async {
-        var response = await serviceLocator<RequestUseCase>()
-            .updateRequest(event.id, event.status, event.waktu, event.file);
+        var response = await serviceLocator<RequestUseCase>().updateRequest(
+            event.id, event.status, event.waktu, event.file, event.result);
         if (response.isRight()) {
           emit(
             DetailGuidanceState.loaded(
@@ -39,6 +39,11 @@ class DetailGuidanceBloc
           emit(DetailGuidanceState.error(
               response.fold((l) => l.toString(), (r) => r.toString())));
         }
+      },
+    );
+    on<ResetStateEvent>(
+      (event, emit) async {
+        emit(DetailGuidanceLoadedState(isUpdated: false, user: User()));
       },
     );
   }

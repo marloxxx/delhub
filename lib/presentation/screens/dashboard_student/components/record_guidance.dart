@@ -47,7 +47,7 @@ class RecordGuidance extends StatelessWidget {
           height: 200,
           child: requestList.isEmpty
               ? const Center(
-                  child: Text('Tidak ada data'),
+                  child: Text('Anda belum memiliki jadwal bimbingan'),
                 )
               : ListView.builder(
                   scrollDirection: Axis.vertical,

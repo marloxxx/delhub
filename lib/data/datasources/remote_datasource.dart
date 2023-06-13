@@ -23,7 +23,7 @@ abstract class RemoteDataSource {
   Future<Either<Failure, request_model.RequestList>> getRequestsFromServer();
   Future<Either<Failure, bool>> createRequest(request_model.Request request);
   Future<Either<Failure, bool>> updateRequest(
-      int id, String status, String? waktu, DroppedFile? file);
+      int id, String status, String? waktu, DroppedFile? file, String? result);
 
   // Rooms
   Future<Either<Failure, RoomList>> getRoomsFromServer();
@@ -177,10 +177,11 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, bool>> updateRequest(
-      int id, String status, String? waktu, DroppedFile? file) async {
+  Future<Either<Failure, bool>> updateRequest(int id, String status,
+      String? waktu, DroppedFile? file, String? result) async {
     try {
       final Request request = serviceLocator<Request>();
+      debugPrint(status);
       request.updateContentType('multipart/form-data');
       FormData data = FormData.fromMap({
         'status': status,
@@ -188,6 +189,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         'file': file?.name != null
             ? await MultipartFile.fromFile(file!.url, filename: file.name)
             : null,
+        'result': result,
       });
       final response = await request.post('/requests/$id', data: data);
       if (response.statusCode == 200) {
@@ -197,8 +199,9 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         return Left(ConnectionFailure(response.data['meta']['errors']));
       }
     } catch (e) {
-      return Left(
-        Exception(e.toString()),
+      // return "Terjadi kesalahan pada server, silahkan coba lagi";
+      return const Left(
+        Exception("Terjadi kesalahan pada server, silahkan coba lagi"),
       );
     }
   }

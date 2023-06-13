@@ -15,6 +15,7 @@ class Request with _$Request {
     DateTime? waktu,
     @Default('') String status,
     @Default(false) bool is_done,
+    @Default('') String result,
     @Default('') String file,
     Kelompok? kelompok,
     Room? ruangan,

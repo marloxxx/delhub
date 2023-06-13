@@ -25,6 +25,7 @@ mixin _$Request {
   DateTime? get waktu => throw _privateConstructorUsedError;
   String get status => throw _privateConstructorUsedError;
   bool get is_done => throw _privateConstructorUsedError;
+  String get result => throw _privateConstructorUsedError;
   String get file => throw _privateConstructorUsedError;
   Kelompok? get kelompok => throw _privateConstructorUsedError;
   Room? get ruangan => throw _privateConstructorUsedError;
@@ -45,6 +46,7 @@ abstract class $RequestCopyWith<$Res> {
       DateTime? waktu,
       String status,
       bool is_done,
+      String result,
       String file,
       Kelompok? kelompok,
       Room? ruangan});
@@ -71,6 +73,7 @@ class _$RequestCopyWithImpl<$Res, $Val extends Request>
     Object? waktu = freezed,
     Object? status = null,
     Object? is_done = null,
+    Object? result = null,
     Object? file = null,
     Object? kelompok = freezed,
     Object? ruangan = freezed,
@@ -96,6 +99,10 @@ class _$RequestCopyWithImpl<$Res, $Val extends Request>
           ? _value.is_done
           : is_done // ignore: cast_nullable_to_non_nullable
               as bool,
+      result: null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as String,
       file: null == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
@@ -149,6 +156,7 @@ abstract class _$$_RequestCopyWith<$Res> implements $RequestCopyWith<$Res> {
       DateTime? waktu,
       String status,
       bool is_done,
+      String result,
       String file,
       Kelompok? kelompok,
       Room? ruangan});
@@ -174,6 +182,7 @@ class __$$_RequestCopyWithImpl<$Res>
     Object? waktu = freezed,
     Object? status = null,
     Object? is_done = null,
+    Object? result = null,
     Object? file = null,
     Object? kelompok = freezed,
     Object? ruangan = freezed,
@@ -199,6 +208,10 @@ class __$$_RequestCopyWithImpl<$Res>
           ? _value.is_done
           : is_done // ignore: cast_nullable_to_non_nullable
               as bool,
+      result: null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as String,
       file: null == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
@@ -224,6 +237,7 @@ class _$_Request implements _Request {
       this.waktu,
       this.status = '',
       this.is_done = false,
+      this.result = '',
       this.file = '',
       this.kelompok,
       this.ruangan});
@@ -247,6 +261,9 @@ class _$_Request implements _Request {
   final bool is_done;
   @override
   @JsonKey()
+  final String result;
+  @override
+  @JsonKey()
   final String file;
   @override
   final Kelompok? kelompok;
@@ -255,7 +272,7 @@ class _$_Request implements _Request {
 
   @override
   String toString() {
-    return 'Request(id: $id, description: $description, waktu: $waktu, status: $status, is_done: $is_done, file: $file, kelompok: $kelompok, ruangan: $ruangan)';
+    return 'Request(id: $id, description: $description, waktu: $waktu, status: $status, is_done: $is_done, result: $result, file: $file, kelompok: $kelompok, ruangan: $ruangan)';
   }
 
   @override
@@ -269,6 +286,7 @@ class _$_Request implements _Request {
             (identical(other.waktu, waktu) || other.waktu == waktu) &&
             (identical(other.status, status) || other.status == status) &&
             (identical(other.is_done, is_done) || other.is_done == is_done) &&
+            (identical(other.result, result) || other.result == result) &&
             (identical(other.file, file) || other.file == file) &&
             (identical(other.kelompok, kelompok) ||
                 other.kelompok == kelompok) &&
@@ -278,7 +296,7 @@ class _$_Request implements _Request {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, description, waktu, status,
-      is_done, file, kelompok, ruangan);
+      is_done, result, file, kelompok, ruangan);
 
   @JsonKey(ignore: true)
   @override
@@ -301,6 +319,7 @@ abstract class _Request implements Request {
       final DateTime? waktu,
       final String status,
       final bool is_done,
+      final String result,
       final String file,
       final Kelompok? kelompok,
       final Room? ruangan}) = _$_Request;
@@ -317,6 +336,8 @@ abstract class _Request implements Request {
   String get status;
   @override
   bool get is_done;
+  @override
+  String get result;
   @override
   String get file;
   @override

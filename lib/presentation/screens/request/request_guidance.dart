@@ -62,10 +62,10 @@ class _RequestingGuidanceState extends State<RequestingGuidance> {
           },
           builder: (context, state) {
             if (state is RequestErrorState) {
-              return const Center(
+              return Center(
                 child: Text(
-                  "There was an error loading the data",
-                  style: TextStyle(
+                  state.message,
+                  style: const TextStyle(
                     fontFamily: 'Poppins',
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

@@ -76,111 +76,119 @@ class GuidanceStatus extends StatelessWidget {
                   margin: const EdgeInsets.only(left: 10, right: 10),
                   width: MediaQuery.of(context).size.width / 2.2,
                   height: 200,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: pendingRequest.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          AutoRouter.of(context)
-                              .push(
-                                DetailGuidanceRoute(
-                                  request: pendingRequest[index],
-                                ),
-                              )
-                              .then(
-                                (value) =>
-                                    BlocProvider.of<DashboardLectureBloc>(
-                                            context)
-                                        .add(const GetDataEvent()),
-                              );
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(10.0),
-                          margin: const EdgeInsets.only(bottom: 5.0),
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFE5E5E5),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15),
-                            ),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 40,
-                                child: Text(
-                                  // show only time
-                                  pendingRequest[index].waktu.toString(),
-                                  style: const TextStyle(
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.bold,
+                  child: requestList.isEmpty
+                      ? const Center(
+                          child: Text(
+                              'Anda belum memiliki permintaan bimbingan atau jadwal bimbingan'))
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: pendingRequest.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                AutoRouter.of(context)
+                                    .push(
+                                      DetailGuidanceRoute(
+                                        request: pendingRequest[index],
+                                      ),
+                                    )
+                                    .then(
+                                      (value) =>
+                                          BlocProvider.of<DashboardLectureBloc>(
+                                                  context)
+                                              .add(const GetDataEvent()),
+                                    );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(10.0),
+                                margin: const EdgeInsets.only(bottom: 5.0),
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFFE5E5E5),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(15),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                margin:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                width: 1,
-                                height: 50,
-                                color: const Color(0xFF3493C9),
-                              ),
-                              Expanded(
-                                child: Column(
+                                child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    // limit text to 1 lines
-                                    Text(
-                                      pendingRequest[index].description,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
+                                    SizedBox(
+                                      width: 40,
+                                      child: Text(
+                                        // show only time
+                                        pendingRequest[index].waktu.toString(),
+                                        style: const TextStyle(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                    const SizedBox(height: 5),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.location_on,
-                                          color: Color(0xFF3493C9),
-                                          size: 12,
-                                        ),
-                                        Text(
-                                          pendingRequest[index].ruangan!.name,
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF6B6B6B),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 5),
                                     Container(
-                                      padding: const EdgeInsets.all(3.5),
-                                      decoration: BoxDecoration(
-                                        color: warning,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: const Text(
-                                        'Menunggu',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 11,
-                                        ),
+                                      margin: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      width: 1,
+                                      height: 50,
+                                      color: const Color(0xFF3493C9),
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          // limit text to 1 lines
+                                          Text(
+                                            pendingRequest[index].description,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.location_on,
+                                                color: Color(0xFF3493C9),
+                                                size: 12,
+                                              ),
+                                              Text(
+                                                pendingRequest[index]
+                                                    .ruangan!
+                                                    .name,
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                  color: Color(0xFF6B6B6B),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Container(
+                                            padding: const EdgeInsets.all(3.5),
+                                            decoration: BoxDecoration(
+                                              color: warning,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: const Text(
+                                              'Menunggu',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 11,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
+                            );
+                          },
                         ),
-                      );
-                    },
-                  ),
                 ),
                 const VerticalDivider(
                   color: Color(0xFF3493C9),

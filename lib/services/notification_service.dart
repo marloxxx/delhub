@@ -32,6 +32,7 @@ class NotificationService {
             importance: NotificationImportance.Max,
             channelShowBadge: true,
             vibrationPattern: highVibrationPattern,
+            enableLights: true,
           ),
         ],
       );

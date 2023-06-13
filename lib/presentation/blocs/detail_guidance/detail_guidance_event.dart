@@ -11,5 +11,7 @@ class DetailGuidanceEvent with _$DetailGuidanceEvent {
     required String status,
     required String? waktu,
     required DroppedFile? file,
+    required String? result,
   }) = UpdateDataEvent;
+  const factory DetailGuidanceEvent.resetState() = ResetStateEvent;
 }

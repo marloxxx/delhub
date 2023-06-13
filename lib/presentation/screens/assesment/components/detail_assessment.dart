@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:one_context/one_context.dart';
 import '../../../../data/models/assessment_component_model.dart';
 import '../../../../data/models/assessment_point_model.dart';
 import '../../../../data/models/kelompok_model.dart';
@@ -10,6 +12,9 @@ late MahasiswaList mahasiswaList;
 late AssessmentComponentList assessmentComponentList;
 late Mahasiswa mahasiswa;
 List<Map<String, dynamic>> valueList = [];
+// array for final value by mahasiswa nim
+List<Map<String, dynamic>> finalValueList = [];
+var textEditingControllers = <TextEditingController>[];
 
 @RoutePage(name: 'DetailAssessmentRoute')
 class DetailAssessment extends StatefulWidget {
@@ -30,15 +35,49 @@ class _DetailAssessmentState extends State<DetailAssessment> {
     mahasiswaList = widget.kelompok.mahasiswa!;
     assessmentComponentList = widget.assessmentPoint.components!;
     mahasiswa = mahasiswaList[0];
+    // set initial valueList for each mahasiswa nim
+    for (var i = 0; i < mahasiswaList.length; i++) {
+      for (var j = 0; j < assessmentComponentList.length; j++) {
+        valueList.add({
+          'mahasiswaNim': mahasiswaList[i].nim,
+          'assessmentComponentId': assessmentComponentList[j].id,
+          'value': 0,
+        });
+      }
+    }
+    // set initial finalValueList for each mahasiswa nim
+    for (var i = 0; i < mahasiswaList.length; i++) {
+      finalValueList.add({
+        'mahasiswaNim': mahasiswaList[i].nim,
+        'value': 0,
+      });
+    }
+    // set text editing controller for each textformfield
+    for (var i = 0; i < assessmentComponentList.length; i++) {
+      textEditingControllers.add(TextEditingController());
+    }
+    // for (var i = 0; i < assessmentComponentList.length; i++) {
+    //   textEditingControllers[i].text = valueList
+    //       .firstWhere((element) =>
+    //           element['mahasiswaNim'] == mahasiswa.nim &&
+    //           element['assessmentComponentId'] ==
+    //               assessmentComponentList[i].id)['value']
+    //       .toString();
+    // }
   }
 
 // set value in valueList by mahasiswa id and assessment component id
-  void setValue(int mahasiswaId, int assessmentComponentId, int value) {
-    valueList.add({
-      'mahasiswaId': mahasiswaId,
-      'assessmentComponentId': assessmentComponentId,
-      'value': value,
-    });
+  void setValue(String mahasiswaNim, int assessmentComponentId, int value) {
+    // update valueList where mahasiswa nim and assessment component id is same
+    valueList.firstWhere((element) =>
+        element['mahasiswaNim'] == mahasiswaNim &&
+        element['assessmentComponentId'] ==
+            assessmentComponentId)['value'] = value;
+    debugPrint(valueList.toString());
+    // calculate final value
+    finalValueList.firstWhere(
+            (element) => element['mahasiswaNim'] == mahasiswaNim)['value'] =
+        calculateFinalValue(mahasiswaNim);
   }
 
   @override
@@ -114,10 +153,7 @@ class _DetailAssessmentState extends State<DetailAssessment> {
                                 isExpanded: true,
                                 value: mahasiswa,
                                 onChanged: (Mahasiswa? newValue) {
-                                  setState(() {
-                                    mahasiswa = newValue!;
-                                    debugPrint(mahasiswa.nama);
-                                  });
+                                  changeMahasiswa(newValue);
                                 },
                                 items: mahasiswaList
                                     .map<DropdownMenuItem<Mahasiswa>>(
@@ -193,360 +229,246 @@ class _DetailAssessmentState extends State<DetailAssessment> {
                                 height: 1,
                                 color: const Color(0xFFC4C4C4),
                               ),
-                              Container(
-                                padding: const EdgeInsets.all(15.0),
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFE6E6E6),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Expanded(
-                                      child: Column(
+                              SingleChildScrollView(
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: assessmentComponentList.length,
+                                  itemBuilder: (context, index) {
+                                    return Container(
+                                      padding: const EdgeInsets.all(15.0),
+                                      margin: const EdgeInsets.only(
+                                        top: 3,
+                                        bottom: 3,
+                                      ),
+                                      decoration: const BoxDecoration(
+                                        color: Color(0xFFE6E6E6),
+                                      ),
+                                      child: Row(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: <Widget>[
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Html(
+                                                  data: assessmentComponentList[
+                                                          index]
+                                                      .name,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          // textformfield
+                                          Container(
+                                            width: 50,
+                                            height: 50,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(12),
+                                              border: Border.all(
+                                                color: const Color(0xFF3493C9),
+                                              ),
+                                            ),
+                                            child: TextFormField(
+                                              textAlign: TextAlign.center,
+                                              controller:
+                                                  textEditingControllers[index],
+                                              keyboardType:
+                                                  TextInputType.number,
+                                              decoration: const InputDecoration(
+                                                border: InputBorder.none,
+                                              ),
+                                              onChanged: (value) {
+                                                if (value.isEmpty) {
+                                                  setValue(
+                                                      mahasiswa.nim,
+                                                      assessmentComponentList[
+                                                              index]
+                                                          .id,
+                                                      0);
+                                                  return;
+                                                }
+                                                // jika nilai lebih dari bobot
+                                                if (int.parse(value) >
+                                                    assessmentComponentList[
+                                                            index]
+                                                        .weight) {
+                                                  OneContext().showDialog(
+                                                    builder: (_) => AlertDialog(
+                                                      title:
+                                                          const Text("Error"),
+                                                      content: const Text(
+                                                          "Nilai tidak boleh lebih dari bobot"),
+                                                      actions: [
+                                                        ElevatedButton(
+                                                          onPressed: () {
+                                                            Navigator.pop(_);
+                                                          },
+                                                          child: const Text(
+                                                            "OK",
+                                                            style: TextStyle(
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                  return;
+                                                }
+                                                setState(
+                                                  () {
+                                                    setValue(
+                                                      mahasiswa.nim,
+                                                      assessmentComponentList[
+                                                              index]
+                                                          .id,
+                                                      int.parse(value),
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          // "/weight"
                                           Text(
-                                            'Antusiasme, motivasi, inisiatif kemandirian, ketekunan dalam mengerjakaan PA',
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.bold,
+                                            "/${assessmentComponentList[index].weight}",
+                                            style: const TextStyle(
+                                              fontSize: 16,
                                             ),
                                           ),
                                         ],
                                       ),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 220, 218, 218),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              '15',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
+                                    );
+                                  },
                                 ),
                               ),
                               Container(
-                                margin: const EdgeInsets.only(
-                                  top: 3,
-                                  bottom: 3,
-                                ),
-                                height: 1,
-                                color: const Color(0xFFC4C4C4),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(15.0),
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFE6E6E6),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Expanded(
-                                      child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              'Dapat berinteraksi dan berdiskusi dengan pembimbing sehingga saling memperkaya',
-                                              style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ]),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 220, 218, 218),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              '15',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  top: 3,
-                                  bottom: 3,
-                                ),
-                                height: 1,
-                                color: const Color(0xFFC4C4C4),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(15.0),
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFE6E6E6),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Expanded(
-                                      child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              'Proses Pembimbingan PA',
-                                              style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ]),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 220, 218, 218),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              '25',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  top: 3,
-                                  bottom: 3,
-                                ),
-                                height: 1,
-                                color: const Color(0xFFC4C4C4),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(15.0),
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFE6E6E6),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Expanded(
-                                      child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              'Dari lingkup yang ditentukan dan ditargetkan, penguasaan konsep',
-                                              style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ]),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 220, 218, 218),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              '15',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  top: 3,
-                                  bottom: 3,
-                                ),
-                                height: 1,
-                                color: const Color(0xFFC4C4C4),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(15.0),
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFE6E6E6),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    const Expanded(
-                                      child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: <Widget>[
-                                            Text(
-                                              'Skill penunjang',
-                                              style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ]),
-                                    ),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 220, 218, 218),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              '8',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.only(
-                                  top: 3,
-                                  bottom: 3,
-                                ),
-                                height: 1,
-                                color: const Color(0xFFC4C4C4),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(15.0),
-                                decoration: const BoxDecoration(
-                                  color: Color(0xFFE6E6E6),
-                                ),
-                                child: Row(
-                                  children: [
-                                    const Expanded(
-                                      child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: <Widget>[
-                                            Text(
-                                              'Nilai Akhir',
-                                              style: TextStyle(
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ]),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 220, 218, 218),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: const Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              '78',
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      foregroundColor: Colors.white,
-                                      backgroundColor: const Color(0xFF3493C9),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(7.0),
-                                      ),
-                                    ),
-                                    child: const Text('Submit'),
+                                  padding: const EdgeInsets.all(15.0),
+                                  margin: const EdgeInsets.only(
+                                    top: 3,
+                                    bottom: 3,
                                   ),
-                                ],
+                                  decoration: const BoxDecoration(
+                                    color: Color(0xFFE6E6E6),
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      const Text(
+                                        "Nilai Akhir : ",
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                      // show nilai akhir
+                                      Container(
+                                        width: 50,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                          border: Border.all(
+                                            color: const Color(0xFF3493C9),
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            finalValueList
+                                                .firstWhere((element) =>
+                                                    element['mahasiswaNim'] ==
+                                                    mahasiswa.nim)['value']
+                                                .toString(),
+                                            style: const TextStyle(
+                                              fontSize: 25,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )),
+                              Center(
+                                child: ElevatedButton(
+                                  onPressed: () {
+                                    // if there textformfield is empty
+                                    if (textEditingControllers
+                                        .any((element) => element.text == '')) {
+                                      OneContext().showDialog(
+                                        builder: (_) => AlertDialog(
+                                          title: const Text("Error"),
+                                          content: const Text(
+                                              "Mohon isi semua nilai"),
+                                          actions: [
+                                            ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.pop(_);
+                                              },
+                                              child: const Text(
+                                                "OK",
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                      return;
+                                    }
+                                    OneContext().showDialog(
+                                      builder: (_) => AlertDialog(
+                                        title: const Text("Success"),
+                                        content: const Text(
+                                            "Apakah anda yakin ingin mengirim nilai?"),
+                                        actions: [
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.pop(_);
+                                            },
+                                            child: const Text(
+                                              "Tidak",
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.pop(_);
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              foregroundColor: Colors.white,
+                                              backgroundColor:
+                                                  const Color(0xFF3493C9),
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(7.0),
+                                              ),
+                                            ),
+                                            child: const Text('Ya'),
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                    debugPrint(valueList.toString());
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    foregroundColor: Colors.white,
+                                    backgroundColor: const Color(0xFF3493C9),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(7.0),
+                                    ),
+                                  ),
+                                  child: const Text('Submit'),
+                                ),
                               ),
                             ],
                           )
@@ -561,5 +483,37 @@ class _DetailAssessmentState extends State<DetailAssessment> {
         ),
       ),
     );
+  }
+
+  void changeMahasiswa(Mahasiswa? newValue) {
+    return setState(() {
+      mahasiswa = newValue!;
+      debugPrint(mahasiswa.nama);
+      // set initial value for each textformfield, if value 0 then set ''
+      for (var i = 0; i < assessmentComponentList.length; i++) {
+        textEditingControllers[i].text = valueList.firstWhere((element) =>
+                    element['mahasiswaNim'] == mahasiswa.nim &&
+                    element['assessmentComponentId'] ==
+                        assessmentComponentList[i].id)['value'] ==
+                0
+            ? ''
+            : valueList
+                .firstWhere((element) =>
+                    element['mahasiswaNim'] == mahasiswa.nim &&
+                    element['assessmentComponentId'] ==
+                        assessmentComponentList[i].id)['value']
+                .toString();
+      }
+    });
+  }
+
+  calculateFinalValue(String mahasiswaNim) {
+    int finalValue = 0;
+    for (var i = 0; i < valueList.length; i++) {
+      if (valueList[i]['mahasiswaNim'] == mahasiswaNim) {
+        finalValue += valueList[i]['value'] as int;
+      }
+    }
+    return finalValue;
   }
 }

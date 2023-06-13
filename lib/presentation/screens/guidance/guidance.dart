@@ -66,9 +66,13 @@ class _GuidanceState extends State<Guidance> {
               user: state.user,
               request: widget.request,
             );
+          } else if (state is DetailGuidanceErrorState) {
+            return Center(
+              child: Text('${state.message} \nPlease refresh the page'),
+            );
           } else {
             return const Center(
-              child: Text("Error"),
+              child: CircularProgressIndicator(),
             );
           }
         },
