@@ -45,10 +45,7 @@ class Body extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          // if user.mahasiswa.kelompok.name == null then "Belum ada kelompok"
-                          user.mahasiswa!.kelompok == null
-                              ? "Belum ada kelompok"
-                              : user.name,
+                          user.name,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -57,7 +54,8 @@ class Body extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          user.mahasiswa!.kelompok!.topik,
+                          user.mahasiswa!.kelompok?.topik ??
+                              user.mahasiswa!.prodi,
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -109,7 +107,7 @@ class Body extends StatelessWidget {
                               height:
                                   100, // Set the desired height to 100 pixels
                               padding: const EdgeInsets.all(10.0),
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 image: DecorationImage(
                                   image: AssetImage(
                                       'assets/images/visi_misi.jpg'), // Replace with your image path

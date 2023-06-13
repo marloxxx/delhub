@@ -6,6 +6,7 @@ import '../../../../data/models/assessment_component_model.dart';
 import '../../../../data/models/assessment_point_model.dart';
 import '../../../../data/models/kelompok_model.dart';
 import '../../../../data/models/mahasiswa_model.dart';
+import '../../../../services/local_data_assessment_cache.dart';
 import '../../../widgets/background.dart';
 
 late MahasiswaList mahasiswaList;
@@ -35,6 +36,57 @@ class _DetailAssessmentState extends State<DetailAssessment> {
     mahasiswaList = widget.kelompok.mahasiswa!;
     assessmentComponentList = widget.assessmentPoint.components!;
     mahasiswa = mahasiswaList[0];
+    // set text editing controller for each textformfield
+    for (var i = 0; i < assessmentComponentList.length; i++) {
+      textEditingControllers.add(TextEditingController());
+    }
+
+    // get assessment data locally
+    LocalDataAssessmentCacheService().getAssessment().then((value) {
+      debugPrint(value.toString());
+      //   if (value != null) {
+      //     // set valueList from assessment data locally
+      //     valueList = value['valueList'];
+      //     // set finalValueList from assessment data locally
+      //     finalValueList = value['finalValueList'];
+      //     // set mahasiswa nim from assessment data locally
+      //     mahasiswa = mahasiswaList
+      //         .firstWhere((element) => element.nim == value['mahasiswaNim']);
+      //     // set textformfield value from assessment data locally
+      //     for (var i = 0; i < assessmentComponentList.length; i++) {
+      //       textEditingControllers[i].text = valueList.firstWhere((element) =>
+      //                   element['mahasiswaNim'] == mahasiswa.nim &&
+      //                   element['assessmentComponentId'] ==
+      //                       assessmentComponentList[i].id)['value'] ==
+      //               0
+      //           ? ''
+      //           : valueList
+      //               .firstWhere((element) =>
+      //                   element['mahasiswaNim'] == mahasiswa.nim &&
+      //                   element['assessmentComponentId'] ==
+      //                       assessmentComponentList[i].id)['value']
+      //               .toString();
+      //     }
+      //   } else {
+      //     // set initial valueList for each mahasiswa nim
+      //     for (var i = 0; i < mahasiswaList.length; i++) {
+      //       for (var j = 0; j < assessmentComponentList.length; j++) {
+      //         valueList.add({
+      //           'mahasiswaNim': mahasiswaList[i].nim,
+      //           'assessmentComponentId': assessmentComponentList[j].id,
+      //           'value': 0,
+      //         });
+      //       }
+      //     }
+      //     // set initial finalValueList for each mahasiswa nim
+      //     for (var i = 0; i < mahasiswaList.length; i++) {
+      //       finalValueList.add({
+      //         'mahasiswaNim': mahasiswaList[i].nim,
+      //         'value': 0,
+      //       });
+      //     }
+      // }
+    });
     // set initial valueList for each mahasiswa nim
     for (var i = 0; i < mahasiswaList.length; i++) {
       for (var j = 0; j < assessmentComponentList.length; j++) {
@@ -52,18 +104,6 @@ class _DetailAssessmentState extends State<DetailAssessment> {
         'value': 0,
       });
     }
-    // set text editing controller for each textformfield
-    for (var i = 0; i < assessmentComponentList.length; i++) {
-      textEditingControllers.add(TextEditingController());
-    }
-    // for (var i = 0; i < assessmentComponentList.length; i++) {
-    //   textEditingControllers[i].text = valueList
-    //       .firstWhere((element) =>
-    //           element['mahasiswaNim'] == mahasiswa.nim &&
-    //           element['assessmentComponentId'] ==
-    //               assessmentComponentList[i].id)['value']
-    //       .toString();
-    // }
   }
 
 // set value in valueList by mahasiswa id and assessment component id
@@ -78,6 +118,13 @@ class _DetailAssessmentState extends State<DetailAssessment> {
     finalValueList.firstWhere(
             (element) => element['mahasiswaNim'] == mahasiswaNim)['value'] =
         calculateFinalValue(mahasiswaNim);
+    // save assessment data locally
+    LocalDataAssessmentCacheService().saveAssessment({
+      'valueList': valueList,
+      'finalValueList': finalValueList,
+      'mahasiswaNim': mahasiswaNim,
+      'assessmentPointId': widget.assessmentPoint.id,
+    });
   }
 
   @override
@@ -488,7 +535,6 @@ class _DetailAssessmentState extends State<DetailAssessment> {
   void changeMahasiswa(Mahasiswa? newValue) {
     return setState(() {
       mahasiswa = newValue!;
-      debugPrint(mahasiswa.nama);
       // set initial value for each textformfield, if value 0 then set ''
       for (var i = 0; i < assessmentComponentList.length; i++) {
         textEditingControllers[i].text = valueList.firstWhere((element) =>

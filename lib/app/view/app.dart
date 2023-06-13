@@ -36,8 +36,7 @@ class App extends StatelessWidget {
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
-        title:
-            'Aplikasi Pelayanan Tugas Akhir dan Tugas Akhir Institut Teknologi Del',
+        title: 'Delhub',
         theme: ThemeData(
           appBarTheme: const AppBarTheme(color: Color(0xFF13B9FF)),
         ),

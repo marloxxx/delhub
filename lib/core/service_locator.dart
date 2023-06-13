@@ -19,9 +19,10 @@ import '../domain/usecases/request_usecase.dart';
 import '../domain/usecases/room_usecase.dart';
 import '../routes/app_routers.dart';
 import '../services/firebase_messaging_service.dart';
+import '../services/local_data_assessment_cache.dart';
 import '../services/local_data_cache_service.dart';
-
 import '../services/local_token_cache_service.dart';
+
 import 'request.dart';
 
 final serviceLocator = GetIt.instance;
@@ -61,16 +62,18 @@ Future<void> setUpServiceLocator() async {
       .registerSingleton<LocalDataCacheService>(LocalDataCacheService());
   serviceLocator
       .registerSingleton<LocalTokenCacheService>(LocalTokenCacheService());
+  serviceLocator.registerSingleton<LocalDataAssessmentCacheService>(
+      LocalDataAssessmentCacheService());
+
+  // firebase messaging
+  serviceLocator
+      .registerSingleton<FirebaseMessagingService>(FirebaseMessagingService());
 
   //external
   final sharedPreferences = await SharedPreferences.getInstance();
   serviceLocator.registerFactory<SharedPreferences>(() => sharedPreferences);
-
   // request
   serviceLocator.registerSingleton<Request>(Request());
   // auto_route
   serviceLocator.registerSingleton<FlutterRouter>(FlutterRouter());
-  // firebase messaging
-  serviceLocator
-      .registerSingleton<FirebaseMessagingService>(FirebaseMessagingService());
 }
