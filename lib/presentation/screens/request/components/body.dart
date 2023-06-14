@@ -63,7 +63,7 @@ class _BodyState extends State<Body> {
   @override
   Widget build(BuildContext context) {
     _lecturerController.text =
-        widget.user.mahasiswa!.kelompok!.pembimbing!.name;
+        widget.user.mahasiswa!.kelompok!.pembimbing!.first.name;
     return Background(
       child: Scaffold(
         backgroundColor: Colors.transparent,

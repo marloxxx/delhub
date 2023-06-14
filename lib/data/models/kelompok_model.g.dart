@@ -12,9 +12,12 @@ _$_Kelompok _$$_KelompokFromJson(Map<String, dynamic> json) => _$_Kelompok(
       topik: json['topik'] as String? ?? '',
       prodi: json['prodi'] as String? ?? '',
       angkatan: json['angkatan'] as String? ?? '',
-      pembimbing: json['pembimbing'] == null
-          ? null
-          : Dosen.fromJson(json['pembimbing'] as Map<String, dynamic>),
+      pembimbing: (json['pembimbing'] as List<dynamic>?)
+          ?.map((e) => Dosen.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      penguji: (json['penguji'] as List<dynamic>?)
+          ?.map((e) => Dosen.fromJson(e as Map<String, dynamic>))
+          .toList(),
       krs: json['krs'] == null
           ? null
           : KRS.fromJson(json['krs'] as Map<String, dynamic>),
@@ -34,6 +37,7 @@ Map<String, dynamic> _$$_KelompokToJson(_$_Kelompok instance) =>
       'prodi': instance.prodi,
       'angkatan': instance.angkatan,
       'pembimbing': instance.pembimbing,
+      'penguji': instance.penguji,
       'krs': instance.krs,
       'mahasiswa': instance.mahasiswa,
       'requests': instance.requests,

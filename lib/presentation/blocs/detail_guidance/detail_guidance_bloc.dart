@@ -13,6 +13,7 @@ class DetailGuidanceBloc
   DetailGuidanceBloc() : super(const DetailGuidanceInitialState()) {
     on<GetDataEvent>(
       (event, emit) async {
+        emit(const DetailGuidanceLoadingState());
         var user = await serviceLocator<GetLocalDataUsecase>()
             .getUserFromLocalStorage();
         // set the data to the state
@@ -26,6 +27,7 @@ class DetailGuidanceBloc
     );
     on<UpdateDataEvent>(
       (event, emit) async {
+        emit(const DetailGuidanceLoadingState());
         var response = await serviceLocator<RequestUseCase>().updateRequest(
             event.id, event.status, event.waktu, event.file, event.result);
         if (response.isRight()) {

@@ -28,82 +28,81 @@ class _GuidanceState extends State<Guidance> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: Scaffold(
-      body: BlocConsumer<DetailGuidanceBloc, DetailGuidanceState>(
-        listener: (context, state) {
-          if (state is DetailGuidanceErrorState) {
-            OneContext().showDialog(
-              builder: (_) => AlertDialog(
-                title: const Text("Error"),
-                content: Text(state.message),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(_).pop();
-                    },
-                    child: const Text("OK"),
-                  ),
-                ],
-              ),
-            );
-          } else if (state is DetailGuidanceLoadingState) {
-            const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is DetailGuidanceLoadedState && state.isUpdated) {
-            OneContext().showDialog(
-              builder: (_) => AlertDialog(
-                title: const Text("Success"),
-                content: const Text("Berhasil mengubah data bimbingan"),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(_).pop();
-                    },
-                    child: const Text("OK"),
-                  ),
-                ],
-              ),
-            );
-            AutoRouter.of(context).pop();
-          }
-        },
-        listenWhen: (previous, current) {
-          if (current is DetailGuidanceLoadedState) {
-            return current.isUpdated;
-          } else {
-            return false;
-          }
-        },
-        builder: (context, state) {
-          if (state is DetailGuidanceInitialState) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          } else if (state is DetailGuidanceLoadedState) {
-            return Body(
-              user: state.user,
-              request: widget.request,
-            );
-          } else if (state is DetailGuidanceErrorState) {
-            return const Center(
-              child:
-                  Text('Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
-            );
-          } else {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-        },
-        buildWhen: (previous, current) {
-          if (current is DetailGuidanceLoadedState) {
-            return current.isUpdated == false;
-          } else {
-            return true;
-          }
-        },
+      child: Scaffold(
+        body: BlocConsumer<DetailGuidanceBloc, DetailGuidanceState>(
+          listener: (context, state) {
+            if (state is DetailGuidanceErrorState) {
+              OneContext().showDialog(
+                builder: (_) => AlertDialog(
+                  title: const Text("Error"),
+                  content: Text(state.message),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(_).pop();
+                      },
+                      child: const Text("OK"),
+                    ),
+                  ],
+                ),
+              );
+            } else if (state is DetailGuidanceLoadingState) {
+              const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is DetailGuidanceLoadedState && state.isUpdated) {
+              OneContext().showDialog(
+                builder: (_) => AlertDialog(
+                  title: const Text("Success"),
+                  content: const Text("Berhasil mengubah data bimbingan"),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(_).pop();
+                      },
+                      child: const Text("OK"),
+                    ),
+                  ],
+                ),
+              );
+              AutoRouter.of(context).pop();
+            }
+          },
+          listenWhen: (previous, current) {
+            if (current is DetailGuidanceLoadedState) {
+              return current.isUpdated;
+            } else {
+              return false;
+            }
+          },
+          builder: (context, state) {
+            if (state is DetailGuidanceInitialState) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is DetailGuidanceLoadedState) {
+              return Body(
+                user: state.user,
+                request: widget.request,
+              );
+            } else if (state is DetailGuidanceErrorState) {
+              return const Center(
+                child: Text(
+                    'Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
+              );
+            } else if (state is DetailGuidanceLoadingState) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return const Center(
+                child: Text(
+                    'Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
+              );
+            }
+          },
+        ),
       ),
-    ));
+    );
   }
 }

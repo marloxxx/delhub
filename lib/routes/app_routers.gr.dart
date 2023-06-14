@@ -65,6 +65,7 @@ abstract class _$FlutterRouter extends RootStackRouter {
         child: Other(
           key: args.key,
           kelompok: args.kelompok,
+          user: args.user,
         ),
       );
     },
@@ -281,12 +282,14 @@ class GroupOtherRoute extends PageRouteInfo<GroupOtherRouteArgs> {
   GroupOtherRoute({
     Key? key,
     required Kelompok kelompok,
+    required User user,
     List<PageRouteInfo>? children,
   }) : super(
           GroupOtherRoute.name,
           args: GroupOtherRouteArgs(
             key: key,
             kelompok: kelompok,
+            user: user,
           ),
           initialChildren: children,
         );
@@ -301,15 +304,18 @@ class GroupOtherRouteArgs {
   const GroupOtherRouteArgs({
     this.key,
     required this.kelompok,
+    required this.user,
   });
 
   final Key? key;
 
   final Kelompok kelompok;
 
+  final User user;
+
   @override
   String toString() {
-    return 'GroupOtherRouteArgs{key: $key, kelompok: $kelompok}';
+    return 'GroupOtherRouteArgs{key: $key, kelompok: $kelompok, user: $user}';
   }
 }
 

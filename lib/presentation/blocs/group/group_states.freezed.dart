@@ -21,7 +21,7 @@ mixin _$GroupState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<Kelompok> groupList) loaded,
+    required TResult Function(List<Kelompok> groupList, User user) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$GroupState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<Kelompok> groupList)? loaded,
+    TResult? Function(List<Kelompok> groupList, User user)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$GroupState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<Kelompok> groupList)? loaded,
+    TResult Function(List<Kelompok> groupList, User user)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,7 +127,7 @@ class _$GroupInitialState implements GroupInitialState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<Kelompok> groupList) loaded,
+    required TResult Function(List<Kelompok> groupList, User user) loaded,
   }) {
     return initial();
   }
@@ -138,7 +138,7 @@ class _$GroupInitialState implements GroupInitialState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<Kelompok> groupList)? loaded,
+    TResult? Function(List<Kelompok> groupList, User user)? loaded,
   }) {
     return initial?.call();
   }
@@ -149,7 +149,7 @@ class _$GroupInitialState implements GroupInitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<Kelompok> groupList)? loaded,
+    TResult Function(List<Kelompok> groupList, User user)? loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -241,7 +241,7 @@ class _$GroupLoadingState implements GroupLoadingState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<Kelompok> groupList) loaded,
+    required TResult Function(List<Kelompok> groupList, User user) loaded,
   }) {
     return loading();
   }
@@ -252,7 +252,7 @@ class _$GroupLoadingState implements GroupLoadingState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<Kelompok> groupList)? loaded,
+    TResult? Function(List<Kelompok> groupList, User user)? loaded,
   }) {
     return loading?.call();
   }
@@ -263,7 +263,7 @@ class _$GroupLoadingState implements GroupLoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<Kelompok> groupList)? loaded,
+    TResult Function(List<Kelompok> groupList, User user)? loaded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -381,7 +381,7 @@ class _$GroupErrorState implements GroupErrorState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<Kelompok> groupList) loaded,
+    required TResult Function(List<Kelompok> groupList, User user) loaded,
   }) {
     return error(message);
   }
@@ -392,7 +392,7 @@ class _$GroupErrorState implements GroupErrorState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<Kelompok> groupList)? loaded,
+    TResult? Function(List<Kelompok> groupList, User user)? loaded,
   }) {
     return error?.call(message);
   }
@@ -403,7 +403,7 @@ class _$GroupErrorState implements GroupErrorState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<Kelompok> groupList)? loaded,
+    TResult Function(List<Kelompok> groupList, User user)? loaded,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -466,7 +466,9 @@ abstract class _$$GroupLoadedStateCopyWith<$Res> {
           _$GroupLoadedState value, $Res Function(_$GroupLoadedState) then) =
       __$$GroupLoadedStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Kelompok> groupList});
+  $Res call({List<Kelompok> groupList, User user});
+
+  $UserCopyWith<$Res> get user;
 }
 
 /// @nodoc
@@ -481,20 +483,34 @@ class __$$GroupLoadedStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? groupList = null,
+    Object? user = null,
   }) {
     return _then(_$GroupLoadedState(
       groupList: null == groupList
           ? _value._groupList
           : groupList // ignore: cast_nullable_to_non_nullable
               as List<Kelompok>,
+      user: null == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res> get user {
+    return $UserCopyWith<$Res>(_value.user, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$GroupLoadedState implements GroupLoadedState {
-  const _$GroupLoadedState({required final List<Kelompok> groupList})
+  const _$GroupLoadedState(
+      {required final List<Kelompok> groupList, required this.user})
       : _groupList = groupList;
 
   final List<Kelompok> _groupList;
@@ -506,8 +522,11 @@ class _$GroupLoadedState implements GroupLoadedState {
   }
 
   @override
+  final User user;
+
+  @override
   String toString() {
-    return 'GroupState.loaded(groupList: $groupList)';
+    return 'GroupState.loaded(groupList: $groupList, user: $user)';
   }
 
   @override
@@ -516,12 +535,13 @@ class _$GroupLoadedState implements GroupLoadedState {
         (other.runtimeType == runtimeType &&
             other is _$GroupLoadedState &&
             const DeepCollectionEquality()
-                .equals(other._groupList, _groupList));
+                .equals(other._groupList, _groupList) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_groupList));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_groupList), user);
 
   @JsonKey(ignore: true)
   @override
@@ -535,9 +555,9 @@ class _$GroupLoadedState implements GroupLoadedState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<Kelompok> groupList) loaded,
+    required TResult Function(List<Kelompok> groupList, User user) loaded,
   }) {
-    return loaded(groupList);
+    return loaded(groupList, user);
   }
 
   @override
@@ -546,9 +566,9 @@ class _$GroupLoadedState implements GroupLoadedState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<Kelompok> groupList)? loaded,
+    TResult? Function(List<Kelompok> groupList, User user)? loaded,
   }) {
-    return loaded?.call(groupList);
+    return loaded?.call(groupList, user);
   }
 
   @override
@@ -557,11 +577,11 @@ class _$GroupLoadedState implements GroupLoadedState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<Kelompok> groupList)? loaded,
+    TResult Function(List<Kelompok> groupList, User user)? loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(groupList);
+      return loaded(groupList, user);
     }
     return orElse();
   }
@@ -605,10 +625,12 @@ class _$GroupLoadedState implements GroupLoadedState {
 }
 
 abstract class GroupLoadedState implements GroupState {
-  const factory GroupLoadedState({required final List<Kelompok> groupList}) =
-      _$GroupLoadedState;
+  const factory GroupLoadedState(
+      {required final List<Kelompok> groupList,
+      required final User user}) = _$GroupLoadedState;
 
   List<Kelompok> get groupList;
+  User get user;
   @JsonKey(ignore: true)
   _$$GroupLoadedStateCopyWith<_$GroupLoadedState> get copyWith =>
       throw _privateConstructorUsedError;

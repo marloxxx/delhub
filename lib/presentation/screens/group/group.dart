@@ -45,11 +45,19 @@ class _GroupState extends State<Group> {
                     child: CircularProgressIndicator(),
                   );
                 } else if (state is GroupLoadedState) {
-                  return Body(groupList: state.groupList, krs: widget.krs);
+                  return Body(
+                    groupList: state.groupList,
+                    krs: widget.krs,
+                    user: state.user,
+                  );
                 } else if (state is GroupErrorState) {
                   return const Center(
                     child: Text(
                         'Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
+                  );
+                } else if (state is GroupLoadingState) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
                   );
                 } else {
                   return const Center(

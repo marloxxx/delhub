@@ -87,9 +87,14 @@ class _RequestingGuidanceState extends State<RequestingGuidance> {
                 rooms: state.rooms,
                 user: widget.user,
               );
-            } else {
+            } else if (state is RequestLoadingState) {
               return const Center(
                 child: CircularProgressIndicator(),
+              );
+            } else {
+              return const Center(
+                child: Text(
+                    'Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
               );
             }
           },

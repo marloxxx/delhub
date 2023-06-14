@@ -2,6 +2,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'dosen_model.freezed.dart';
 part 'dosen_model.g.dart';
 
+typedef DosenList = List<Dosen>;
+
 @freezed
 class Dosen with _$Dosen {
   factory Dosen({

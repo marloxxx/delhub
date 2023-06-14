@@ -11,7 +11,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginUserEvent>(
       (event, emit) async {
         final user = event.user;
-        emit(const LoginState.loading());
+        emit(const LoginLoadingState());
         var result = await serviceLocator<LoginUserUsecase>().login(user);
         result.fold(
           (failure) {

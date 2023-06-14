@@ -237,9 +237,9 @@ class _BodyState extends State<Body> {
                                       child: Container(
                                         padding: const EdgeInsets.all(10.0),
                                         child: Text(
-                                          DateFormat('EEEE, d MMMM yyyy')
-                                              .format(widget.request.waktu!)
-                                              .toString(),
+                                          // show date and time
+                                          DateFormat('dd MMMM yyyy HH:mm')
+                                              .format(widget.request.waktu!),
                                         ),
                                       ),
                                     ),
@@ -293,7 +293,7 @@ class _BodyState extends State<Body> {
                                       child: Container(
                                           padding: const EdgeInsets.all(10.0),
                                           child: Text(widget.request.kelompok!
-                                              .pembimbing!.name)),
+                                              .pembimbing!.first.name)),
                                     ),
                                   ],
                                 ),
@@ -462,7 +462,8 @@ class _BodyState extends State<Body> {
                         ),
                         // if user role is dosen
                         widget.user.role == 'dosen'
-                            ? widget.request.status == 'waiting'
+                            ? widget.request.status == 'waiting' ||
+                                    widget.request.status == 'reschedule'
                                 ? Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
@@ -517,21 +518,26 @@ class _BodyState extends State<Body> {
                                         ),
                                         child: const Text('Tolak'),
                                       ),
-                                      ElevatedButton(
-                                        onPressed: () {
-                                          _pickDateTime(context);
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          foregroundColor: Colors.white,
-                                          backgroundColor:
-                                              const Color(0xFFFFC93C),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(7.0),
-                                          ),
-                                        ),
-                                        child: const Text('Reschedule'),
-                                      ),
+                                      // if date has passed don't show reschedule button
+                                      widget.request.waktu!
+                                              .isBefore(DateTime.now())
+                                          ? const SizedBox()
+                                          : ElevatedButton(
+                                              onPressed: () {
+                                                _pickDateTime(context);
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                foregroundColor: Colors.white,
+                                                backgroundColor:
+                                                    const Color(0xFFFFC93C),
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          7.0),
+                                                ),
+                                              ),
+                                              child: const Text('Reschedule'),
+                                            ),
                                     ],
                                   )
                                 : (widget.request.status == 'approve' ||

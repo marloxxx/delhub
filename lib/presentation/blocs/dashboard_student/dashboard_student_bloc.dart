@@ -13,6 +13,7 @@ class DashboardStudentBloc
   DashboardStudentBloc() : super(const DashboardInitialState()) {
     on<GetDataEvent>(
       (event, emit) async {
+        emit(const DashboardStudentState.loading());
         var user = await serviceLocator<GetLocalDataUsecase>()
             .getUserFromLocalStorage();
         var requests =

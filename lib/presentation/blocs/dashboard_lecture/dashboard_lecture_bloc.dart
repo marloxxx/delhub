@@ -14,6 +14,7 @@ class DashboardLectureBloc
   DashboardLectureBloc() : super(const DashboardInitialState()) {
     on<GetDataEvent>(
       (event, emit) async {
+        emit(const DashboardLoadingState());
         var user = await serviceLocator<GetLocalDataUsecase>()
             .getUserFromLocalStorage();
 
@@ -39,7 +40,7 @@ class DashboardLectureBloc
     );
     on<LogoutEvent>(
       (event, emit) async {
-        emit(const DashboardLectureState.loading());
+        emit(const DashboardLoadingState());
         try {
           final result = await serviceLocator<LoginUserUsecase>().logout();
           result.fold(

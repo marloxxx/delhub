@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../data/models/kelompok_model.dart';
 import '../../../../data/models/krs_model.dart';
+import '../../../../data/models/user_model.dart';
 import '../../../../routes/app_routers.dart';
 import '../../../../shared/theme.dart';
 import '../../../widgets/background.dart';
@@ -11,7 +12,12 @@ import '../../../widgets/background.dart';
 class Body extends StatelessWidget {
   final KelompokList groupList;
   final KRS krs;
-  const Body({Key? key, required this.groupList, required this.krs})
+  final User user;
+  const Body(
+      {Key? key,
+      required this.groupList,
+      required this.krs,
+      required this.user})
       : super(key: key);
 
   @override
@@ -113,6 +119,7 @@ class Body extends StatelessWidget {
                                         AutoRouter.of(context).push(
                                           GroupOtherRoute(
                                             kelompok: groupList[index],
+                                            user: user,
                                           ),
                                         );
                                       },

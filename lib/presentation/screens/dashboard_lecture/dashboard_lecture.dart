@@ -65,6 +65,10 @@ class _DashboardLectureScreenState extends State<DashboardLectureScreen> {
               child:
                   Text('Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
             );
+          } else if (state is DashboardLoadingState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           } else {
             return const Center(
               child:

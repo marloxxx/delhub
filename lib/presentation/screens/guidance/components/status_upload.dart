@@ -164,9 +164,8 @@ class _StatusUploadState extends State<StatusUpload> {
                                           // set value of text field
                                           controller: TextEditingController(
                                             text: DateFormat(
-                                                    'EEEE, d MMMM yyyy')
-                                                .format(widget.request.waktu!)
-                                                .toString(),
+                                                    'dd MMMM yyyy HH:mm')
+                                                .format(widget.request.waktu!),
                                           ),
                                           decoration: InputDecoration(
                                             border: OutlineInputBorder(

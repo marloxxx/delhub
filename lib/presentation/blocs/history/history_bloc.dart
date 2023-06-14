@@ -8,6 +8,7 @@ import 'history_state.dart';
 class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
   HistoryBloc() : super(const HistoryInitialState()) {
     on<GetDataEvent>((event, emit) async {
+      emit(const HistoryLoadingState());
       var requests =
           await serviceLocator<RequestUseCase>().getRequestsFromServer();
       // set the data to the state
@@ -19,6 +20,7 @@ class HistoryBloc extends Bloc<HistoryEvent, HistoryState> {
     });
 
     on<GetDataByKelompokIdEvent>((event, emit) async {
+      emit(const HistoryLoadingState());
       var requests = await serviceLocator<RequestUseCase>()
           .getRequestsFromServerByKelompokId(event.kelompokId);
       // set the data to the state

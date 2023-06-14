@@ -25,7 +25,8 @@ mixin _$Kelompok {
   String get topik => throw _privateConstructorUsedError;
   String get prodi => throw _privateConstructorUsedError;
   String get angkatan => throw _privateConstructorUsedError;
-  Dosen? get pembimbing => throw _privateConstructorUsedError;
+  List<Dosen>? get pembimbing => throw _privateConstructorUsedError;
+  List<Dosen>? get penguji => throw _privateConstructorUsedError;
   KRS? get krs => throw _privateConstructorUsedError;
   List<Mahasiswa>? get mahasiswa => throw _privateConstructorUsedError;
   List<Request>? get requests => throw _privateConstructorUsedError;
@@ -47,12 +48,12 @@ abstract class $KelompokCopyWith<$Res> {
       String topik,
       String prodi,
       String angkatan,
-      Dosen? pembimbing,
+      List<Dosen>? pembimbing,
+      List<Dosen>? penguji,
       KRS? krs,
       List<Mahasiswa>? mahasiswa,
       List<Request>? requests});
 
-  $DosenCopyWith<$Res>? get pembimbing;
   $KRSCopyWith<$Res>? get krs;
 }
 
@@ -75,6 +76,7 @@ class _$KelompokCopyWithImpl<$Res, $Val extends Kelompok>
     Object? prodi = null,
     Object? angkatan = null,
     Object? pembimbing = freezed,
+    Object? penguji = freezed,
     Object? krs = freezed,
     Object? mahasiswa = freezed,
     Object? requests = freezed,
@@ -103,7 +105,11 @@ class _$KelompokCopyWithImpl<$Res, $Val extends Kelompok>
       pembimbing: freezed == pembimbing
           ? _value.pembimbing
           : pembimbing // ignore: cast_nullable_to_non_nullable
-              as Dosen?,
+              as List<Dosen>?,
+      penguji: freezed == penguji
+          ? _value.penguji
+          : penguji // ignore: cast_nullable_to_non_nullable
+              as List<Dosen>?,
       krs: freezed == krs
           ? _value.krs
           : krs // ignore: cast_nullable_to_non_nullable
@@ -117,18 +123,6 @@ class _$KelompokCopyWithImpl<$Res, $Val extends Kelompok>
           : requests // ignore: cast_nullable_to_non_nullable
               as List<Request>?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $DosenCopyWith<$Res>? get pembimbing {
-    if (_value.pembimbing == null) {
-      return null;
-    }
-
-    return $DosenCopyWith<$Res>(_value.pembimbing!, (value) {
-      return _then(_value.copyWith(pembimbing: value) as $Val);
-    });
   }
 
   @override
@@ -157,13 +151,12 @@ abstract class _$$_KelompokCopyWith<$Res> implements $KelompokCopyWith<$Res> {
       String topik,
       String prodi,
       String angkatan,
-      Dosen? pembimbing,
+      List<Dosen>? pembimbing,
+      List<Dosen>? penguji,
       KRS? krs,
       List<Mahasiswa>? mahasiswa,
       List<Request>? requests});
 
-  @override
-  $DosenCopyWith<$Res>? get pembimbing;
   @override
   $KRSCopyWith<$Res>? get krs;
 }
@@ -185,6 +178,7 @@ class __$$_KelompokCopyWithImpl<$Res>
     Object? prodi = null,
     Object? angkatan = null,
     Object? pembimbing = freezed,
+    Object? penguji = freezed,
     Object? krs = freezed,
     Object? mahasiswa = freezed,
     Object? requests = freezed,
@@ -208,9 +202,13 @@ class __$$_KelompokCopyWithImpl<$Res>
           : angkatan // ignore: cast_nullable_to_non_nullable
               as String,
       pembimbing: freezed == pembimbing
-          ? _value.pembimbing
+          ? _value._pembimbing
           : pembimbing // ignore: cast_nullable_to_non_nullable
-              as Dosen?,
+              as List<Dosen>?,
+      penguji: freezed == penguji
+          ? _value._penguji
+          : penguji // ignore: cast_nullable_to_non_nullable
+              as List<Dosen>?,
       krs: freezed == krs
           ? _value.krs
           : krs // ignore: cast_nullable_to_non_nullable
@@ -236,11 +234,14 @@ class _$_Kelompok implements _Kelompok {
       this.topik = '',
       this.prodi = '',
       this.angkatan = '',
-      this.pembimbing,
+      final List<Dosen>? pembimbing,
+      final List<Dosen>? penguji,
       this.krs,
       final List<Mahasiswa>? mahasiswa,
       final List<Request>? requests})
-      : _mahasiswa = mahasiswa,
+      : _pembimbing = pembimbing,
+        _penguji = penguji,
+        _mahasiswa = mahasiswa,
         _requests = requests;
 
   factory _$_Kelompok.fromJson(Map<String, dynamic> json) =>
@@ -261,8 +262,26 @@ class _$_Kelompok implements _Kelompok {
   @override
   @JsonKey()
   final String angkatan;
+  final List<Dosen>? _pembimbing;
   @override
-  final Dosen? pembimbing;
+  List<Dosen>? get pembimbing {
+    final value = _pembimbing;
+    if (value == null) return null;
+    if (_pembimbing is EqualUnmodifiableListView) return _pembimbing;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<Dosen>? _penguji;
+  @override
+  List<Dosen>? get penguji {
+    final value = _penguji;
+    if (value == null) return null;
+    if (_penguji is EqualUnmodifiableListView) return _penguji;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final KRS? krs;
   final List<Mahasiswa>? _mahasiswa;
@@ -287,7 +306,7 @@ class _$_Kelompok implements _Kelompok {
 
   @override
   String toString() {
-    return 'Kelompok(id: $id, name: $name, topik: $topik, prodi: $prodi, angkatan: $angkatan, pembimbing: $pembimbing, krs: $krs, mahasiswa: $mahasiswa, requests: $requests)';
+    return 'Kelompok(id: $id, name: $name, topik: $topik, prodi: $prodi, angkatan: $angkatan, pembimbing: $pembimbing, penguji: $penguji, krs: $krs, mahasiswa: $mahasiswa, requests: $requests)';
   }
 
   @override
@@ -301,8 +320,9 @@ class _$_Kelompok implements _Kelompok {
             (identical(other.prodi, prodi) || other.prodi == prodi) &&
             (identical(other.angkatan, angkatan) ||
                 other.angkatan == angkatan) &&
-            (identical(other.pembimbing, pembimbing) ||
-                other.pembimbing == pembimbing) &&
+            const DeepCollectionEquality()
+                .equals(other._pembimbing, _pembimbing) &&
+            const DeepCollectionEquality().equals(other._penguji, _penguji) &&
             (identical(other.krs, krs) || other.krs == krs) &&
             const DeepCollectionEquality()
                 .equals(other._mahasiswa, _mahasiswa) &&
@@ -318,7 +338,8 @@ class _$_Kelompok implements _Kelompok {
       topik,
       prodi,
       angkatan,
-      pembimbing,
+      const DeepCollectionEquality().hash(_pembimbing),
+      const DeepCollectionEquality().hash(_penguji),
       krs,
       const DeepCollectionEquality().hash(_mahasiswa),
       const DeepCollectionEquality().hash(_requests));
@@ -344,7 +365,8 @@ abstract class _Kelompok implements Kelompok {
       final String topik,
       final String prodi,
       final String angkatan,
-      final Dosen? pembimbing,
+      final List<Dosen>? pembimbing,
+      final List<Dosen>? penguji,
       final KRS? krs,
       final List<Mahasiswa>? mahasiswa,
       final List<Request>? requests}) = _$_Kelompok;
@@ -362,7 +384,9 @@ abstract class _Kelompok implements Kelompok {
   @override
   String get angkatan;
   @override
-  Dosen? get pembimbing;
+  List<Dosen>? get pembimbing;
+  @override
+  List<Dosen>? get penguji;
   @override
   KRS? get krs;
   @override

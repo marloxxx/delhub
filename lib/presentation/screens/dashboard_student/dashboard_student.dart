@@ -65,6 +65,10 @@ class _DashboardStudentScreen extends State<DashboardStudentScreen> {
                 ),
               ),
             );
+          } else if (state is DashboardInitialState) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
           } else if (state is DashboardLoadedState) {
             return RefreshIndicator(
               onRefresh: () async {

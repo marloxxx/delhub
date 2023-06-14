@@ -52,6 +52,10 @@ class _AssessmentState extends State<Assessment> {
                   return Center(
                     child: Text(state.message),
                   );
+                } else if (state is AssessmentLoadingState) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 } else {
                   return const Scaffold(
                     body: Center(

@@ -66,6 +66,10 @@ class _HistoryState extends State<History> {
                 child: Text(
                     'Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
               );
+            } else if (state is HistoryLoadingState) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             } else {
               return const Center(
                 child: Text(
