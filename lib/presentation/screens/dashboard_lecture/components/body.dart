@@ -110,7 +110,7 @@ class Body extends StatelessWidget {
                           child: Container(
                             height: 100, // Set the desired height to 100 pixels
                             padding: const EdgeInsets.all(10.0),
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(
                                     'assets/images/visi_misi.jpg'), // Replace with your image path

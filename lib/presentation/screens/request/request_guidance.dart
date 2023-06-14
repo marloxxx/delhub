@@ -50,10 +50,19 @@ class _RequestingGuidanceState extends State<RequestingGuidance> {
               const Center(
                 child: CircularProgressIndicator(),
               );
-            } else if (state is RequestLoadedState && state.rooms.isEmpty) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Request Success"),
+            } else if (state is RequestLoadedState && state.success) {
+              OneContext().showDialog(
+                builder: (_) => AlertDialog(
+                  title: const Text("Success"),
+                  content: const Text("Berhasil mengirim permintaan bimbingan"),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(_).pop();
+                      },
+                      child: const Text("OK"),
+                    ),
+                  ],
                 ),
               );
               // go back to previous page and refresh

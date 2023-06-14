@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import '../../../../data/models/request_model.dart';
 
 class TotalGuidance extends StatelessWidget {
-  TotalGuidance({
+  final RequestList requestList;
+  const TotalGuidance({
     Key? key,
+    required this.requestList,
   }) : super(key: key);
-
+  // get all request with is_done = true
+  int get _totalDone => requestList.where((e) => e.is_done).length;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -26,7 +30,6 @@ class TotalGuidance extends StatelessWidget {
                   'Total Bimbingan',
                   style: TextStyle(
                     fontSize: 16,
-                    color: Color.fromARGB(255, 172, 173, 177),
                   ),
                 ),
                 Padding(
@@ -40,12 +43,10 @@ class TotalGuidance extends StatelessWidget {
                       ),
                     ),
                     child: Row(children: [
-                      const Text(
-                        '2 x',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Color.fromARGB(255, 172, 173, 177),
-                        ),
+                      Text(
+                        '$_totalDone x',
+                        style: const TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       // pembatas garis lurus
                       Container(
@@ -59,7 +60,6 @@ class TotalGuidance extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 172, 173, 177),
                         ),
                       ),
                     ]),

@@ -11,8 +11,6 @@ class FirebaseMessagingService {
   static Future<void> _firebaseMessagingBackgroundHandler(
       RemoteMessage message) async {
     await Firebase.initializeApp();
-    await NotificationService.initializedNotification();
-    await NotificationService.startListeningNotificationEvents();
     NotificationService.showNotification(message);
   }
 
@@ -20,7 +18,7 @@ class FirebaseMessagingService {
     await Firebase.initializeApp();
     await FirebaseMessaging.instance.getToken();
     await NotificationService.initializedNotification();
-    await NotificationService.startListeningNotificationEvents();
+
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       NotificationService.showNotification(message);

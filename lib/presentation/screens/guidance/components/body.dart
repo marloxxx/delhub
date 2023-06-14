@@ -347,33 +347,46 @@ class _BodyState extends State<Body> {
                                       child: Container(
                                         padding: const EdgeInsets.all(10.0),
                                         child: Text(
-                                          widget.request.status == 'waiting'
-                                              ? 'Menunggu'
+                                          // if is done is true, show done
+                                          widget.request.is_done == true
+                                              ? 'Selesai'
                                               : widget.request.status ==
-                                                      'approve'
-                                                  ? 'Disetujui'
+                                                      'waiting'
+                                                  ? 'Menunggu'
                                                   : widget.request.status ==
-                                                          'reject'
-                                                      ? 'Ditolak'
+                                                          'approve'
+                                                      ? 'Disetujui'
                                                       : widget.request.status ==
-                                                              'reschedule'
-                                                          ? 'Reschedule'
-                                                          : 'Selesai',
+                                                              'reject'
+                                                          ? 'Ditolak'
+                                                          : widget.request
+                                                                      .status ==
+                                                                  'reschedule'
+                                                              ? 'Reschedule'
+                                                              : 'Selesai',
                                           style: TextStyle(
-                                            color: widget.request.status ==
-                                                    'waiting'
-                                                ? Colors.orange
-                                                : widget.request.status ==
-                                                        'approve'
+                                            color:
+                                                // if is done is true, show done
+                                                widget.request.is_done == true
                                                     ? Colors.green
                                                     : widget.request.status ==
-                                                            'reject'
-                                                        ? Colors.red
+                                                            'waiting'
+                                                        ? Colors.orange
                                                         : widget.request
                                                                     .status ==
-                                                                'reschedule'
-                                                            ? Colors.yellow
-                                                            : Colors.blue,
+                                                                'approve'
+                                                            ? Colors.green
+                                                            : widget.request
+                                                                        .status ==
+                                                                    'reject'
+                                                                ? Colors.red
+                                                                : widget.request
+                                                                            .status ==
+                                                                        'reschedule'
+                                                                    ? Colors
+                                                                        .yellow
+                                                                    : Colors
+                                                                        .blue,
                                           ),
                                         ),
                                       ),
@@ -555,16 +568,18 @@ class _BodyState extends State<Body> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   // check if status is approved and waktu has passed
-                                  widget.request.status == 'approve' &&
-                                          widget.request.waktu!
-                                              .isBefore(DateTime.now())
-                                      ? widget.request.is_done == false
+                                  widget.request.status == 'approve'
+                                      ? widget.request.is_done == false &&
+                                              widget.request.waktu!
+                                                  .isBefore(DateTime.now())
                                           ? ElevatedButton(
                                               onPressed: () {
-                                                AutoRouter.of(context).push(
-                                                    StatusUploadRoute(
+                                                AutoRouter.of(context)
+                                                    .push(StatusUploadRoute(
                                                         request:
-                                                            widget.request));
+                                                            widget.request))
+                                                    .then((value) =>
+                                                        setState(() {}));
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 foregroundColor: Colors.white,

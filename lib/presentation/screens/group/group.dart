@@ -48,11 +48,13 @@ class _GroupState extends State<Group> {
                   return Body(groupList: state.groupList, krs: widget.krs);
                 } else if (state is GroupErrorState) {
                   return const Center(
-                    child: Text('Something went wrong'),
+                    child: Text(
+                        'Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
                   );
                 } else {
                   return const Center(
-                    child: Text('Something went wrong'),
+                    child: Text(
+                        'Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
                   );
                 }
               },

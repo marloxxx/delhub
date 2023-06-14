@@ -60,28 +60,15 @@ class _DashboardLectureScreenState extends State<DashboardLectureScreen> {
                 ),
               ),
             );
+          } else if (state is DashboardErrorState) {
+            return const Center(
+              child:
+                  Text('Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
+            );
           } else {
-            return const Scaffold(
-              body: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Loading...",
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+            return const Center(
+              child:
+                  Text('Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
             );
           }
         },

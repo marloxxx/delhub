@@ -14,6 +14,7 @@ class RequestBloc extends Bloc<RequestEvent, RequestState> {
         var response = await serviceLocator<RoomUsecase>().getRoomsFromServer();
         emit(RequestLoadedState(
           rooms: response.getOrElse(() => []),
+          success: false,
         ));
       } catch (e) {
         emit(RequestErrorState(e.toString()));
@@ -25,7 +26,7 @@ class RequestBloc extends Bloc<RequestEvent, RequestState> {
         var response =
             await serviceLocator<RequestUseCase>().createRequest(event.request);
         if (response.isRight()) {
-          emit(const RequestLoadedState(rooms: []));
+          emit(const RequestLoadedState(rooms: [], success: true));
         } else {
           emit(RequestErrorState(
               response.fold((l) => l.toString(), (r) => r.toString())));

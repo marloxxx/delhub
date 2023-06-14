@@ -64,13 +64,15 @@ class Body extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 return InkWell(
                                   onTap: () {
-                                    AutoRouter.of(context).push(
-                                      DetailAssessmentRoute(
-                                        kelompok: kelompok,
-                                        assessmentPoint:
-                                            assessmentPointList[index],
-                                      ),
-                                    );
+                                    AutoRouter.of(context)
+                                        .push(
+                                          DetailAssessmentRoute(
+                                            kelompok: kelompok,
+                                            assessmentPoint:
+                                                assessmentPointList[index],
+                                          ),
+                                        )
+                                        .then((_) {});
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(15.0),

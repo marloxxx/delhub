@@ -68,19 +68,38 @@ class GuidanceStatus extends StatelessWidget {
                 Radius.circular(15),
               ),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                // set pending request on left side and approved request on right side
-                Container(
-                  margin: const EdgeInsets.only(left: 10, right: 10),
-                  width: MediaQuery.of(context).size.width / 2.2,
-                  height: 200,
-                  child: requestList.isEmpty
-                      ? const Center(
+            child: requestList.isEmpty
+                ? Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        // icon
+                        Container(
+                          margin: const EdgeInsets.only(bottom: 10),
+                          child: Icon(
+                            Icons.warning,
+                            color: warning,
+                            size: 50,
+                          ),
+                        ),
+                        const Center(
                           child: Text(
-                              'Anda belum memiliki permintaan bimbingan atau jadwal bimbingan'))
-                      : ListView.builder(
+                            'Anda belum memiliki permintaan bimbingan atau jadwal bimbingan',
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      // set pending request on left side and approved request on right side
+                      Container(
+                        margin: const EdgeInsets.only(left: 10, right: 10),
+                        width: MediaQuery.of(context).size.width / 2.2,
+                        height: 200,
+                        child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
                           itemCount: pendingRequest.length,
@@ -189,133 +208,139 @@ class GuidanceStatus extends StatelessWidget {
                             );
                           },
                         ),
-                ),
-                const VerticalDivider(
-                  color: Color(0xFF3493C9),
-                  thickness: 1,
-                  width: 1,
-                ),
-                Container(
-                  margin: const EdgeInsets.only(right: 10),
-                  width: MediaQuery.of(context).size.width / 2.2,
-                  height: 200,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.vertical,
-                    itemCount: approvedRequest.length,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                        onTap: () {
-                          AutoRouter.of(context)
-                              .push(
-                                DetailGuidanceRoute(
-                                  request: approvedRequest[index],
-                                ),
-                              )
-                              .then(
-                                (value) =>
-                                    BlocProvider.of<DashboardLectureBloc>(
-                                            context)
-                                        .add(const GetDataEvent()),
-                              );
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.all(10.0),
-                          margin: const EdgeInsets.only(bottom: 5.0),
-                          decoration: const BoxDecoration(
-                            color: Color(0xFFE5E5E5),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(15),
-                            ),
-                          ),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                width: 40,
-                                child: Text(
-                                  // show only time
-                                  '${approvedRequest[index].waktu!.hour}:${approvedRequest[index].waktu!.minute}',
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
+                      ),
+                      const VerticalDivider(
+                        color: Color(0xFF3493C9),
+                        thickness: 1,
+                        width: 1,
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(right: 10),
+                        width: MediaQuery.of(context).size.width / 2.2,
+                        height: 200,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.vertical,
+                          itemCount: approvedRequest.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                AutoRouter.of(context)
+                                    .push(
+                                      DetailGuidanceRoute(
+                                        request: approvedRequest[index],
+                                      ),
+                                    )
+                                    .then(
+                                      (value) =>
+                                          BlocProvider.of<DashboardLectureBloc>(
+                                                  context)
+                                              .add(const GetDataEvent()),
+                                    );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(10.0),
+                                margin: const EdgeInsets.only(bottom: 5.0),
+                                decoration: const BoxDecoration(
+                                  color: Color(0xFFE5E5E5),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(15),
                                   ),
                                 ),
-                              ),
-                              Container(
-                                margin:
-                                    const EdgeInsets.only(left: 10, right: 10),
-                                width: 1,
-                                height: 50,
-                                color: const Color(0xFF3493C9),
-                              ),
-                              Expanded(
-                                child: Column(
+                                child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      approvedRequest[index].kelompok!.name,
-                                      style: const TextStyle(
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.bold,
+                                    SizedBox(
+                                      width: 40,
+                                      child: Text(
+                                        // show only time
+                                        '${approvedRequest[index].waktu!.hour}:${approvedRequest[index].waktu!.minute}',
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                       ),
                                     ),
-                                    const SizedBox(height: 5),
-
-                                    // limit text to 1 lines
-                                    Text(
-                                      approvedRequest[index].description,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    const SizedBox(height: 5),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.location_on,
-                                          color: Color(0xFF3493C9),
-                                          size: 12,
-                                        ),
-                                        Text(
-                                          approvedRequest[index].ruangan!.name,
-                                          style: const TextStyle(
-                                            fontSize: 12,
-                                            color: Color(0xFF6B6B6B),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 5),
                                     Container(
-                                      padding: const EdgeInsets.all(3.5),
-                                      decoration: BoxDecoration(
-                                        color: primary,
-                                        borderRadius: BorderRadius.circular(10),
-                                      ),
-                                      child: const Text(
-                                        'Disetujui',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 11,
-                                        ),
+                                      margin: const EdgeInsets.only(
+                                          left: 10, right: 10),
+                                      width: 1,
+                                      height: 50,
+                                      color: const Color(0xFF3493C9),
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            approvedRequest[index]
+                                                .kelompok!
+                                                .name,
+                                            style: const TextStyle(
+                                              fontSize: 11,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 5),
+
+                                          // limit text to 1 lines
+                                          Text(
+                                            approvedRequest[index].description,
+                                            style: const TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Row(
+                                            children: [
+                                              const Icon(
+                                                Icons.location_on,
+                                                color: Color(0xFF3493C9),
+                                                size: 12,
+                                              ),
+                                              Text(
+                                                approvedRequest[index]
+                                                    .ruangan!
+                                                    .name,
+                                                style: const TextStyle(
+                                                  fontSize: 12,
+                                                  color: Color(0xFF6B6B6B),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 5),
+                                          Container(
+                                            padding: const EdgeInsets.all(3.5),
+                                            decoration: BoxDecoration(
+                                              color: primary,
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            child: const Text(
+                                              'Disetujui',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 11,
+                                              ),
+                                            ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
+                            );
+                          },
                         ),
-                      );
-                    },
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
           ),
         ],
       ),

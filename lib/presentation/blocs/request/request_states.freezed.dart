@@ -21,7 +21,7 @@ mixin _$RequestState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<Room> rooms) loaded,
+    required TResult Function(List<Room> rooms, bool success) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$RequestState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<Room> rooms)? loaded,
+    TResult? Function(List<Room> rooms, bool success)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$RequestState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<Room> rooms)? loaded,
+    TResult Function(List<Room> rooms, bool success)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,7 +127,7 @@ class _$RequestInitialState implements RequestInitialState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<Room> rooms) loaded,
+    required TResult Function(List<Room> rooms, bool success) loaded,
   }) {
     return initial();
   }
@@ -138,7 +138,7 @@ class _$RequestInitialState implements RequestInitialState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<Room> rooms)? loaded,
+    TResult? Function(List<Room> rooms, bool success)? loaded,
   }) {
     return initial?.call();
   }
@@ -149,7 +149,7 @@ class _$RequestInitialState implements RequestInitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<Room> rooms)? loaded,
+    TResult Function(List<Room> rooms, bool success)? loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -241,7 +241,7 @@ class _$RequestLoadingState implements RequestLoadingState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<Room> rooms) loaded,
+    required TResult Function(List<Room> rooms, bool success) loaded,
   }) {
     return loading();
   }
@@ -252,7 +252,7 @@ class _$RequestLoadingState implements RequestLoadingState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<Room> rooms)? loaded,
+    TResult? Function(List<Room> rooms, bool success)? loaded,
   }) {
     return loading?.call();
   }
@@ -263,7 +263,7 @@ class _$RequestLoadingState implements RequestLoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<Room> rooms)? loaded,
+    TResult Function(List<Room> rooms, bool success)? loaded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -381,7 +381,7 @@ class _$RequestErrorState implements RequestErrorState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<Room> rooms) loaded,
+    required TResult Function(List<Room> rooms, bool success) loaded,
   }) {
     return error(message);
   }
@@ -392,7 +392,7 @@ class _$RequestErrorState implements RequestErrorState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<Room> rooms)? loaded,
+    TResult? Function(List<Room> rooms, bool success)? loaded,
   }) {
     return error?.call(message);
   }
@@ -403,7 +403,7 @@ class _$RequestErrorState implements RequestErrorState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<Room> rooms)? loaded,
+    TResult Function(List<Room> rooms, bool success)? loaded,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -465,7 +465,7 @@ abstract class _$$RequestLoadedStateCopyWith<$Res> {
           $Res Function(_$RequestLoadedState) then) =
       __$$RequestLoadedStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Room> rooms});
+  $Res call({List<Room> rooms, bool success});
 }
 
 /// @nodoc
@@ -480,12 +480,17 @@ class __$$RequestLoadedStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? rooms = null,
+    Object? success = null,
   }) {
     return _then(_$RequestLoadedState(
       rooms: null == rooms
           ? _value._rooms
           : rooms // ignore: cast_nullable_to_non_nullable
               as List<Room>,
+      success: null == success
+          ? _value.success
+          : success // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -493,7 +498,8 @@ class __$$RequestLoadedStateCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RequestLoadedState implements RequestLoadedState {
-  const _$RequestLoadedState({required final List<Room> rooms})
+  const _$RequestLoadedState(
+      {required final List<Room> rooms, required this.success})
       : _rooms = rooms;
 
   final List<Room> _rooms;
@@ -505,8 +511,11 @@ class _$RequestLoadedState implements RequestLoadedState {
   }
 
   @override
+  final bool success;
+
+  @override
   String toString() {
-    return 'RequestState.loaded(rooms: $rooms)';
+    return 'RequestState.loaded(rooms: $rooms, success: $success)';
   }
 
   @override
@@ -514,12 +523,13 @@ class _$RequestLoadedState implements RequestLoadedState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RequestLoadedState &&
-            const DeepCollectionEquality().equals(other._rooms, _rooms));
+            const DeepCollectionEquality().equals(other._rooms, _rooms) &&
+            (identical(other.success, success) || other.success == success));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_rooms));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_rooms), success);
 
   @JsonKey(ignore: true)
   @override
@@ -534,9 +544,9 @@ class _$RequestLoadedState implements RequestLoadedState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<Room> rooms) loaded,
+    required TResult Function(List<Room> rooms, bool success) loaded,
   }) {
-    return loaded(rooms);
+    return loaded(rooms, success);
   }
 
   @override
@@ -545,9 +555,9 @@ class _$RequestLoadedState implements RequestLoadedState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<Room> rooms)? loaded,
+    TResult? Function(List<Room> rooms, bool success)? loaded,
   }) {
-    return loaded?.call(rooms);
+    return loaded?.call(rooms, success);
   }
 
   @override
@@ -556,11 +566,11 @@ class _$RequestLoadedState implements RequestLoadedState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<Room> rooms)? loaded,
+    TResult Function(List<Room> rooms, bool success)? loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(rooms);
+      return loaded(rooms, success);
     }
     return orElse();
   }
@@ -604,10 +614,12 @@ class _$RequestLoadedState implements RequestLoadedState {
 }
 
 abstract class RequestLoadedState implements RequestState {
-  const factory RequestLoadedState({required final List<Room> rooms}) =
-      _$RequestLoadedState;
+  const factory RequestLoadedState(
+      {required final List<Room> rooms,
+      required final bool success}) = _$RequestLoadedState;
 
   List<Room> get rooms;
+  bool get success;
   @JsonKey(ignore: true)
   _$$RequestLoadedStateCopyWith<_$RequestLoadedState> get copyWith =>
       throw _privateConstructorUsedError;

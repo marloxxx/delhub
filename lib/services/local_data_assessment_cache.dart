@@ -1,7 +1,6 @@
 // create a class to save the assessment data locally before sending it to the server
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../core/service_locator.dart';
@@ -12,20 +11,18 @@ class LocalDataAssessmentCacheService {
   SharedPreferences get sharedPrefs => serviceLocator<SharedPreferences>();
 
 // save the assessment data locally by name 'assessment'
-  Future<bool> saveAssessment(Map<String, dynamic> assessment) async {
-    bool saved =
-        await sharedPrefs.setString(assessmentKey, jsonEncode(assessment));
-    return saved;
+  Future<bool> saveAssessment(List<Map<String, dynamic>> assessment) async {
+    return await sharedPrefs.setString(assessmentKey, jsonEncode(assessment));
   }
 
 // get the assessment data locally by name 'assessment'
-  Future<Map<String, dynamic>?> getAssessment() async {
-    var assessmentMap = sharedPrefs.getString(assessmentKey);
-    debugPrint('assessmentMap: $assessmentMap');
-    if (assessmentMap == null) {
-      return null;
+  List<Map<String, dynamic>> getAssessment() {
+    final String? assessmentString = sharedPrefs.getString(assessmentKey);
+    if (assessmentString != null) {
+      final List<dynamic> assessment = jsonDecode(assessmentString);
+      return assessment.cast<Map<String, dynamic>>();
     }
-    return jsonDecode(assessmentMap);
+    return [];
   }
 
 // delete the assessment data locally by name 'assessment'

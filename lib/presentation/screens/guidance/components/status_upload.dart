@@ -53,7 +53,7 @@ class _StatusUploadState extends State<StatusUpload> {
                   state.isUpdated) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                    content: Text("Update Success"),
+                    content: Text("Berhasil Diperbarui"),
                   ),
                 );
                 context.router.pop();
@@ -79,9 +79,10 @@ class _StatusUploadState extends State<StatusUpload> {
                             Text(
                               'Detail Bimbingan',
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontFamily: 'Righteous'),
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontFamily: 'Righteous',
+                              ),
                             )
                           ],
                         ),
@@ -239,6 +240,9 @@ class _StatusUploadState extends State<StatusUpload> {
                                           minLines: 6,
                                           keyboardType: TextInputType.multiline,
                                           maxLines: 6,
+                                          onChanged: (value) {
+                                            setState(() {});
+                                          },
                                         ),
                                         const SizedBox(height: 10),
                                         SizedBox(
@@ -252,14 +256,61 @@ class _StatusUploadState extends State<StatusUpload> {
                                                     children: [
                                                       Center(
                                                         child: result != null
-                                                            ? // set image from file picker
-                                                            Image.file(
-                                                                File(result!
-                                                                    .files
-                                                                    .single
-                                                                    .path!),
-                                                                fit: BoxFit
-                                                                    .contain,
+                                                            ? // set image from file picker and change button to remove file
+                                                            Column(
+                                                                children: [
+                                                                  SizedBox(
+                                                                    height: 200,
+                                                                    width: 200,
+                                                                    child: Image
+                                                                        .file(
+                                                                      File(result!
+                                                                          .files
+                                                                          .single
+                                                                          .path!),
+                                                                      fit: BoxFit
+                                                                          .contain,
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                      height:
+                                                                          10),
+                                                                  ElevatedButton
+                                                                      .icon(
+                                                                    style: ElevatedButton
+                                                                        .styleFrom(
+                                                                      padding: const EdgeInsets
+                                                                              .symmetric(
+                                                                          horizontal:
+                                                                              15.0),
+                                                                      backgroundColor:
+                                                                          const Color(
+                                                                              0xFF3493C9),
+                                                                      shape:
+                                                                          RoundedRectangleBorder(
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(17.0),
+                                                                      ),
+                                                                    ),
+                                                                    icon: const Icon(
+                                                                        Icons
+                                                                            .delete,
+                                                                        size:
+                                                                            16),
+                                                                    label: const Text(
+                                                                        'Hapus File'),
+                                                                    onPressed:
+                                                                        () {
+                                                                      setState(
+                                                                          () {
+                                                                        result =
+                                                                            null;
+                                                                        droppedFile =
+                                                                            null;
+                                                                      });
+                                                                    },
+                                                                  ),
+                                                                ],
                                                               )
                                                             : Column(
                                                                 mainAxisAlignment:
@@ -267,13 +318,12 @@ class _StatusUploadState extends State<StatusUpload> {
                                                                         .center,
                                                                 children: [
                                                                   const Icon(
-                                                                      Icons
-                                                                          .cloud_upload,
-                                                                      size: 50,
-                                                                      color: Color(
-                                                                          0xFF918383)),
-                                                                  const Text(
-                                                                      'Drop File Here'),
+                                                                    Icons
+                                                                        .cloud_upload,
+                                                                    size: 50,
+                                                                    color: Color(
+                                                                        0xFF918383),
+                                                                  ),
                                                                   const SizedBox(
                                                                       height:
                                                                           10),
@@ -425,7 +475,7 @@ class _StatusUploadState extends State<StatusUpload> {
                 );
               } else {
                 return const Center(
-                  child: Text('Something went wrong'),
+                  child: Text('Terjadi Kesalahan'),
                 );
               }
             },
@@ -441,7 +491,7 @@ class _StatusUploadState extends State<StatusUpload> {
       OneContext().showDialog(
         builder: (_) => AlertDialog(
           title: const Text('Warning'),
-          content: const Text('File is required'),
+          content: const Text('File tidak boleh kosong'),
           actions: [
             TextButton(
               onPressed: () {
@@ -458,7 +508,7 @@ class _StatusUploadState extends State<StatusUpload> {
       OneContext().showDialog(
         builder: (_) => AlertDialog(
           title: const Text('Warning'),
-          content: const Text('Hasil Bimbingan is required'),
+          content: const Text('Hasil Bimbingan tidak boleh kosong'),
           actions: [
             TextButton(
               onPressed: () {
@@ -476,7 +526,7 @@ class _StatusUploadState extends State<StatusUpload> {
         status: widget.request.status,
         waktu: null,
         file: droppedFile,
-        result: _controller.text, 
+        result: _controller.text,
       ),
     );
   }

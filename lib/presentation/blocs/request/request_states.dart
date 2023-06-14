@@ -9,6 +9,6 @@ class RequestState with _$RequestState {
   const factory RequestState.initial() = RequestInitialState;
   const factory RequestState.loading() = RequestLoadingState;
   const factory RequestState.error(String message) = RequestErrorState;
-  const factory RequestState.loaded({required RoomList rooms}) =
-      RequestLoadedState;
+  const factory RequestState.loaded(
+      {required RoomList rooms, required bool success}) = RequestLoadedState;
 }

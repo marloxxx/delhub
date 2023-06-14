@@ -123,7 +123,9 @@ class Body extends StatelessWidget {
                       ),
                       Activity(user),
                       RecordGuidance(requestList),
-                      TotalGuidance(),
+                      TotalGuidance(
+                        requestList: requestList,
+                      ),
                     ],
                   ),
                 ),

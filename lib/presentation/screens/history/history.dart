@@ -62,12 +62,14 @@ class _HistoryState extends State<History> {
                 requestList: state.requestList,
               );
             } else if (state is HistoryErrorState) {
-              return Center(
-                child: Text("${state.message}. Please restart the page"),
+              return const Center(
+                child: Text(
+                    'Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
               );
             } else {
               return const Center(
-                child: Text('Please restart the page'),
+                child: Text(
+                    'Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
               );
             }
           },

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../routes/app_routers.dart';
 import '../../../../data/models/request_model.dart';
+import '../../../../shared/theme.dart';
 import '../../../blocs/dashboard_student/dashboard_student_bloc.dart';
 import '../../../blocs/dashboard_student/dashboard_student_event.dart';
 
@@ -46,8 +47,21 @@ class RecordGuidance extends StatelessWidget {
         SizedBox(
           height: 200,
           child: requestList.isEmpty
-              ? const Center(
-                  child: Text('Anda belum memiliki jadwal bimbingan'),
+              ? Column(
+                  children: [
+                    // icon
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 10),
+                      child: Icon(
+                        Icons.warning,
+                        color: warning,
+                        size: 50,
+                      ),
+                    ),
+                    const Center(
+                      child: Text('Anda belum memiliki jadwal bimbingan'),
+                    ),
+                  ],
                 )
               : ListView.builder(
                   scrollDirection: Axis.vertical,

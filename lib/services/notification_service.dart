@@ -47,6 +47,8 @@ class NotificationService {
 
     initialAction = await AwesomeNotifications()
         .getInitialNotificationAction(removeFromActionEvents: false);
+
+    await startListeningNotificationEvents();
   }
 
   static Future<void> startListeningNotificationEvents() async {

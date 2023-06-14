@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:one_context/one_context.dart';
 
 import '../../../../data/models/request_model.dart';
 import '../../blocs/detail_guidance/detail_guidance_bloc.dart';
@@ -31,9 +32,18 @@ class _GuidanceState extends State<Guidance> {
       body: BlocConsumer<DetailGuidanceBloc, DetailGuidanceState>(
         listener: (context, state) {
           if (state is DetailGuidanceErrorState) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
+            OneContext().showDialog(
+              builder: (_) => AlertDialog(
+                title: const Text("Error"),
                 content: Text(state.message),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(_).pop();
+                    },
+                    child: const Text("OK"),
+                  ),
+                ],
               ),
             );
           } else if (state is DetailGuidanceLoadingState) {
@@ -41,9 +51,18 @@ class _GuidanceState extends State<Guidance> {
               child: CircularProgressIndicator(),
             );
           } else if (state is DetailGuidanceLoadedState && state.isUpdated) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("Update Success"),
+            OneContext().showDialog(
+              builder: (_) => AlertDialog(
+                title: const Text("Success"),
+                content: const Text("Berhasil mengubah data bimbingan"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(_).pop();
+                    },
+                    child: const Text("OK"),
+                  ),
+                ],
               ),
             );
             AutoRouter.of(context).pop();
@@ -67,8 +86,9 @@ class _GuidanceState extends State<Guidance> {
               request: widget.request,
             );
           } else if (state is DetailGuidanceErrorState) {
-            return Center(
-              child: Text('${state.message} \nPlease refresh the page'),
+            return const Center(
+              child:
+                  Text('Terjadi kesalahan.\nTarik ke bawah untuk memuat ulang'),
             );
           } else {
             return const Center(
