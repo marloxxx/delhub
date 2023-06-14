@@ -25,7 +25,7 @@ class Body extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'History Bimbingan',
+                  'Histori Bimbingan',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 25,
@@ -147,8 +147,7 @@ class Body extends StatelessWidget {
                                               ),
                                             ),
                                             Container(
-                                              padding:
-                                                  const EdgeInsets.all(3.5),
+                                              padding: const EdgeInsets.all(4),
                                               decoration: BoxDecoration(
                                                 // if status is approve, color is blue, if reject, color is red, else color is yellow
                                                 color: requestList[index]
@@ -192,10 +191,10 @@ class Body extends StatelessWidget {
                                     ),
                                     Container(
                                       margin: const EdgeInsets.only(
-                                        top: 10,
+                                        top: 20,
                                         bottom: 10,
                                       ),
-                                      height: 1,
+                                      height: 2,
                                       color: const Color(0xFFC4C4C4),
                                     ),
                                   ],

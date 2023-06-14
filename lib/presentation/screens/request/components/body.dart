@@ -77,7 +77,7 @@ class _BodyState extends State<Body> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Request Bimbingan',
+                    'Permintaan Bimbingan',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 25,
@@ -125,7 +125,7 @@ class _BodyState extends State<Body> {
                                 ),
                                 const SizedBox(width: 10),
                                 const Text(
-                                  'Request Bimbingan',
+                                  'Permintaan Bimbingan',
                                   style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.bold,
@@ -312,7 +312,7 @@ class _BodyState extends State<Body> {
                                                 BorderRadius.circular(32.0),
                                           ),
                                         ),
-                                        child: const Text('Request'),
+                                        child: const Text('Kirim'),
                                       ),
                                     ),
                                   ],

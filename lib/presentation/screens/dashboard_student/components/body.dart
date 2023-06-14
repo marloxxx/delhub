@@ -1,6 +1,7 @@
 import 'package:delhub/presentation/screens/dashboard_student/components/total_guidance.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 import '../../../../data/models/request_model.dart';
 import '../../../../data/models/user_model.dart';
@@ -97,29 +98,45 @@ class Body extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Column(
-                        children: [
-                          const SizedBox(height: 20),
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(left: 15.0, right: 15.0),
+                      CarouselSlider(
+                        options: CarouselOptions(
+                            height: 100.0,
+                            aspectRatio: 16 / 9,
+                            viewportFraction: 1,
+                            initialPage: 0,
+                            enableInfiniteScroll: true,
+                            reverse: false,
+                            autoPlay: true,
+                            autoPlayInterval: const Duration(seconds: 3),
+                            autoPlayAnimationDuration:
+                                const Duration(milliseconds: 800),
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            enlargeCenterPage: true,
+                            enlargeFactor: 0.3,
+                            scrollDirection: Axis.horizontal),
+                        items: [
+                          'assets/images/1.jpg',
+                          'assets/images/2.jpg',
+                          'assets/images/3.JPG',
+                          'assets/images/4.JPG',
+                          'assets/images/5.JPG',
+                          // Add more image paths here
+                        ].map((item) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                                left: 15.0, right: 15.0, top: 20.0),
                             child: Container(
-                              height:
-                                  100, // Set the desired height to 100 pixels
-                              padding: const EdgeInsets.all(10.0),
-                              decoration: const BoxDecoration(
+                              height: 100.0,
+                              decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/visi_misi.jpg'), // Replace with your image path
+                                  image: AssetImage(item),
                                   fit: BoxFit.cover,
                                 ),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(15),
-                                ),
+                                borderRadius: BorderRadius.circular(15.0),
                               ),
                             ),
-                          ),
-                        ],
+                          );
+                        }).toList(),
                       ),
                       Activity(user),
                       RecordGuidance(requestList),

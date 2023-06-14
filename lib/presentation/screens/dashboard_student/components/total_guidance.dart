@@ -14,7 +14,7 @@ class TotalGuidance extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 15.0, right: 15.0),
+          padding: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
           child: Container(
             padding: const EdgeInsets.all(10.0),
             decoration: const BoxDecoration(

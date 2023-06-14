@@ -188,36 +188,36 @@ class _BodyState extends State<Body> {
                                     ),
                                   ],
                                 ),
+                                // TableRow(
+                                //   decoration: BoxDecoration(
+                                //     color: Colors.grey.shade200,
+                                //   ),
+                                //   children: [
+                                //     TableCell(
+                                //       child: Container(
+                                //         padding: const EdgeInsets.only(
+                                //             top: 10.0, left: 15.0),
+                                //         child: const Text(
+                                //           'Kelompok',
+                                //           style: TextStyle(
+                                //             fontSize: 16,
+                                //             fontWeight: FontWeight.bold,
+                                //           ),
+                                //         ),
+                                //       ),
+                                //     ),
+                                //     TableCell(
+                                //       child: Container(
+                                //         padding: const EdgeInsets.all(10.0),
+                                //         child:
+                                //             Text(widget.request.kelompok!.name),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
                                 TableRow(
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade200,
-                                  ),
-                                  children: [
-                                    TableCell(
-                                      child: Container(
-                                        padding: const EdgeInsets.only(
-                                            top: 10.0, left: 15.0),
-                                        child: const Text(
-                                          'Kelompok',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    TableCell(
-                                      child: Container(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child:
-                                            Text(widget.request.kelompok!.name),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                TableRow(
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade100,
                                   ),
                                   children: [
                                     TableCell(
@@ -247,7 +247,7 @@ class _BodyState extends State<Body> {
                                 ),
                                 TableRow(
                                   decoration: BoxDecoration(
-                                    color: Colors.grey.shade200,
+                                    color: Colors.grey.shade100,
                                   ),
                                   children: [
                                     TableCell(
@@ -273,7 +273,7 @@ class _BodyState extends State<Body> {
                                 ),
                                 TableRow(
                                   decoration: BoxDecoration(
-                                    color: Colors.grey.shade100,
+                                    color: Colors.grey.shade200,
                                   ),
                                   children: [
                                     TableCell(
@@ -299,7 +299,7 @@ class _BodyState extends State<Body> {
                                 ),
                                 TableRow(
                                   decoration: BoxDecoration(
-                                    color: Colors.grey.shade200,
+                                    color: Colors.grey.shade100,
                                   ),
                                   children: [
                                     TableCell(
@@ -327,7 +327,7 @@ class _BodyState extends State<Body> {
                                 // status
                                 TableRow(
                                   decoration: BoxDecoration(
-                                    color: Colors.grey.shade100,
+                                    color: Colors.grey.shade200,
                                   ),
                                   children: [
                                     TableCell(
@@ -396,7 +396,7 @@ class _BodyState extends State<Body> {
                                 if (widget.request.file.isNotEmpty)
                                   TableRow(
                                     decoration: BoxDecoration(
-                                      color: Colors.grey.shade200,
+                                      color: Colors.grey.shade100,
                                     ),
                                     children: [
                                       TableCell(
@@ -536,7 +536,7 @@ class _BodyState extends State<Body> {
                                                           7.0),
                                                 ),
                                               ),
-                                              child: const Text('Reschedule'),
+                                              child: const Text('Jadwal Ulang'),
                                             ),
                                     ],
                                   )
@@ -612,7 +612,7 @@ class _BodyState extends State<Body> {
                                                   BorderRadius.circular(7.0),
                                             ),
                                           ),
-                                          child: const Text('Reschedule'),
+                                          child: const Text('Jadwal Ulang'),
                                         ),
                                 ],
                               ),
