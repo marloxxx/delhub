@@ -124,13 +124,20 @@ class Other extends StatelessWidget {
                                   thickness: 2,
                                 ),
                                 const SizedBox(height: 10),
+                                // check if kelompok had request is done equals or greater than 7
                                 InkWell(
                                   onTap: () {
-                                    AutoRouter.of(context).push(
-                                      AssesmentPointRoute(
-                                        kelompok: kelompok,
-                                      ),
-                                    );
+                                    if (kelompok.requests!
+                                            .where((element) =>
+                                                element.status == 'done')
+                                            .length >=
+                                        7) {
+                                      AutoRouter.of(context).push(
+                                        AssesmentPointRoute(
+                                          kelompok: kelompok,
+                                        ),
+                                      );
+                                    }
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(15.0),
@@ -182,7 +189,6 @@ class Other extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-
                                 const SizedBox(height: 10),
                                 const Divider(
                                   height: 1,
@@ -190,7 +196,6 @@ class Other extends StatelessWidget {
                                   thickness: 2,
                                 ),
                                 const SizedBox(height: 10),
-
                                 InkWell(
                                   onTap: () {
                                     AutoRouter.of(context).push(

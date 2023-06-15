@@ -104,7 +104,7 @@ class Body extends StatelessWidget {
                   children: [
                     CarouselSlider(
                       options: CarouselOptions(
-                          height: 100.0,
+                          height: 150.0,
                           aspectRatio: 16 / 9,
                           viewportFraction: 1,
                           initialPage: 0,
@@ -130,7 +130,7 @@ class Body extends StatelessWidget {
                           padding: const EdgeInsets.only(
                               left: 15.0, right: 15.0, top: 20.0),
                           child: Container(
-                            height: 100.0,
+                            height: 150.0,
                             decoration: BoxDecoration(
                               image: DecorationImage(
                                 image: AssetImage(item),

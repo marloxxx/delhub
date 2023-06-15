@@ -340,12 +340,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       if (response.statusCode == 200) {
         AssessmentStudentList assessmentStudentList = [];
         final data = response.data['data'];
-        try {
-          for (var item in data) {
-            assessmentStudentList.add(AssessmentStudent.fromJson(item));
-          }
-        } catch (e) {
-          debugPrint(e.toString());
+        for (var item in data) {
+          assessmentStudentList.add(AssessmentStudent.fromJson(item));
         }
         return Right(assessmentStudentList);
       } else {

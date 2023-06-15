@@ -187,34 +187,7 @@ class _BodyState extends State<Body> {
                                       ),
                                     ),
                                   ],
-                                ),
-                                // TableRow(
-                                //   decoration: BoxDecoration(
-                                //     color: Colors.grey.shade200,
-                                //   ),
-                                //   children: [
-                                //     TableCell(
-                                //       child: Container(
-                                //         padding: const EdgeInsets.only(
-                                //             top: 10.0, left: 15.0),
-                                //         child: const Text(
-                                //           'Kelompok',
-                                //           style: TextStyle(
-                                //             fontSize: 16,
-                                //             fontWeight: FontWeight.bold,
-                                //           ),
-                                //         ),
-                                //       ),
-                                //     ),
-                                //     TableCell(
-                                //       child: Container(
-                                //         padding: const EdgeInsets.all(10.0),
-                                //         child:
-                                //             Text(widget.request.kelompok!.name),
-                                //       ),
-                                //     ),
-                                //   ],
-                                // ),
+                                ),  
                                 TableRow(
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade200,
