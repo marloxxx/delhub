@@ -1,13 +1,14 @@
 import 'dart:io';
 
 import 'package:auto_route/auto_route.dart';
-import 'package:delhub/shared/theme.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:one_context/one_context.dart';
+
+import '../../../../shared/theme.dart';
 import '../../../../data/models/dropped_file_model.dart';
 import '../../../../data/models/request_model.dart';
 import '../../../blocs/detail_guidance/detail_guidance_bloc.dart';
@@ -239,9 +240,6 @@ class _StatusUploadState extends State<StatusUpload> {
                                           minLines: 6,
                                           keyboardType: TextInputType.multiline,
                                           maxLines: 6,
-                                          onChanged: (value) {
-                                            setState(() {});
-                                          },
                                         ),
                                         const SizedBox(height: 10),
                                         SizedBox(
@@ -461,16 +459,21 @@ class _StatusUploadState extends State<StatusUpload> {
                             topRight: Radius.circular(25),
                           ),
                           child: Container(
-                              padding: const EdgeInsets.all(15.0),
-                              width: MediaQuery.of(context).size.width,
-                              color: white,
-                              child: Center(
-                                child: Text(state.message),
-                              )),
+                            padding: const EdgeInsets.all(15.0),
+                            width: MediaQuery.of(context).size.width,
+                            color: white,
+                            child: Center(
+                              child: Text(state.message),
+                            ),
+                          ),
                         ),
                       )
                     ],
                   ),
+                );
+              } else if (state is DetailGuidanceLoadingState) {
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
               } else {
                 return const Center(
@@ -519,20 +522,21 @@ class _StatusUploadState extends State<StatusUpload> {
         ),
       );
     }
-    BlocProvider.of<DetailGuidanceBloc>(context).add(
-      UpdateDataEvent(
-        id: widget.request.id,
-        status: widget.request.status,
-        waktu: null,
-        file: droppedFile,
-        result: _controller.text,
-      ),
-    );
+    if (_controller.text.isNotEmpty && droppedFile != null) {
+      BlocProvider.of<DetailGuidanceBloc>(context).add(
+        UpdateDataEvent(
+          id: widget.request.id,
+          status: widget.request.status,
+          waktu: null,
+          file: droppedFile,
+          result: _controller.text,
+        ),
+      );
+    }
   }
 
   Widget buildDecoration({required Widget child}) {
     final colorBackground = isHighLighted ? Colors.blue.shade100 : Colors.white;
-
     return ClipRRect(
       borderRadius: BorderRadius.circular(12.0),
       child: Container(

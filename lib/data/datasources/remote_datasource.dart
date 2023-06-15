@@ -25,7 +25,7 @@ abstract class RemoteDataSource {
   // Requests
   Future<Either<Failure, request_model.RequestList>> getRequestsFromServer();
   Future<Either<Failure, bool>> createRequest(request_model.Request request);
-  Future<Either<Failure, bool>> updateRequest(
+  Future<Either<Failure, request_model.Request>> updateRequest(
       int id, String status, String? waktu, DroppedFile? file, String? result);
 
   // Rooms
@@ -46,6 +46,9 @@ abstract class RemoteDataSource {
 
   Future<Either<Failure, AssessmentStudentList>>
       getAssessmentStudentsFromServer(Kelompok kelompok);
+
+  Future<Either<Failure, request_model.Request>> getRequestFromServer(
+      request_model.Request request);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -69,8 +72,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         return Left(ConnectionFailure(response.data['data']['message']));
       }
     } catch (e) {
-      return Left(
-        Exception(e.toString()),
+      return const Left(
+        Exception("Terjadi kesalahan pada server, silahkan coba lagi"),
       );
     }
   }
@@ -90,8 +93,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         return Left(ConnectionFailure(response.data['meta']['message']));
       }
     } catch (e) {
-      return Left(
-        Exception(e.toString()),
+      return const Left(
+        Exception("Terjadi kesalahan pada server, silahkan coba lagi"),
       );
     }
   }
@@ -109,8 +112,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         return Left(ConnectionFailure(response.data['meta']['message']));
       }
     } catch (e) {
-      return Left(
-        Exception(e.toString()),
+      return const Left(
+        Exception("Terjadi kesalahan pada server, silahkan coba lagi"),
       );
     }
   }
@@ -132,8 +135,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         return Left(ConnectionFailure(response.data['meta']['message']));
       }
     } catch (e) {
-      return Left(
-        Exception(e.toString()),
+      return const Left(
+        Exception("Terjadi kesalahan pada server, silahkan coba lagi"),
       );
     }
   }
@@ -155,8 +158,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         return Left(ConnectionFailure(response.data['meta']['message']));
       }
     } catch (e) {
-      return Left(
-        Exception(e.toString()),
+      return const Left(
+        Exception("Terjadi kesalahan pada server, silahkan coba lagi"),
       );
     }
   }
@@ -179,15 +182,15 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         return Left(ConnectionFailure(response.data['meta']['errors']));
       }
     } catch (e) {
-      return Left(
-        Exception(e.toString()),
+      return const Left(
+        Exception("Terjadi kesalahan pada server, silahkan coba lagi"),
       );
     }
   }
 
   @override
-  Future<Either<Failure, bool>> updateRequest(int id, String status,
-      String? waktu, DroppedFile? file, String? result) async {
+  Future<Either<Failure, request_model.Request>> updateRequest(int id,
+      String status, String? waktu, DroppedFile? file, String? result) async {
     try {
       final Request request = serviceLocator<Request>();
       debugPrint(status);
@@ -203,7 +206,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       final response = await request.post('/requests/$id', data: data);
       if (response.statusCode == 200) {
         request.updateContentType('application/json');
-        return const Right(true);
+        return Right(request_model.Request.fromJson(response.data['data']));
       } else {
         return Left(ConnectionFailure(response.data['meta']['errors']));
       }
@@ -347,6 +350,26 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       } else {
         return Left(ConnectionFailure(response.data['meta']['message']));
       }
+    } catch (e) {
+      return Left(
+        Exception(e.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, request_model.Request>> getRequestFromServer(
+      request_model.Request requestModel) async {
+    try {
+      final Request request = serviceLocator<Request>();
+      final response = request.get('/requests/${requestModel.id}');
+      return response.then((value) {
+        if (value.statusCode == 200) {
+          return Right(request_model.Request.fromJson(value.data['data']));
+        } else {
+          return Left(ConnectionFailure(value.data['meta']['message']));
+        }
+      });
     } catch (e) {
       return Left(
         Exception(e.toString()),

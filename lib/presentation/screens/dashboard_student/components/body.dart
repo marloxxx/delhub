@@ -139,10 +139,10 @@ class Body extends StatelessWidget {
                         }).toList(),
                       ),
                       Activity(user),
-                      RecordGuidance(requestList),
                       TotalGuidance(
                         requestList: requestList,
                       ),
+                      RecordGuidance(requestList),
                     ],
                   ),
                 ),

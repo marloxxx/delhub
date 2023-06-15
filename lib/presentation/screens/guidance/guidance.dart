@@ -22,7 +22,8 @@ class _GuidanceState extends State<Guidance> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<DetailGuidanceBloc>(context).add(const GetDataEvent());
+    BlocProvider.of<DetailGuidanceBloc>(context)
+        .add(GetDataEvent(request: widget.request));
   }
 
   @override
@@ -65,7 +66,6 @@ class _GuidanceState extends State<Guidance> {
                   ],
                 ),
               );
-              AutoRouter.of(context).pop();
             }
           },
           listenWhen: (previous, current) {
@@ -83,7 +83,7 @@ class _GuidanceState extends State<Guidance> {
             } else if (state is DetailGuidanceLoadedState) {
               return Body(
                 user: state.user,
-                request: widget.request,
+                request: state.request,
               );
             } else if (state is DetailGuidanceErrorState) {
               return const Center(

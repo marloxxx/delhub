@@ -21,9 +21,13 @@ class RequestUseCase {
     return serviceLocator<RequestRepository>().createRequest(request);
   }
 
-  Future<Either<Failure, bool>> updateRequest(
+  Future<Either<Failure, Request>> updateRequest(
       int id, String status, String? waktu, DroppedFile? file, String? result) {
     return serviceLocator<RequestRepository>()
         .updateRequest(id, status, waktu, file, result);
+  }
+
+  Future<Either<Failure, Request>> getRequestFromServer(Request request) {
+    return serviceLocator<RequestRepository>().getRequestFromServer(request);
   }
 }

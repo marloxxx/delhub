@@ -49,7 +49,6 @@ class _BodyState extends State<Body> {
   Future<void> _pickDateTime(BuildContext context) async {
     final pickedDate = await _selectDate(context);
     final pickedTime = await _pickTime(context);
-
     if (pickedDate != null && pickedTime != null) {
       setState(() {
         _dateController.text =
@@ -63,6 +62,8 @@ class _BodyState extends State<Body> {
             result: null,
           ),
         );
+        BlocProvider.of<DetailGuidanceBloc>(context)
+            .add(GetDataEvent(request: widget.request));
       });
     }
   }
@@ -157,37 +158,40 @@ class _BodyState extends State<Body> {
                                 1: FlexColumnWidth(),
                               },
                               children: [
-                                TableRow(
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey.shade100,
-                                    borderRadius: const BorderRadius.only(
-                                      topLeft: Radius.circular(25),
-                                      topRight: Radius.circular(25),
+                                if (widget.request.kelompok != null)
+                                  TableRow(
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade100,
+                                      borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(25),
+                                        topRight: Radius.circular(25),
+                                      ),
                                     ),
-                                  ),
-                                  children: [
-                                    TableCell(
-                                      child: Container(
-                                        padding: const EdgeInsets.only(
-                                            top: 10.0, left: 15.0),
-                                        child: const Text(
-                                          'Pemohon',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
+                                    children: [
+                                      TableCell(
+                                        child: Container(
+                                          padding: const EdgeInsets.only(
+                                              top: 10.0, left: 15.0),
+                                          child: const Text(
+                                            'Pemohon',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    TableCell(
-                                      child: Container(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child:
-                                            Text(widget.request.kelompok!.name),
+                                      TableCell(
+                                        child: Container(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child:
+                                              // check null
+                                              Text(widget
+                                                  .request.kelompok!.name),
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),  
+                                    ],
+                                  ),
                                 TableRow(
                                   decoration: BoxDecoration(
                                     color: Colors.grey.shade200,
@@ -321,7 +325,7 @@ class _BodyState extends State<Body> {
                                         padding: const EdgeInsets.all(10.0),
                                         child: Text(
                                           // if is done is true, show done
-                                          widget.request.is_done == true
+                                          widget.request.is_done
                                               ? 'Selesai'
                                               : widget.request.status ==
                                                       'waiting'
@@ -335,31 +339,21 @@ class _BodyState extends State<Body> {
                                                           : widget.request
                                                                       .status ==
                                                                   'reschedule'
-                                                              ? 'Reschedule'
+                                                              ? 'Dijadwalkan ulang'
                                                               : 'Selesai',
                                           style: TextStyle(
                                             color:
                                                 // if is done is true, show done
-                                                widget.request.is_done == true
+                                                widget.request.is_done
                                                     ? Colors.green
                                                     : widget.request.status ==
-                                                            'waiting'
-                                                        ? Colors.orange
+                                                            'approve'
+                                                        ? primary
                                                         : widget.request
                                                                     .status ==
-                                                                'approve'
-                                                            ? Colors.green
-                                                            : widget.request
-                                                                        .status ==
-                                                                    'reject'
-                                                                ? Colors.red
-                                                                : widget.request
-                                                                            .status ==
-                                                                        'reschedule'
-                                                                    ? Colors
-                                                                        .yellow
-                                                                    : Colors
-                                                                        .blue,
+                                                                'reject'
+                                                            ? Colors.red
+                                                            : warning,
                                           ),
                                         ),
                                       ),
@@ -454,6 +448,10 @@ class _BodyState extends State<Body> {
                                               result: null,
                                             ),
                                           );
+                                          BlocProvider.of<DetailGuidanceBloc>(
+                                                  context)
+                                              .add(GetDataEvent(
+                                                  request: widget.request));
                                         },
                                         style: ElevatedButton.styleFrom(
                                           foregroundColor: Colors.white,
@@ -479,6 +477,10 @@ class _BodyState extends State<Body> {
                                               result: null,
                                             ),
                                           );
+                                          BlocProvider.of<DetailGuidanceBloc>(
+                                                  context)
+                                              .add(GetDataEvent(
+                                                  request: widget.request));
                                         },
                                         style: ElevatedButton.styleFrom(
                                           foregroundColor: Colors.white,
@@ -521,14 +523,10 @@ class _BodyState extends State<Body> {
                                     ? widget.request.is_done == false
                                         ? ElevatedButton(
                                             onPressed: () {
-                                              AutoRouter.of(context)
-                                                  .push(
-                                                    StatusUploadRoute(
-                                                        request:
-                                                            widget.request),
-                                                  )
-                                                  .then((value) =>
-                                                      setState(() {}));
+                                              AutoRouter.of(context).push(
+                                                StatusUploadRoute(
+                                                    request: widget.request),
+                                              );
                                             },
                                             style: ElevatedButton.styleFrom(
                                               foregroundColor: Colors.white,
@@ -553,12 +551,10 @@ class _BodyState extends State<Body> {
                                                   .isBefore(DateTime.now())
                                           ? ElevatedButton(
                                               onPressed: () {
-                                                AutoRouter.of(context)
-                                                    .push(StatusUploadRoute(
+                                                AutoRouter.of(context).push(
+                                                    StatusUploadRoute(
                                                         request:
-                                                            widget.request))
-                                                    .then((value) =>
-                                                        setState(() {}));
+                                                            widget.request));
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 foregroundColor: Colors.white,

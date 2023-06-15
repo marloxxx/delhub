@@ -55,8 +55,10 @@ class _BodyState extends State<Body> {
     final DateTime? pickedDate = await _selectDate(context);
     final TimeOfDay? pickedTime = await _pickTime(context);
     setState(() {
-      _dateController.text =
-          "${"${pickedDate?.toLocal()}".split(' ')[0]} ${pickedTime?.format(context)}";
+      if (pickedDate != null && pickedTime != null) {
+        _dateController.text =
+            "${"${pickedDate.toLocal()}".split(' ')[0]} ${pickedTime.format(context)}";
+      }
     });
   }
 

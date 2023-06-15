@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:delhub/shared/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -152,33 +153,39 @@ class Body extends StatelessWidget {
                                               decoration: BoxDecoration(
                                                 // if status is approve, color is blue, if reject, color is red, else color is yellow
                                                 color: requestList[index]
-                                                            .status ==
-                                                        'approve'
-                                                    ? const Color(0xFF3493C9)
+                                                        .is_done
+                                                    ? Colors.green
                                                     : requestList[index]
                                                                 .status ==
-                                                            'reject'
+                                                            'approve'
                                                         ? const Color(
-                                                            0xFFE74C3C)
-                                                        : const Color(
-                                                            0xFFEDCB19),
+                                                            0xFF3493C9)
+                                                        : requestList[index]
+                                                                    .status ==
+                                                                'reject'
+                                                            ? const Color(
+                                                                0xFFE74C3C)
+                                                            : warning,
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                               ),
                                               child: Text(
                                                 // if status is approve, text is "Disetujui", if reject, text is "Ditolak", else if status is reschedule, text is "Reschedule", else text is "Menunggu"
-                                                requestList[index].status ==
-                                                        'approve'
-                                                    ? 'Disetujui'
+                                                requestList[index].is_done
+                                                    ? 'Selesai'
                                                     : requestList[index]
                                                                 .status ==
-                                                            'reject'
-                                                        ? 'Ditolak'
+                                                            'approve'
+                                                        ? 'Disetujui'
                                                         : requestList[index]
                                                                     .status ==
-                                                                'reschedule'
-                                                            ? 'Reschedule'
-                                                            : 'Menunggu',
+                                                                'reject'
+                                                            ? 'Ditolak'
+                                                            : requestList[index]
+                                                                        .status ==
+                                                                    'reschedule'
+                                                                ? 'Dijadwalkan ulang'
+                                                                : 'Menunggu',
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 12,

@@ -63,6 +63,7 @@ class GuidanceStatus extends StatelessWidget {
             ),
           ),
           Container(
+            height: MediaQuery.of(context).size.height * 0.4,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(
                 Radius.circular(15),
@@ -98,7 +99,6 @@ class GuidanceStatus extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.only(left: 10, right: 10),
                         width: MediaQuery.of(context).size.width / 2.2,
-                        height: 200,
                         child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
@@ -217,7 +217,6 @@ class GuidanceStatus extends StatelessWidget {
                       Container(
                         margin: const EdgeInsets.only(right: 10),
                         width: MediaQuery.of(context).size.width / 2.2,
-                        height: 200,
                         child: ListView.builder(
                           shrinkWrap: true,
                           scrollDirection: Axis.vertical,
@@ -317,13 +316,23 @@ class GuidanceStatus extends StatelessWidget {
                                           Container(
                                             padding: const EdgeInsets.all(3.5),
                                             decoration: BoxDecoration(
-                                              color: primary,
+                                              color: requestList[index].is_done
+                                                  ? Colors.green
+                                                  : requestList[index].status ==
+                                                          'approve'
+                                                      ? primary
+                                                      : warning,
                                               borderRadius:
                                                   BorderRadius.circular(10),
                                             ),
-                                            child: const Text(
-                                              'Disetujui',
-                                              style: TextStyle(
+                                            child: Text(
+                                              requestList[index].is_done
+                                                  ? 'Selesai'
+                                                  : requestList[index].status ==
+                                                          'approve'
+                                                      ? 'Disetujui'
+                                                      : 'Dijadwalkan ulang',
+                                              style: const TextStyle(
                                                 color: Colors.white,
                                                 fontSize: 11,
                                               ),
