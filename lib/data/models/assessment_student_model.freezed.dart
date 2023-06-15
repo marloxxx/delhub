@@ -21,11 +21,11 @@ AssessmentStudent _$AssessmentStudentFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$AssessmentStudent {
   int get id => throw _privateConstructorUsedError;
-  Kelompok get kelompok => throw _privateConstructorUsedError;
-  AssessmentPoint get assessmentPoint => throw _privateConstructorUsedError;
-  int get score => throw _privateConstructorUsedError;
-  Mahasiswa get mahasiswa => throw _privateConstructorUsedError;
-  String get status => throw _privateConstructorUsedError;
+  Kelompok? get kelompok => throw _privateConstructorUsedError;
+  AssessmentPoint? get assessmentPoint => throw _privateConstructorUsedError;
+  double get score => throw _privateConstructorUsedError;
+  Mahasiswa? get mahasiswa => throw _privateConstructorUsedError;
+  bool get status => throw _privateConstructorUsedError;
   List<DetailAssessmentStudent>? get detailAssessmentStudent =>
       throw _privateConstructorUsedError;
 
@@ -43,16 +43,16 @@ abstract class $AssessmentStudentCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      Kelompok kelompok,
-      AssessmentPoint assessmentPoint,
-      int score,
-      Mahasiswa mahasiswa,
-      String status,
+      Kelompok? kelompok,
+      AssessmentPoint? assessmentPoint,
+      double score,
+      Mahasiswa? mahasiswa,
+      bool status,
       List<DetailAssessmentStudent>? detailAssessmentStudent});
 
-  $KelompokCopyWith<$Res> get kelompok;
-  $AssessmentPointCopyWith<$Res> get assessmentPoint;
-  $MahasiswaCopyWith<$Res> get mahasiswa;
+  $KelompokCopyWith<$Res>? get kelompok;
+  $AssessmentPointCopyWith<$Res>? get assessmentPoint;
+  $MahasiswaCopyWith<$Res>? get mahasiswa;
 }
 
 /// @nodoc
@@ -69,10 +69,10 @@ class _$AssessmentStudentCopyWithImpl<$Res, $Val extends AssessmentStudent>
   @override
   $Res call({
     Object? id = null,
-    Object? kelompok = null,
-    Object? assessmentPoint = null,
+    Object? kelompok = freezed,
+    Object? assessmentPoint = freezed,
     Object? score = null,
-    Object? mahasiswa = null,
+    Object? mahasiswa = freezed,
     Object? status = null,
     Object? detailAssessmentStudent = freezed,
   }) {
@@ -81,26 +81,26 @@ class _$AssessmentStudentCopyWithImpl<$Res, $Val extends AssessmentStudent>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      kelompok: null == kelompok
+      kelompok: freezed == kelompok
           ? _value.kelompok
           : kelompok // ignore: cast_nullable_to_non_nullable
-              as Kelompok,
-      assessmentPoint: null == assessmentPoint
+              as Kelompok?,
+      assessmentPoint: freezed == assessmentPoint
           ? _value.assessmentPoint
           : assessmentPoint // ignore: cast_nullable_to_non_nullable
-              as AssessmentPoint,
+              as AssessmentPoint?,
       score: null == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
-              as int,
-      mahasiswa: null == mahasiswa
+              as double,
+      mahasiswa: freezed == mahasiswa
           ? _value.mahasiswa
           : mahasiswa // ignore: cast_nullable_to_non_nullable
-              as Mahasiswa,
+              as Mahasiswa?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
+              as bool,
       detailAssessmentStudent: freezed == detailAssessmentStudent
           ? _value.detailAssessmentStudent
           : detailAssessmentStudent // ignore: cast_nullable_to_non_nullable
@@ -110,24 +110,36 @@ class _$AssessmentStudentCopyWithImpl<$Res, $Val extends AssessmentStudent>
 
   @override
   @pragma('vm:prefer-inline')
-  $KelompokCopyWith<$Res> get kelompok {
-    return $KelompokCopyWith<$Res>(_value.kelompok, (value) {
+  $KelompokCopyWith<$Res>? get kelompok {
+    if (_value.kelompok == null) {
+      return null;
+    }
+
+    return $KelompokCopyWith<$Res>(_value.kelompok!, (value) {
       return _then(_value.copyWith(kelompok: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $AssessmentPointCopyWith<$Res> get assessmentPoint {
-    return $AssessmentPointCopyWith<$Res>(_value.assessmentPoint, (value) {
+  $AssessmentPointCopyWith<$Res>? get assessmentPoint {
+    if (_value.assessmentPoint == null) {
+      return null;
+    }
+
+    return $AssessmentPointCopyWith<$Res>(_value.assessmentPoint!, (value) {
       return _then(_value.copyWith(assessmentPoint: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $MahasiswaCopyWith<$Res> get mahasiswa {
-    return $MahasiswaCopyWith<$Res>(_value.mahasiswa, (value) {
+  $MahasiswaCopyWith<$Res>? get mahasiswa {
+    if (_value.mahasiswa == null) {
+      return null;
+    }
+
+    return $MahasiswaCopyWith<$Res>(_value.mahasiswa!, (value) {
       return _then(_value.copyWith(mahasiswa: value) as $Val);
     });
   }
@@ -143,19 +155,19 @@ abstract class _$$_AssessmentStudentCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      Kelompok kelompok,
-      AssessmentPoint assessmentPoint,
-      int score,
-      Mahasiswa mahasiswa,
-      String status,
+      Kelompok? kelompok,
+      AssessmentPoint? assessmentPoint,
+      double score,
+      Mahasiswa? mahasiswa,
+      bool status,
       List<DetailAssessmentStudent>? detailAssessmentStudent});
 
   @override
-  $KelompokCopyWith<$Res> get kelompok;
+  $KelompokCopyWith<$Res>? get kelompok;
   @override
-  $AssessmentPointCopyWith<$Res> get assessmentPoint;
+  $AssessmentPointCopyWith<$Res>? get assessmentPoint;
   @override
-  $MahasiswaCopyWith<$Res> get mahasiswa;
+  $MahasiswaCopyWith<$Res>? get mahasiswa;
 }
 
 /// @nodoc
@@ -170,10 +182,10 @@ class __$$_AssessmentStudentCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? kelompok = null,
-    Object? assessmentPoint = null,
+    Object? kelompok = freezed,
+    Object? assessmentPoint = freezed,
     Object? score = null,
-    Object? mahasiswa = null,
+    Object? mahasiswa = freezed,
     Object? status = null,
     Object? detailAssessmentStudent = freezed,
   }) {
@@ -182,26 +194,26 @@ class __$$_AssessmentStudentCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
-      kelompok: null == kelompok
+      kelompok: freezed == kelompok
           ? _value.kelompok
           : kelompok // ignore: cast_nullable_to_non_nullable
-              as Kelompok,
-      assessmentPoint: null == assessmentPoint
+              as Kelompok?,
+      assessmentPoint: freezed == assessmentPoint
           ? _value.assessmentPoint
           : assessmentPoint // ignore: cast_nullable_to_non_nullable
-              as AssessmentPoint,
+              as AssessmentPoint?,
       score: null == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
-              as int,
-      mahasiswa: null == mahasiswa
+              as double,
+      mahasiswa: freezed == mahasiswa
           ? _value.mahasiswa
           : mahasiswa // ignore: cast_nullable_to_non_nullable
-              as Mahasiswa,
+              as Mahasiswa?,
       status: null == status
           ? _value.status
           : status // ignore: cast_nullable_to_non_nullable
-              as String,
+              as bool,
       detailAssessmentStudent: freezed == detailAssessmentStudent
           ? _value._detailAssessmentStudent
           : detailAssessmentStudent // ignore: cast_nullable_to_non_nullable
@@ -215,11 +227,11 @@ class __$$_AssessmentStudentCopyWithImpl<$Res>
 class _$_AssessmentStudent implements _AssessmentStudent {
   _$_AssessmentStudent(
       {required this.id,
-      required this.kelompok,
-      required this.assessmentPoint,
-      this.score = 0,
-      required this.mahasiswa,
-      this.status = '',
+      this.kelompok,
+      this.assessmentPoint,
+      this.score = 0.0,
+      this.mahasiswa,
+      this.status = false,
       final List<DetailAssessmentStudent>? detailAssessmentStudent})
       : _detailAssessmentStudent = detailAssessmentStudent;
 
@@ -229,17 +241,17 @@ class _$_AssessmentStudent implements _AssessmentStudent {
   @override
   final int id;
   @override
-  final Kelompok kelompok;
+  final Kelompok? kelompok;
   @override
-  final AssessmentPoint assessmentPoint;
-  @override
-  @JsonKey()
-  final int score;
-  @override
-  final Mahasiswa mahasiswa;
+  final AssessmentPoint? assessmentPoint;
   @override
   @JsonKey()
-  final String status;
+  final double score;
+  @override
+  final Mahasiswa? mahasiswa;
+  @override
+  @JsonKey()
+  final bool status;
   final List<DetailAssessmentStudent>? _detailAssessmentStudent;
   @override
   List<DetailAssessmentStudent>? get detailAssessmentStudent {
@@ -304,11 +316,11 @@ class _$_AssessmentStudent implements _AssessmentStudent {
 abstract class _AssessmentStudent implements AssessmentStudent {
   factory _AssessmentStudent(
           {required final int id,
-          required final Kelompok kelompok,
-          required final AssessmentPoint assessmentPoint,
-          final int score,
-          required final Mahasiswa mahasiswa,
-          final String status,
+          final Kelompok? kelompok,
+          final AssessmentPoint? assessmentPoint,
+          final double score,
+          final Mahasiswa? mahasiswa,
+          final bool status,
           final List<DetailAssessmentStudent>? detailAssessmentStudent}) =
       _$_AssessmentStudent;
 
@@ -318,15 +330,15 @@ abstract class _AssessmentStudent implements AssessmentStudent {
   @override
   int get id;
   @override
-  Kelompok get kelompok;
+  Kelompok? get kelompok;
   @override
-  AssessmentPoint get assessmentPoint;
+  AssessmentPoint? get assessmentPoint;
   @override
-  int get score;
+  double get score;
   @override
-  Mahasiswa get mahasiswa;
+  Mahasiswa? get mahasiswa;
   @override
-  String get status;
+  bool get status;
   @override
   List<DetailAssessmentStudent>? get detailAssessmentStudent;
   @override

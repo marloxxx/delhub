@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
 import '../data/models/assessment_point_model.dart';
+import '../data/models/assessment_student_model.dart';
 import '../data/models/kelompok_model.dart';
 import '../data/models/krs_model.dart';
 import '../data/models/request_model.dart';

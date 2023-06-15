@@ -26,7 +26,7 @@ mixin _$DetailAssessmentStudent {
       throw _privateConstructorUsedError;
   AssessmentComponent? get assessmentComponent =>
       throw _privateConstructorUsedError;
-  dynamic get score => throw _privateConstructorUsedError;
+  double get score => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +44,7 @@ abstract class $DetailAssessmentStudentCopyWith<$Res> {
       {int id,
       AssessmentStudent? assessmentStudent,
       AssessmentComponent? assessmentComponent,
-      dynamic score});
+      double score});
 
   $AssessmentStudentCopyWith<$Res>? get assessmentStudent;
   $AssessmentComponentCopyWith<$Res>? get assessmentComponent;
@@ -67,7 +67,7 @@ class _$DetailAssessmentStudentCopyWithImpl<$Res,
     Object? id = null,
     Object? assessmentStudent = freezed,
     Object? assessmentComponent = freezed,
-    Object? score = freezed,
+    Object? score = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -82,10 +82,10 @@ class _$DetailAssessmentStudentCopyWithImpl<$Res,
           ? _value.assessmentComponent
           : assessmentComponent // ignore: cast_nullable_to_non_nullable
               as AssessmentComponent?,
-      score: freezed == score
+      score: null == score
           ? _value.score
           : score // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as double,
     ) as $Val);
   }
 
@@ -127,7 +127,7 @@ abstract class _$$_DetailAssessmentStudentCopyWith<$Res>
       {int id,
       AssessmentStudent? assessmentStudent,
       AssessmentComponent? assessmentComponent,
-      dynamic score});
+      double score});
 
   @override
   $AssessmentStudentCopyWith<$Res>? get assessmentStudent;
@@ -150,7 +150,7 @@ class __$$_DetailAssessmentStudentCopyWithImpl<$Res>
     Object? id = null,
     Object? assessmentStudent = freezed,
     Object? assessmentComponent = freezed,
-    Object? score = freezed,
+    Object? score = null,
   }) {
     return _then(_$_DetailAssessmentStudent(
       id: null == id
@@ -165,7 +165,10 @@ class __$$_DetailAssessmentStudentCopyWithImpl<$Res>
           ? _value.assessmentComponent
           : assessmentComponent // ignore: cast_nullable_to_non_nullable
               as AssessmentComponent?,
-      score: freezed == score ? _value.score! : score,
+      score: null == score
+          ? _value.score
+          : score // ignore: cast_nullable_to_non_nullable
+              as double,
     ));
   }
 }
@@ -177,7 +180,7 @@ class _$_DetailAssessmentStudent implements _DetailAssessmentStudent {
       {required this.id,
       this.assessmentStudent,
       this.assessmentComponent,
-      this.score = 0});
+      this.score = 0.0});
 
   factory _$_DetailAssessmentStudent.fromJson(Map<String, dynamic> json) =>
       _$$_DetailAssessmentStudentFromJson(json);
@@ -190,7 +193,7 @@ class _$_DetailAssessmentStudent implements _DetailAssessmentStudent {
   final AssessmentComponent? assessmentComponent;
   @override
   @JsonKey()
-  final dynamic score;
+  final double score;
 
   @override
   String toString() {
@@ -207,13 +210,13 @@ class _$_DetailAssessmentStudent implements _DetailAssessmentStudent {
                 other.assessmentStudent == assessmentStudent) &&
             (identical(other.assessmentComponent, assessmentComponent) ||
                 other.assessmentComponent == assessmentComponent) &&
-            const DeepCollectionEquality().equals(other.score, score));
+            (identical(other.score, score) || other.score == score));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, assessmentStudent,
-      assessmentComponent, const DeepCollectionEquality().hash(score));
+  int get hashCode => Object.hash(
+      runtimeType, id, assessmentStudent, assessmentComponent, score);
 
   @JsonKey(ignore: true)
   @override
@@ -236,7 +239,7 @@ abstract class _DetailAssessmentStudent implements DetailAssessmentStudent {
       {required final int id,
       final AssessmentStudent? assessmentStudent,
       final AssessmentComponent? assessmentComponent,
-      final dynamic score}) = _$_DetailAssessmentStudent;
+      final double score}) = _$_DetailAssessmentStudent;
 
   factory _DetailAssessmentStudent.fromJson(Map<String, dynamic> json) =
       _$_DetailAssessmentStudent.fromJson;
@@ -248,7 +251,7 @@ abstract class _DetailAssessmentStudent implements DetailAssessmentStudent {
   @override
   AssessmentComponent? get assessmentComponent;
   @override
-  dynamic get score;
+  double get score;
   @override
   @JsonKey(ignore: true)
   _$$_DetailAssessmentStudentCopyWith<_$_DetailAssessmentStudent>

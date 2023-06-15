@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../data/models/assessment_point_model.dart';
+import '../../../data/models/assessment_student_model.dart';
 part 'assessment_states.freezed.dart';
 
 @freezed
@@ -10,5 +11,6 @@ class AssessmentStates with _$AssessmentStates {
   const factory AssessmentStates.error(String message) = AssessmentErrorState;
   const factory AssessmentStates.loaded(
       {required AssessmentPointList assessmentPointList,
+      required AssessmentStudentList assessmentStudentList,
       required bool isUpdated}) = AssessmentLoadedState;
 }

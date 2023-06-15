@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:one_context/one_context.dart';
 
 import '../../../data/models/kelompok_model.dart';
 import '../../blocs/assesment/assessment_bloc.dart';
@@ -38,7 +39,45 @@ class _AssessmentState extends State<Assessment> {
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
             child: BlocConsumer<AssessmentBloc, AssessmentStates>(
-              listener: (context, state) {},
+              listener: (context, state) {
+                if (state is AssessmentErrorState) {
+                  OneContext().showDialog(
+                    builder: (_) => AlertDialog(
+                      title: const Text("Error"),
+                      content: Text(state.message),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(_).pop();
+                          },
+                          child: const Text("OK"),
+                        ),
+                      ],
+                    ),
+                  );
+                } else if (state is AssessmentLoadedState && state.isUpdated) {
+                  OneContext().showDialog(
+                    builder: (_) => AlertDialog(
+                      title: const Text("Success"),
+                      content: const Text(
+                        "Berhasil mengirim nilai mahasiswa ke server",
+                      ),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(_).pop();
+                          },
+                          child: const Text("OK"),
+                        ),
+                      ],
+                    ),
+                  );
+                  BlocProvider.of<AssessmentBloc>(context)
+                      .add(GetAssessmentPoints(kelompok: widget.kelompok));
+                  // go back to previous page
+                  Navigator.of(context).pop();
+                }
+              },
               builder: (context, state) {
                 if (state is AssessmentInitialState) {
                   return const Center(
@@ -46,8 +85,10 @@ class _AssessmentState extends State<Assessment> {
                   );
                 } else if (state is AssessmentLoadedState) {
                   return Body(
-                      kelompok: widget.kelompok,
-                      assessmentPointList: state.assessmentPointList);
+                    kelompok: widget.kelompok,
+                    assessmentPointList: state.assessmentPointList,
+                    assessmentStudentList: state.assessmentStudentList,
+                  );
                 } else if (state is AssessmentErrorState) {
                   return Center(
                     child: Text(state.message),

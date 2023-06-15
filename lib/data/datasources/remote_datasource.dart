@@ -1,14 +1,14 @@
 import 'dart:convert';
-
 import 'package:dartz/dartz.dart';
-import 'package:delhub/data/models/assessment_point_model.dart';
-import 'package:delhub/data/models/assessment_student_model.dart';
 import 'package:dio/dio.dart';
+
 import 'package:flutter/cupertino.dart';
 import '../../../../core/failure.dart';
 import '../../../../core/request.dart';
 import '../../../../core/service_locator.dart';
 import '../../services/local_data_cache_service.dart';
+import '../models/assessment_point_model.dart';
+import '../models/assessment_student_model.dart';
 import '../models/dropped_file_model.dart';
 import '../models/kelompok_model.dart';
 import '../models/krs_model.dart';
@@ -43,6 +43,9 @@ abstract class RemoteDataSource {
 
   Future<Either<Failure, bool>> storeAssessmentPointsToServer(
       Kelompok kelompok, AssessmentStudentList assessmentStudentList);
+
+  Future<Either<Failure, AssessmentStudentList>>
+      getAssessmentStudentsFromServer(Kelompok kelompok);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -321,6 +324,33 @@ class RemoteDataSourceImpl implements RemoteDataSource {
           return Left(ConnectionFailure(value.data['meta']['message']));
         }
       });
+    } catch (e) {
+      return Left(
+        Exception(e.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, AssessmentStudentList>>
+      getAssessmentStudentsFromServer(Kelompok kelompok) async {
+    try {
+      final Request request = serviceLocator<Request>();
+      final response = await request.get('/assessment/${kelompok.id}/students');
+      if (response.statusCode == 200) {
+        AssessmentStudentList assessmentStudentList = [];
+        final data = response.data['data'];
+        try {
+          for (var item in data) {
+            assessmentStudentList.add(AssessmentStudent.fromJson(item));
+          }
+        } catch (e) {
+          debugPrint(e.toString());
+        }
+        return Right(assessmentStudentList);
+      } else {
+        return Left(ConnectionFailure(response.data['meta']['message']));
+      }
     } catch (e) {
       return Left(
         Exception(e.toString()),

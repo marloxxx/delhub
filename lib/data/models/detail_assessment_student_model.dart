@@ -14,7 +14,7 @@ class DetailAssessmentStudent with _$DetailAssessmentStudent {
     required int id,
     AssessmentStudent? assessmentStudent,
     AssessmentComponent? assessmentComponent,
-    @Default(0) score,
+    @Default(0.0) double score,
   }) = _DetailAssessmentStudent;
 
   factory DetailAssessmentStudent.fromJson(Map<String, Object?> json) =>

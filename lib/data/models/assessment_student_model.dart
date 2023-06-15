@@ -14,11 +14,11 @@ typedef AssessmentStudentList = List<AssessmentStudent>;
 class AssessmentStudent with _$AssessmentStudent {
   factory AssessmentStudent({
     required int id,
-    required Kelompok kelompok,
-    required AssessmentPoint assessmentPoint,
-    @Default(0) int score,
-    required Mahasiswa mahasiswa,
-    @Default('') String status,
+    Kelompok? kelompok,
+    AssessmentPoint? assessmentPoint,
+    @Default(0.0) double score,
+    Mahasiswa? mahasiswa,
+    @Default(false) bool status,
     DetailAssessmentStudentList? detailAssessmentStudent,
   }) = _AssessmentStudent;
   factory AssessmentStudent.fromJson(Map<String, Object?> json) =>

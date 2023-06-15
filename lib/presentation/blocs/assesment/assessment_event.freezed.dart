@@ -20,6 +20,7 @@ mixin _$AssessmentEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Kelompok kelompok) getAssesmentPoints,
+    required TResult Function(Kelompok kelompok) getAssessmentStudents,
     required TResult Function(
             Kelompok kelompok, List<AssessmentStudent> assessmentStudentList)
         storeAssesmentPoints,
@@ -28,6 +29,7 @@ mixin _$AssessmentEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Kelompok kelompok)? getAssesmentPoints,
+    TResult? Function(Kelompok kelompok)? getAssessmentStudents,
     TResult? Function(
             Kelompok kelompok, List<AssessmentStudent> assessmentStudentList)?
         storeAssesmentPoints,
@@ -36,6 +38,7 @@ mixin _$AssessmentEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Kelompok kelompok)? getAssesmentPoints,
+    TResult Function(Kelompok kelompok)? getAssessmentStudents,
     TResult Function(
             Kelompok kelompok, List<AssessmentStudent> assessmentStudentList)?
         storeAssesmentPoints,
@@ -45,18 +48,22 @@ mixin _$AssessmentEvent {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetAssessmentPoints value) getAssesmentPoints,
+    required TResult Function(GetAssessmentStudents value)
+        getAssessmentStudents,
     required TResult Function(StoreAssessmentPoints value) storeAssesmentPoints,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetAssessmentPoints value)? getAssesmentPoints,
+    TResult? Function(GetAssessmentStudents value)? getAssessmentStudents,
     TResult? Function(StoreAssessmentPoints value)? storeAssesmentPoints,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetAssessmentPoints value)? getAssesmentPoints,
+    TResult Function(GetAssessmentStudents value)? getAssessmentStudents,
     TResult Function(StoreAssessmentPoints value)? storeAssesmentPoints,
     required TResult orElse(),
   }) =>
@@ -182,6 +189,7 @@ class _$GetAssessmentPoints implements GetAssessmentPoints {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Kelompok kelompok) getAssesmentPoints,
+    required TResult Function(Kelompok kelompok) getAssessmentStudents,
     required TResult Function(
             Kelompok kelompok, List<AssessmentStudent> assessmentStudentList)
         storeAssesmentPoints,
@@ -193,6 +201,7 @@ class _$GetAssessmentPoints implements GetAssessmentPoints {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Kelompok kelompok)? getAssesmentPoints,
+    TResult? Function(Kelompok kelompok)? getAssessmentStudents,
     TResult? Function(
             Kelompok kelompok, List<AssessmentStudent> assessmentStudentList)?
         storeAssesmentPoints,
@@ -204,6 +213,7 @@ class _$GetAssessmentPoints implements GetAssessmentPoints {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Kelompok kelompok)? getAssesmentPoints,
+    TResult Function(Kelompok kelompok)? getAssessmentStudents,
     TResult Function(
             Kelompok kelompok, List<AssessmentStudent> assessmentStudentList)?
         storeAssesmentPoints,
@@ -219,6 +229,8 @@ class _$GetAssessmentPoints implements GetAssessmentPoints {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetAssessmentPoints value) getAssesmentPoints,
+    required TResult Function(GetAssessmentStudents value)
+        getAssessmentStudents,
     required TResult Function(StoreAssessmentPoints value) storeAssesmentPoints,
   }) {
     return getAssesmentPoints(this);
@@ -228,6 +240,7 @@ class _$GetAssessmentPoints implements GetAssessmentPoints {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetAssessmentPoints value)? getAssesmentPoints,
+    TResult? Function(GetAssessmentStudents value)? getAssessmentStudents,
     TResult? Function(StoreAssessmentPoints value)? storeAssesmentPoints,
   }) {
     return getAssesmentPoints?.call(this);
@@ -237,6 +250,7 @@ class _$GetAssessmentPoints implements GetAssessmentPoints {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetAssessmentPoints value)? getAssesmentPoints,
+    TResult Function(GetAssessmentStudents value)? getAssessmentStudents,
     TResult Function(StoreAssessmentPoints value)? storeAssesmentPoints,
     required TResult orElse(),
   }) {
@@ -256,6 +270,162 @@ abstract class GetAssessmentPoints implements AssessmentEvent {
   @override
   @JsonKey(ignore: true)
   _$$GetAssessmentPointsCopyWith<_$GetAssessmentPoints> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetAssessmentStudentsCopyWith<$Res>
+    implements $AssessmentEventCopyWith<$Res> {
+  factory _$$GetAssessmentStudentsCopyWith(_$GetAssessmentStudents value,
+          $Res Function(_$GetAssessmentStudents) then) =
+      __$$GetAssessmentStudentsCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({Kelompok kelompok});
+
+  @override
+  $KelompokCopyWith<$Res> get kelompok;
+}
+
+/// @nodoc
+class __$$GetAssessmentStudentsCopyWithImpl<$Res>
+    extends _$AssessmentEventCopyWithImpl<$Res, _$GetAssessmentStudents>
+    implements _$$GetAssessmentStudentsCopyWith<$Res> {
+  __$$GetAssessmentStudentsCopyWithImpl(_$GetAssessmentStudents _value,
+      $Res Function(_$GetAssessmentStudents) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? kelompok = null,
+  }) {
+    return _then(_$GetAssessmentStudents(
+      kelompok: null == kelompok
+          ? _value.kelompok
+          : kelompok // ignore: cast_nullable_to_non_nullable
+              as Kelompok,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetAssessmentStudents implements GetAssessmentStudents {
+  const _$GetAssessmentStudents({required this.kelompok});
+
+  @override
+  final Kelompok kelompok;
+
+  @override
+  String toString() {
+    return 'AssessmentEvent.getAssessmentStudents(kelompok: $kelompok)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetAssessmentStudents &&
+            (identical(other.kelompok, kelompok) ||
+                other.kelompok == kelompok));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, kelompok);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetAssessmentStudentsCopyWith<_$GetAssessmentStudents> get copyWith =>
+      __$$GetAssessmentStudentsCopyWithImpl<_$GetAssessmentStudents>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(Kelompok kelompok) getAssesmentPoints,
+    required TResult Function(Kelompok kelompok) getAssessmentStudents,
+    required TResult Function(
+            Kelompok kelompok, List<AssessmentStudent> assessmentStudentList)
+        storeAssesmentPoints,
+  }) {
+    return getAssessmentStudents(kelompok);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(Kelompok kelompok)? getAssesmentPoints,
+    TResult? Function(Kelompok kelompok)? getAssessmentStudents,
+    TResult? Function(
+            Kelompok kelompok, List<AssessmentStudent> assessmentStudentList)?
+        storeAssesmentPoints,
+  }) {
+    return getAssessmentStudents?.call(kelompok);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(Kelompok kelompok)? getAssesmentPoints,
+    TResult Function(Kelompok kelompok)? getAssessmentStudents,
+    TResult Function(
+            Kelompok kelompok, List<AssessmentStudent> assessmentStudentList)?
+        storeAssesmentPoints,
+    required TResult orElse(),
+  }) {
+    if (getAssessmentStudents != null) {
+      return getAssessmentStudents(kelompok);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(GetAssessmentPoints value) getAssesmentPoints,
+    required TResult Function(GetAssessmentStudents value)
+        getAssessmentStudents,
+    required TResult Function(StoreAssessmentPoints value) storeAssesmentPoints,
+  }) {
+    return getAssessmentStudents(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(GetAssessmentPoints value)? getAssesmentPoints,
+    TResult? Function(GetAssessmentStudents value)? getAssessmentStudents,
+    TResult? Function(StoreAssessmentPoints value)? storeAssesmentPoints,
+  }) {
+    return getAssessmentStudents?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(GetAssessmentPoints value)? getAssesmentPoints,
+    TResult Function(GetAssessmentStudents value)? getAssessmentStudents,
+    TResult Function(StoreAssessmentPoints value)? storeAssesmentPoints,
+    required TResult orElse(),
+  }) {
+    if (getAssessmentStudents != null) {
+      return getAssessmentStudents(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetAssessmentStudents implements AssessmentEvent {
+  const factory GetAssessmentStudents({required final Kelompok kelompok}) =
+      _$GetAssessmentStudents;
+
+  @override
+  Kelompok get kelompok;
+  @override
+  @JsonKey(ignore: true)
+  _$$GetAssessmentStudentsCopyWith<_$GetAssessmentStudents> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -350,6 +520,7 @@ class _$StoreAssessmentPoints implements StoreAssessmentPoints {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Kelompok kelompok) getAssesmentPoints,
+    required TResult Function(Kelompok kelompok) getAssessmentStudents,
     required TResult Function(
             Kelompok kelompok, List<AssessmentStudent> assessmentStudentList)
         storeAssesmentPoints,
@@ -361,6 +532,7 @@ class _$StoreAssessmentPoints implements StoreAssessmentPoints {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Kelompok kelompok)? getAssesmentPoints,
+    TResult? Function(Kelompok kelompok)? getAssessmentStudents,
     TResult? Function(
             Kelompok kelompok, List<AssessmentStudent> assessmentStudentList)?
         storeAssesmentPoints,
@@ -372,6 +544,7 @@ class _$StoreAssessmentPoints implements StoreAssessmentPoints {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Kelompok kelompok)? getAssesmentPoints,
+    TResult Function(Kelompok kelompok)? getAssessmentStudents,
     TResult Function(
             Kelompok kelompok, List<AssessmentStudent> assessmentStudentList)?
         storeAssesmentPoints,
@@ -387,6 +560,8 @@ class _$StoreAssessmentPoints implements StoreAssessmentPoints {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(GetAssessmentPoints value) getAssesmentPoints,
+    required TResult Function(GetAssessmentStudents value)
+        getAssessmentStudents,
     required TResult Function(StoreAssessmentPoints value) storeAssesmentPoints,
   }) {
     return storeAssesmentPoints(this);
@@ -396,6 +571,7 @@ class _$StoreAssessmentPoints implements StoreAssessmentPoints {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(GetAssessmentPoints value)? getAssesmentPoints,
+    TResult? Function(GetAssessmentStudents value)? getAssessmentStudents,
     TResult? Function(StoreAssessmentPoints value)? storeAssesmentPoints,
   }) {
     return storeAssesmentPoints?.call(this);
@@ -405,6 +581,7 @@ class _$StoreAssessmentPoints implements StoreAssessmentPoints {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(GetAssessmentPoints value)? getAssesmentPoints,
+    TResult Function(GetAssessmentStudents value)? getAssessmentStudents,
     TResult Function(StoreAssessmentPoints value)? storeAssesmentPoints,
     required TResult orElse(),
   }) {

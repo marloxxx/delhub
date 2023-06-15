@@ -1,7 +1,7 @@
-import 'package:delhub/domain/usecases/assessment_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/service_locator.dart';
+import '../../../domain/usecases/assessment_usecase.dart';
 import 'assessment_event.dart';
 import 'assessment_states.dart';
 
@@ -11,20 +11,16 @@ class AssessmentBloc extends Bloc<AssessmentEvent, AssessmentStates> {
       (event, emit) async {
         emit(const AssessmentLoadingState());
         try {
-          final result = await serviceLocator<AssessmentUsecase>()
+          final assessmentPoints = await serviceLocator<AssessmentUsecase>()
               .getAssessmentPointsFromServer(event.kelompok);
-          result.fold(
-            (failure) {
-              emit(AssessmentErrorState(failure.message));
-            },
-            (data) {
-              emit(
-                AssessmentLoadedState(
-                  assessmentPointList: data,
-                  isUpdated: false,
-                ),
-              );
-            },
+          final assessmentStudents = await serviceLocator<AssessmentUsecase>()
+              .getAssessmentStudentsFromServer(event.kelompok);
+          emit(
+            AssessmentLoadedState(
+              assessmentPointList: assessmentPoints.getOrElse(() => []),
+              assessmentStudentList: assessmentStudents.getOrElse(() => []),
+              isUpdated: false,
+            ),
           );
         } catch (e) {
           emit(AssessmentErrorState(e.toString()));
@@ -45,6 +41,7 @@ class AssessmentBloc extends Bloc<AssessmentEvent, AssessmentStates> {
             (data) {
               emit(const AssessmentLoadedState(
                 assessmentPointList: [],
+                assessmentStudentList: [],
                 isUpdated: true,
               ));
             },

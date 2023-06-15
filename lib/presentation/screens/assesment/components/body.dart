@@ -1,18 +1,23 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:delhub/routes/app_routers.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../data/models/assessment_point_model.dart';
+import '../../../../data/models/assessment_student_model.dart';
 import '../../../../data/models/kelompok_model.dart';
+import '../../../../routes/app_routers.dart';
 import '../../../../shared/theme.dart';
 import '../../../widgets/background.dart';
 
 class Body extends StatelessWidget {
   final Kelompok kelompok;
   final AssessmentPointList assessmentPointList;
+  final AssessmentStudentList assessmentStudentList;
   const Body(
-      {Key? key, required this.kelompok, required this.assessmentPointList})
+      {Key? key,
+      required this.kelompok,
+      required this.assessmentPointList,
+      required this.assessmentStudentList})
       : super(key: key);
 
   @override
@@ -70,6 +75,8 @@ class Body extends StatelessWidget {
                                             kelompok: kelompok,
                                             assessmentPoint:
                                                 assessmentPointList[index],
+                                            assessmentStudentList:
+                                                assessmentStudentList,
                                           ),
                                         )
                                         .then((_) {});

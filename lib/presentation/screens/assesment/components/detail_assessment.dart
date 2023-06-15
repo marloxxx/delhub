@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:one_context/one_context.dart';
+
 import '../../../../data/models/assessment_component_model.dart';
 import '../../../../data/models/assessment_point_model.dart';
 import '../../../../data/models/assessment_student_model.dart';
@@ -14,12 +14,24 @@ import '../../../blocs/assesment/assessment_bloc.dart';
 import '../../../blocs/assesment/assessment_event.dart';
 import '../../../widgets/background.dart';
 
+late MahasiswaList mahasiswaList;
+late AssessmentComponentList assessmentComponentList;
+late Mahasiswa mahasiswa;
+List<Map<String, dynamic>> finalValueList = [];
+AssessmentStudentList assessmentStudentList = [];
+late AssessmentStudent assessmentStudent;
+List<TextEditingController> textEditingControllers = [];
+
 @RoutePage(name: 'DetailAssessmentRoute')
 class DetailAssessment extends StatefulWidget {
   final Kelompok kelompok;
   final AssessmentPoint assessmentPoint;
+  final AssessmentStudentList assessmentStudentList;
   const DetailAssessment(
-      {Key? key, required this.kelompok, required this.assessmentPoint})
+      {Key? key,
+      required this.kelompok,
+      required this.assessmentPoint,
+      required this.assessmentStudentList})
       : super(key: key);
 
   @override
@@ -27,43 +39,22 @@ class DetailAssessment extends StatefulWidget {
 }
 
 class _DetailAssessmentState extends State<DetailAssessment> {
-  late MahasiswaList mahasiswaList;
-  late AssessmentComponentList assessmentComponentList;
-  late Mahasiswa mahasiswa;
-  List<Map<String, dynamic>> finalValueList = [];
-  AssessmentStudentList assessmentStudentList = [];
-  late AssessmentStudent assessmentStudent;
-  var textEditingControllers = <TextEditingController>[];
   @override
   void initState() {
     super.initState();
     mahasiswaList = widget.kelompok.mahasiswa!;
     assessmentComponentList = widget.assessmentPoint.components!;
     mahasiswa = mahasiswaList[0];
-    // set text editing controller for each textformfield
+    // set texteditingcontroller for each assessment component
     for (var i = 0; i < assessmentComponentList.length; i++) {
       textEditingControllers.add(TextEditingController());
     }
     setInitialValueList();
-    // assessmentStudent where mahasiswa nim and assessment point id is same
-    assessmentStudent = assessmentStudentList.firstWhere(
-        (element) =>
-            element.mahasiswa.nim == mahasiswa.nim &&
-            element.assessmentPoint.id == widget.assessmentPoint.id,
-        orElse: () => AssessmentStudent(
-              id: 0,
-              kelompok: widget.kelompok,
-              assessmentPoint: widget.assessmentPoint,
-              score: 0,
-              mahasiswa: mahasiswa,
-              status: '',
-              detailAssessmentStudent: [],
-            ));
   }
 
 // set value in valueList by mahasiswa id and assessment component id
   void setValue(
-      String mahasiswaNim, int assessmentComponentId, int value) async {
+      String mahasiswaNim, int assessmentComponentId, double value) async {
     // Update detailAssessmentStudent by assessmentStudent id and assessment component id
     var detailAssessmentStudent = assessmentStudent.detailAssessmentStudent!
         .firstWhere(
@@ -90,7 +81,14 @@ class _DetailAssessmentState extends State<DetailAssessment> {
       ],
     );
 
-    debugPrint(assessmentStudent.toString());
+    // Update assessmentStudentList by mahasiswa nim and assessment point id
+    assessmentStudentList = [
+      ...assessmentStudentList.where((element) =>
+          element.mahasiswa?.nim != mahasiswaNim ||
+          element.assessmentPoint?.id != widget.assessmentPoint.id),
+      assessmentStudent,
+    ];
+
     // Calculate final value for each mahasiswa nim and assessmentPoint id
     final existingFinalValueIndex = finalValueList.indexWhere(
       (element) =>
@@ -115,46 +113,51 @@ class _DetailAssessmentState extends State<DetailAssessment> {
       child: Background(
         child: WillPopScope(
           onWillPop: () async {
-            final shouldPop = await showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                title: const Text("Konfirmasi"),
-                content: const Text("Apakah anda yakin ingin keluar?"),
-                actions: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context, false);
-                    },
-                    child: const Text(
-                      "Tidak",
-                      style: TextStyle(
-                        color: Colors.white,
+            if (assessmentStudent.status == false) {
+              final shouldPop = await showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: const Text("Konfirmasi"),
+                  content: const Text("Apakah anda yakin ingin keluar?"),
+                  actions: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context, false);
+                      },
+                      child: const Text(
+                        "Tidak",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
                       ),
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.pop(context, true);
-                    },
-                    style: ElevatedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      backgroundColor: const Color(0xFF3493C9),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7.0),
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context, true);
+                        textEditingControllers = [];
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color(0xFF3493C9),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7.0),
+                        ),
                       ),
+                      child: const Text('Ya'),
                     ),
-                    child: const Text('Ya'),
-                  ),
-                ],
-              ),
-            );
-            return shouldPop ?? false;
+                  ],
+                ),
+              );
+              return shouldPop ?? false;
+            } else {
+              return true;
+            }
           },
           child: Scaffold(
             backgroundColor: Colors.transparent,
             // Body of Dashboard
             body: Column(
-              children: <Widget>[
+              children: [
                 // Header
                 Container(
                   padding: const EdgeInsets.all(15.0),
@@ -343,6 +346,8 @@ class _DetailAssessmentState extends State<DetailAssessment> {
                                                 ),
                                               ),
                                               child: TextFormField(
+                                                readOnly:
+                                                    assessmentStudent.status,
                                                 textAlign: TextAlign.center,
                                                 controller:
                                                     textEditingControllers[
@@ -364,7 +369,7 @@ class _DetailAssessmentState extends State<DetailAssessment> {
                                                     return;
                                                   }
                                                   // jika nilai lebih dari bobot
-                                                  if (int.parse(value) >
+                                                  if (double.parse(value) >
                                                       assessmentComponentList[
                                                               index]
                                                           .weight) {
@@ -400,7 +405,7 @@ class _DetailAssessmentState extends State<DetailAssessment> {
                                                         assessmentComponentList[
                                                                 index]
                                                             .id,
-                                                        int.parse(value),
+                                                        double.parse(value),
                                                       );
                                                     },
                                                   );
@@ -466,7 +471,7 @@ class _DetailAssessmentState extends State<DetailAssessment> {
                                                 )['value']
                                                 .toString(),
                                             style: const TextStyle(
-                                              fontSize: 25,
+                                              fontSize: 20,
                                             ),
                                           ),
                                         ),
@@ -474,22 +479,27 @@ class _DetailAssessmentState extends State<DetailAssessment> {
                                     ],
                                   ),
                                 ),
-                                Center(
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      storeValues(widget.kelompok);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      foregroundColor: Colors.white,
-                                      backgroundColor: const Color(0xFF3493C9),
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(7.0),
-                                      ),
-                                    ),
-                                    child: const Text('Submit'),
-                                  ),
+                                const SizedBox(
+                                  height: 10,
                                 ),
+                                if (assessmentStudent.status == false)
+                                  Center(
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        storeValues(widget.kelompok);
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        foregroundColor: Colors.white,
+                                        backgroundColor:
+                                            const Color(0xFF3493C9),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(7.0),
+                                        ),
+                                      ),
+                                      child: const Text('Submit'),
+                                    ),
+                                  ),
                               ],
                             )
                           ],
@@ -509,15 +519,29 @@ class _DetailAssessmentState extends State<DetailAssessment> {
   void changeMahasiswa(Mahasiswa? newValue) {
     setState(() {
       mahasiswa = newValue!;
+      assessmentStudent = assessmentStudentList.firstWhere(
+        (element) =>
+            element.mahasiswa?.nim == mahasiswa.nim &&
+            element.assessmentPoint?.id == widget.assessmentPoint.id,
+        orElse: () => AssessmentStudent(
+          id: 0,
+          kelompok: widget.kelompok,
+          assessmentPoint: widget.assessmentPoint,
+          score: 0,
+          mahasiswa: mahasiswa,
+          status: false,
+          detailAssessmentStudent: [],
+        ),
+      );
       // Set initial value for each textformfield, if value is 0 then set ''
       for (var i = 0; i < assessmentComponentList.length; i++) {
-        var detailAssessmentStudent =
+        final detailAssessmentStudent =
             assessmentStudent.detailAssessmentStudent!.firstWhere(
           (element) =>
-              element.assessmentComponent!.id ==
+              element.assessmentComponent?.id ==
                   assessmentComponentList[i].id &&
-              element.assessmentStudent?.mahasiswa.nim == mahasiswa.nim &&
-              element.assessmentStudent?.assessmentPoint.id ==
+              element.assessmentStudent?.mahasiswa?.nim == mahasiswa.nim &&
+              element.assessmentStudent?.assessmentPoint?.id ==
                   widget.assessmentPoint.id,
           orElse: () => DetailAssessmentStudent(
             id: 0,
@@ -527,24 +551,23 @@ class _DetailAssessmentState extends State<DetailAssessment> {
           ),
         );
 
-        var scoreText = detailAssessmentStudent.score == 0
+        textEditingControllers[i].text = detailAssessmentStudent.score == 0
             ? ''
             : detailAssessmentStudent.score.toString();
-        textEditingControllers[i].text = scoreText;
       }
     });
   }
 
   calculateFinalValue(String mahasiswaNim, int assessmentPointId) {
-    int finalValue = 0;
+    double finalValue = 0;
     // calculate final value for each mahasiswa nim and assessmentPoint id, get value from valueList where mahasiswa nim, assessment component id and assessment point id is same
     for (var i = 0; i < assessmentComponentList.length; i++) {
       var detailAssessmentStudent =
           assessmentStudent.detailAssessmentStudent!.firstWhere(
         (element) =>
             element.assessmentComponent?.id == assessmentComponentList[i].id &&
-            element.assessmentStudent?.mahasiswa.nim == mahasiswa.nim &&
-            element.assessmentStudent!.assessmentPoint.id ==
+            element.assessmentStudent?.mahasiswa?.nim == mahasiswa.nim &&
+            element.assessmentStudent?.assessmentPoint?.id ==
                 widget.assessmentPoint.id,
         orElse: () => DetailAssessmentStudent(
           id: 0,
@@ -554,46 +577,78 @@ class _DetailAssessmentState extends State<DetailAssessment> {
         ),
       );
 
-      finalValue += detailAssessmentStudent.score as int;
+      finalValue += detailAssessmentStudent.score;
     }
     return finalValue;
   }
 
   void setInitialValueList() {
-    assessmentStudentList = mahasiswaList.map((mahasiswa) {
-      final detailAssessmentStudents = assessmentComponentList.map((component) {
-        return DetailAssessmentStudent(
+    if (widget.assessmentStudentList.isNotEmpty) {
+      assessmentStudentList = widget.assessmentStudentList;
+    } else {
+      assessmentStudentList = mahasiswaList.map((mahasiswa) {
+        return AssessmentStudent(
           id: 0,
-          assessmentStudent: null, // Will be assigned later
-          assessmentComponent: component,
+          kelompok: widget.kelompok,
+          assessmentPoint: widget.assessmentPoint,
           score: 0,
+          mahasiswa: mahasiswa,
+          status: false,
+          detailAssessmentStudent: [],
         );
       }).toList();
+    }
 
-      return AssessmentStudent(
+    assessmentStudent = assessmentStudentList.firstWhere(
+      (element) =>
+          element.mahasiswa?.nim == mahasiswa.nim &&
+          element.assessmentPoint?.id == widget.assessmentPoint.id,
+      orElse: () => AssessmentStudent(
         id: 0,
         kelompok: widget.kelompok,
         assessmentPoint: widget.assessmentPoint,
         score: 0,
         mahasiswa: mahasiswa,
-        status: '',
-        detailAssessmentStudent: detailAssessmentStudents,
-      );
-    }).toList();
+        status: false,
+        detailAssessmentStudent: [],
+      ),
+    );
 
-    // set initial finalValueList for each mahasiswa nim and assessment point id
+    for (var i = 0; i < assessmentComponentList.length; i++) {
+      final detailAssessmentStudent =
+          assessmentStudent.detailAssessmentStudent!.firstWhere(
+        (element) =>
+            element.assessmentComponent?.id == assessmentComponentList[i].id &&
+            element.assessmentStudent?.mahasiswa?.nim == mahasiswa.nim &&
+            element.assessmentStudent?.assessmentPoint?.id ==
+                widget.assessmentPoint.id,
+        orElse: () => DetailAssessmentStudent(
+          id: 0,
+          assessmentStudent: assessmentStudent,
+          assessmentComponent: assessmentComponentList[i],
+          score: 0,
+        ),
+      );
+
+      textEditingControllers[i].text = detailAssessmentStudent.score == 0
+          ? ''
+          : detailAssessmentStudent.score.toString();
+    }
+
     for (var i = 0; i < mahasiswaList.length; i++) {
       finalValueList.add({
         'mahasiswaNim': mahasiswaList[i].nim,
         'assessmentPointId': widget.assessmentPoint.id,
-        'value': 0,
+        'value': calculateFinalValue(
+            mahasiswaList[i].nim, widget.assessmentPoint.id),
       });
     }
   }
 
   void storeValues(Kelompok kelompok) {
     // if there textformfield is empty
-    if (textEditingControllers.any((element) => element.text == '')) {
+    if (textEditingControllers.any((element) => element.text.isEmpty)) {
+      debugPrint(textEditingControllers.toString());
       OneContext().showDialog(
         builder: (_) => AlertDialog(
           title: const Text("Error"),
@@ -634,6 +689,14 @@ class _DetailAssessmentState extends State<DetailAssessment> {
           ElevatedButton(
             onPressed: () {
               Navigator.pop(_);
+              BlocProvider.of<AssessmentBloc>(context).add(
+                StoreAssessmentPoints(
+                  kelompok: kelompok,
+                  assessmentStudentList: assessmentStudentList,
+                ),
+              );
+              // remove all texteditingcontroller
+              textEditingControllers = [];
             },
             style: ElevatedButton.styleFrom(
               foregroundColor: Colors.white,
@@ -645,13 +708,6 @@ class _DetailAssessmentState extends State<DetailAssessment> {
             child: const Text('Ya'),
           ),
         ],
-      ),
-    );
-    debugPrint(assessmentStudentList.toString());
-    BlocProvider.of<AssessmentBloc>(context).add(
-      StoreAssessmentPoints(
-        kelompok: kelompok,
-        assessmentStudentList: assessmentStudentList,
       ),
     );
   }

@@ -33,6 +33,7 @@ abstract class _$FlutterRouter extends RootStackRouter {
           key: args.key,
           kelompok: args.kelompok,
           assessmentPoint: args.assessmentPoint,
+          assessmentStudentList: args.assessmentStudentList,
         ),
       );
     },
@@ -174,6 +175,7 @@ class DetailAssessmentRoute extends PageRouteInfo<DetailAssessmentRouteArgs> {
     Key? key,
     required Kelompok kelompok,
     required AssessmentPoint assessmentPoint,
+    required List<AssessmentStudent> assessmentStudentList,
     List<PageRouteInfo>? children,
   }) : super(
           DetailAssessmentRoute.name,
@@ -181,6 +183,7 @@ class DetailAssessmentRoute extends PageRouteInfo<DetailAssessmentRouteArgs> {
             key: key,
             kelompok: kelompok,
             assessmentPoint: assessmentPoint,
+            assessmentStudentList: assessmentStudentList,
           ),
           initialChildren: children,
         );
@@ -196,6 +199,7 @@ class DetailAssessmentRouteArgs {
     this.key,
     required this.kelompok,
     required this.assessmentPoint,
+    required this.assessmentStudentList,
   });
 
   final Key? key;
@@ -204,9 +208,11 @@ class DetailAssessmentRouteArgs {
 
   final AssessmentPoint assessmentPoint;
 
+  final List<AssessmentStudent> assessmentStudentList;
+
   @override
   String toString() {
-    return 'DetailAssessmentRouteArgs{key: $key, kelompok: $kelompok, assessmentPoint: $assessmentPoint}';
+    return 'DetailAssessmentRouteArgs{key: $key, kelompok: $kelompok, assessmentPoint: $assessmentPoint, assessmentStudentList: $assessmentStudentList}';
   }
 }
 

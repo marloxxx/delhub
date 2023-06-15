@@ -8,6 +8,8 @@ part 'assessment_event.freezed.dart';
 class AssessmentEvent with _$AssessmentEvent {
   const factory AssessmentEvent.getAssesmentPoints(
       {required Kelompok kelompok}) = GetAssessmentPoints;
+  const factory AssessmentEvent.getAssessmentStudents(
+      {required Kelompok kelompok}) = GetAssessmentStudents;
   const factory AssessmentEvent.storeAssesmentPoints(
           {required Kelompok kelompok,
           required AssessmentStudentList assessmentStudentList}) =

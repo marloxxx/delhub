@@ -9,12 +9,18 @@ part of 'assessment_student_model.dart';
 _$_AssessmentStudent _$$_AssessmentStudentFromJson(Map<String, dynamic> json) =>
     _$_AssessmentStudent(
       id: json['id'] as int,
-      kelompok: Kelompok.fromJson(json['kelompok'] as Map<String, dynamic>),
-      assessmentPoint: AssessmentPoint.fromJson(
-          json['assessmentPoint'] as Map<String, dynamic>),
-      score: json['score'] as int? ?? 0,
-      mahasiswa: Mahasiswa.fromJson(json['mahasiswa'] as Map<String, dynamic>),
-      status: json['status'] as String? ?? '',
+      kelompok: json['kelompok'] == null
+          ? null
+          : Kelompok.fromJson(json['kelompok'] as Map<String, dynamic>),
+      assessmentPoint: json['assessmentPoint'] == null
+          ? null
+          : AssessmentPoint.fromJson(
+              json['assessmentPoint'] as Map<String, dynamic>),
+      score: (json['score'] as num?)?.toDouble() ?? 0.0,
+      mahasiswa: json['mahasiswa'] == null
+          ? null
+          : Mahasiswa.fromJson(json['mahasiswa'] as Map<String, dynamic>),
+      status: json['status'] as bool? ?? false,
       detailAssessmentStudent:
           (json['detailAssessmentStudent'] as List<dynamic>?)
               ?.map((e) =>

@@ -19,4 +19,10 @@ class AssessmentUsecase {
     return serviceLocator<AssessmentRepository>()
         .storeAssessmentPointsToServer(kelompok, assessmentStudentList);
   }
+
+  Future<Either<Failure, AssessmentStudentList>>
+      getAssessmentStudentsFromServer(Kelompok kelompok) async {
+    return serviceLocator<AssessmentRepository>()
+        .getAssessmentStudentsFromServer(kelompok);
+  }
 }

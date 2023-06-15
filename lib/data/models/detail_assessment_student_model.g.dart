@@ -18,7 +18,7 @@ _$_DetailAssessmentStudent _$$_DetailAssessmentStudentFromJson(
           ? null
           : AssessmentComponent.fromJson(
               json['assessmentComponent'] as Map<String, dynamic>),
-      score: json['score'] ?? 0,
+      score: (json['score'] as num?)?.toDouble() ?? 0.0,
     );
 
 Map<String, dynamic> _$$_DetailAssessmentStudentToJson(
