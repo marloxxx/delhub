@@ -32,7 +32,7 @@ class App extends StatelessWidget {
         BlocProvider(create: (_) => RequestBloc()),
         BlocProvider(create: (_) => DashboardLectureBloc()),
         BlocProvider(create: (_) => GroupBloc()),
-        BlocProvider(create: (_) => AssesmentBloc()),
+        BlocProvider(create: (_) => AssessmentBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

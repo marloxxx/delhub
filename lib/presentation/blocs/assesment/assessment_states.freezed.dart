@@ -21,7 +21,9 @@ mixin _$AssessmentStates {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<AssessmentPoint> assessmentPointList) loaded,
+    required TResult Function(
+            List<AssessmentPoint> assessmentPointList, bool isUpdated)
+        loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +31,9 @@ mixin _$AssessmentStates {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<AssessmentPoint> assessmentPointList)? loaded,
+    TResult? Function(
+            List<AssessmentPoint> assessmentPointList, bool isUpdated)?
+        loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +41,8 @@ mixin _$AssessmentStates {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<AssessmentPoint> assessmentPointList)? loaded,
+    TResult Function(List<AssessmentPoint> assessmentPointList, bool isUpdated)?
+        loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,7 +132,9 @@ class _$AssessmentInitialState implements AssessmentInitialState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<AssessmentPoint> assessmentPointList) loaded,
+    required TResult Function(
+            List<AssessmentPoint> assessmentPointList, bool isUpdated)
+        loaded,
   }) {
     return initial();
   }
@@ -138,7 +145,9 @@ class _$AssessmentInitialState implements AssessmentInitialState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<AssessmentPoint> assessmentPointList)? loaded,
+    TResult? Function(
+            List<AssessmentPoint> assessmentPointList, bool isUpdated)?
+        loaded,
   }) {
     return initial?.call();
   }
@@ -149,7 +158,8 @@ class _$AssessmentInitialState implements AssessmentInitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<AssessmentPoint> assessmentPointList)? loaded,
+    TResult Function(List<AssessmentPoint> assessmentPointList, bool isUpdated)?
+        loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -241,7 +251,9 @@ class _$AssessmentLoadingState implements AssessmentLoadingState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<AssessmentPoint> assessmentPointList) loaded,
+    required TResult Function(
+            List<AssessmentPoint> assessmentPointList, bool isUpdated)
+        loaded,
   }) {
     return loading();
   }
@@ -252,7 +264,9 @@ class _$AssessmentLoadingState implements AssessmentLoadingState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<AssessmentPoint> assessmentPointList)? loaded,
+    TResult? Function(
+            List<AssessmentPoint> assessmentPointList, bool isUpdated)?
+        loaded,
   }) {
     return loading?.call();
   }
@@ -263,7 +277,8 @@ class _$AssessmentLoadingState implements AssessmentLoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<AssessmentPoint> assessmentPointList)? loaded,
+    TResult Function(List<AssessmentPoint> assessmentPointList, bool isUpdated)?
+        loaded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -382,7 +397,9 @@ class _$AssessmentErrorState implements AssessmentErrorState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<AssessmentPoint> assessmentPointList) loaded,
+    required TResult Function(
+            List<AssessmentPoint> assessmentPointList, bool isUpdated)
+        loaded,
   }) {
     return error(message);
   }
@@ -393,7 +410,9 @@ class _$AssessmentErrorState implements AssessmentErrorState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<AssessmentPoint> assessmentPointList)? loaded,
+    TResult? Function(
+            List<AssessmentPoint> assessmentPointList, bool isUpdated)?
+        loaded,
   }) {
     return error?.call(message);
   }
@@ -404,7 +423,8 @@ class _$AssessmentErrorState implements AssessmentErrorState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<AssessmentPoint> assessmentPointList)? loaded,
+    TResult Function(List<AssessmentPoint> assessmentPointList, bool isUpdated)?
+        loaded,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -467,7 +487,7 @@ abstract class _$$AssessmentLoadedStateCopyWith<$Res> {
           $Res Function(_$AssessmentLoadedState) then) =
       __$$AssessmentLoadedStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<AssessmentPoint> assessmentPointList});
+  $Res call({List<AssessmentPoint> assessmentPointList, bool isUpdated});
 }
 
 /// @nodoc
@@ -482,12 +502,17 @@ class __$$AssessmentLoadedStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object? assessmentPointList = null,
+    Object? isUpdated = null,
   }) {
     return _then(_$AssessmentLoadedState(
       assessmentPointList: null == assessmentPointList
           ? _value._assessmentPointList
           : assessmentPointList // ignore: cast_nullable_to_non_nullable
               as List<AssessmentPoint>,
+      isUpdated: null == isUpdated
+          ? _value.isUpdated
+          : isUpdated // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -496,7 +521,8 @@ class __$$AssessmentLoadedStateCopyWithImpl<$Res>
 
 class _$AssessmentLoadedState implements AssessmentLoadedState {
   const _$AssessmentLoadedState(
-      {required final List<AssessmentPoint> assessmentPointList})
+      {required final List<AssessmentPoint> assessmentPointList,
+      required this.isUpdated})
       : _assessmentPointList = assessmentPointList;
 
   final List<AssessmentPoint> _assessmentPointList;
@@ -509,8 +535,11 @@ class _$AssessmentLoadedState implements AssessmentLoadedState {
   }
 
   @override
+  final bool isUpdated;
+
+  @override
   String toString() {
-    return 'AssessmentStates.loaded(assessmentPointList: $assessmentPointList)';
+    return 'AssessmentStates.loaded(assessmentPointList: $assessmentPointList, isUpdated: $isUpdated)';
   }
 
   @override
@@ -519,12 +548,14 @@ class _$AssessmentLoadedState implements AssessmentLoadedState {
         (other.runtimeType == runtimeType &&
             other is _$AssessmentLoadedState &&
             const DeepCollectionEquality()
-                .equals(other._assessmentPointList, _assessmentPointList));
+                .equals(other._assessmentPointList, _assessmentPointList) &&
+            (identical(other.isUpdated, isUpdated) ||
+                other.isUpdated == isUpdated));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_assessmentPointList));
+  int get hashCode => Object.hash(runtimeType,
+      const DeepCollectionEquality().hash(_assessmentPointList), isUpdated);
 
   @JsonKey(ignore: true)
   @override
@@ -539,9 +570,11 @@ class _$AssessmentLoadedState implements AssessmentLoadedState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(List<AssessmentPoint> assessmentPointList) loaded,
+    required TResult Function(
+            List<AssessmentPoint> assessmentPointList, bool isUpdated)
+        loaded,
   }) {
-    return loaded(assessmentPointList);
+    return loaded(assessmentPointList, isUpdated);
   }
 
   @override
@@ -550,9 +583,11 @@ class _$AssessmentLoadedState implements AssessmentLoadedState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(List<AssessmentPoint> assessmentPointList)? loaded,
+    TResult? Function(
+            List<AssessmentPoint> assessmentPointList, bool isUpdated)?
+        loaded,
   }) {
-    return loaded?.call(assessmentPointList);
+    return loaded?.call(assessmentPointList, isUpdated);
   }
 
   @override
@@ -561,11 +596,12 @@ class _$AssessmentLoadedState implements AssessmentLoadedState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(List<AssessmentPoint> assessmentPointList)? loaded,
+    TResult Function(List<AssessmentPoint> assessmentPointList, bool isUpdated)?
+        loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(assessmentPointList);
+      return loaded(assessmentPointList, isUpdated);
     }
     return orElse();
   }
@@ -610,10 +646,11 @@ class _$AssessmentLoadedState implements AssessmentLoadedState {
 
 abstract class AssessmentLoadedState implements AssessmentStates {
   const factory AssessmentLoadedState(
-          {required final List<AssessmentPoint> assessmentPointList}) =
-      _$AssessmentLoadedState;
+      {required final List<AssessmentPoint> assessmentPointList,
+      required final bool isUpdated}) = _$AssessmentLoadedState;
 
   List<AssessmentPoint> get assessmentPointList;
+  bool get isUpdated;
   @JsonKey(ignore: true)
   _$$AssessmentLoadedStateCopyWith<_$AssessmentLoadedState> get copyWith =>
       throw _privateConstructorUsedError;

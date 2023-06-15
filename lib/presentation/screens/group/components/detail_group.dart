@@ -300,6 +300,8 @@ class DetailGroup extends StatelessWidget {
                                                         fontWeight:
                                                             FontWeight.bold,
                                                       ),
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
                                                     ),
                                                   ],
                                                 ),

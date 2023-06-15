@@ -9,6 +9,6 @@ class AssessmentStates with _$AssessmentStates {
   const factory AssessmentStates.loading() = AssessmentLoadingState;
   const factory AssessmentStates.error(String message) = AssessmentErrorState;
   const factory AssessmentStates.loaded(
-          {required AssessmentPointList assessmentPointList}) =
-      AssessmentLoadedState;
+      {required AssessmentPointList assessmentPointList,
+      required bool isUpdated}) = AssessmentLoadedState;
 }

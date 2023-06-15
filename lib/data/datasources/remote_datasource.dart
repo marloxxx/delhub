@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:delhub/data/models/assessment_point_model.dart';
+import 'package:delhub/data/models/assessment_student_model.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import '../../../../core/failure.dart';
@@ -37,6 +40,9 @@ abstract class RemoteDataSource {
 
   Future<Either<Failure, AssessmentPointList>> getAssessmentPointsFromServer(
       Kelompok kelompok);
+
+  Future<Either<Failure, bool>> storeAssessmentPointsToServer(
+      Kelompok kelompok, AssessmentStudentList assessmentStudentList);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
@@ -289,6 +295,32 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       } else {
         return Left(ConnectionFailure(response.data['meta']['message']));
       }
+    } catch (e) {
+      return Left(
+        Exception(e.toString()),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> storeAssessmentPointsToServer(
+      Kelompok kelompok, AssessmentStudentList assessmentStudentList) async {
+    try {
+      final Request request = serviceLocator<Request>();
+      var data = jsonEncode(assessmentStudentList);
+      final response = request.post(
+        '/assessment/${kelompok.id}',
+        data: {
+          'assessmentStudents': data,
+        },
+      );
+      return response.then((value) {
+        if (value.statusCode == 200) {
+          return const Right(true);
+        } else {
+          return Left(ConnectionFailure(value.data['meta']['message']));
+        }
+      });
     } catch (e) {
       return Left(
         Exception(e.toString()),

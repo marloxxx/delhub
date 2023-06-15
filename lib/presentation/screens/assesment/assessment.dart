@@ -21,8 +21,8 @@ class _AssessmentState extends State<Assessment> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<AssesmentBloc>(context)
-        .add(GetAssessmentPoints($kelompok: widget.kelompok));
+    BlocProvider.of<AssessmentBloc>(context)
+        .add(GetAssessmentPoints(kelompok: widget.kelompok));
   }
 
   @override
@@ -30,14 +30,14 @@ class _AssessmentState extends State<Assessment> {
     return SafeArea(
       child: RefreshIndicator(
         onRefresh: () async {
-          BlocProvider.of<AssesmentBloc>(context)
-              .add(GetAssessmentPoints($kelompok: widget.kelompok));
+          BlocProvider.of<AssessmentBloc>(context)
+              .add(GetAssessmentPoints(kelompok: widget.kelompok));
         },
         child: SingleChildScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
           child: SizedBox(
             height: MediaQuery.of(context).size.height,
-            child: BlocConsumer<AssesmentBloc, AssessmentStates>(
+            child: BlocConsumer<AssessmentBloc, AssessmentStates>(
               listener: (context, state) {},
               builder: (context, state) {
                 if (state is AssessmentInitialState) {
