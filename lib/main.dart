@@ -5,6 +5,7 @@ import '../app/view/app.dart';
 import 'app/flavours/app_flavour.dart';
 import 'core/service_locator.dart';
 import 'services/firebase_messaging_service.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,5 +13,7 @@ Future<void> main() async {
   await FirebaseMessagingService.initialize();
   Intl.defaultLocale = 'id';
   initializeDateFormatting();
+  await Future.delayed(const Duration(seconds: 8));
+  FlutterNativeSplash.remove();
   bootstrap(() => const App());
 }

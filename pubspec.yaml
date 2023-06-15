@@ -65,7 +65,7 @@ flutter_launcher_icons:
   image_path: "assets/icons/delhub.png"
 
 flutter_native_splash:
-  color: "#ffffff"
+  color: "ff3493C9"
   image: "assets/icons/delhub.png"
   android: true
   ios: true
