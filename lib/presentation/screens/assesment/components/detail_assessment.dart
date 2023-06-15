@@ -45,6 +45,7 @@ class _DetailAssessmentState extends State<DetailAssessment> {
     mahasiswaList = widget.kelompok.mahasiswa!;
     assessmentComponentList = widget.assessmentPoint.components!;
     mahasiswa = mahasiswaList[0];
+    assessmentStudentList = widget.assessmentStudentList;
     // set texteditingcontroller for each assessment component
     for (var i = 0; i < assessmentComponentList.length; i++) {
       textEditingControllers.add(TextEditingController());
@@ -583,9 +584,7 @@ class _DetailAssessmentState extends State<DetailAssessment> {
   }
 
   void setInitialValueList() {
-    if (widget.assessmentStudentList.isNotEmpty) {
-      assessmentStudentList = widget.assessmentStudentList;
-    } else {
+    if (widget.assessmentStudentList.isEmpty) {
       assessmentStudentList = mahasiswaList.map((mahasiswa) {
         return AssessmentStudent(
           id: 0,
