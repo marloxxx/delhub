@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'detail_guidance_event.dart';
+part of 'reschedule_event.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,7 +15,7 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
 /// @nodoc
-mixin _$DetailGuidanceEvent {
+mixin _$RescheduleEvent {
   Request get request => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
@@ -57,15 +57,15 @@ mixin _$DetailGuidanceEvent {
       throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $DetailGuidanceEventCopyWith<DetailGuidanceEvent> get copyWith =>
+  $RescheduleEventCopyWith<RescheduleEvent> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $DetailGuidanceEventCopyWith<$Res> {
-  factory $DetailGuidanceEventCopyWith(
-          DetailGuidanceEvent value, $Res Function(DetailGuidanceEvent) then) =
-      _$DetailGuidanceEventCopyWithImpl<$Res, DetailGuidanceEvent>;
+abstract class $RescheduleEventCopyWith<$Res> {
+  factory $RescheduleEventCopyWith(
+          RescheduleEvent value, $Res Function(RescheduleEvent) then) =
+      _$RescheduleEventCopyWithImpl<$Res, RescheduleEvent>;
   @useResult
   $Res call({Request request});
 
@@ -73,9 +73,9 @@ abstract class $DetailGuidanceEventCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$DetailGuidanceEventCopyWithImpl<$Res, $Val extends DetailGuidanceEvent>
-    implements $DetailGuidanceEventCopyWith<$Res> {
-  _$DetailGuidanceEventCopyWithImpl(this._value, this._then);
+class _$RescheduleEventCopyWithImpl<$Res, $Val extends RescheduleEvent>
+    implements $RescheduleEventCopyWith<$Res> {
+  _$RescheduleEventCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -106,7 +106,7 @@ class _$DetailGuidanceEventCopyWithImpl<$Res, $Val extends DetailGuidanceEvent>
 
 /// @nodoc
 abstract class _$$GetDataEventCopyWith<$Res>
-    implements $DetailGuidanceEventCopyWith<$Res> {
+    implements $RescheduleEventCopyWith<$Res> {
   factory _$$GetDataEventCopyWith(
           _$GetDataEvent value, $Res Function(_$GetDataEvent) then) =
       __$$GetDataEventCopyWithImpl<$Res>;
@@ -120,7 +120,7 @@ abstract class _$$GetDataEventCopyWith<$Res>
 
 /// @nodoc
 class __$$GetDataEventCopyWithImpl<$Res>
-    extends _$DetailGuidanceEventCopyWithImpl<$Res, _$GetDataEvent>
+    extends _$RescheduleEventCopyWithImpl<$Res, _$GetDataEvent>
     implements _$$GetDataEventCopyWith<$Res> {
   __$$GetDataEventCopyWithImpl(
       _$GetDataEvent _value, $Res Function(_$GetDataEvent) _then)
@@ -150,7 +150,7 @@ class _$GetDataEvent implements GetDataEvent {
 
   @override
   String toString() {
-    return 'DetailGuidanceEvent.getData(request: $request)';
+    return 'RescheduleEvent.getData(request: $request)';
   }
 
   @override
@@ -233,7 +233,7 @@ class _$GetDataEvent implements GetDataEvent {
   }
 }
 
-abstract class GetDataEvent implements DetailGuidanceEvent {
+abstract class GetDataEvent implements RescheduleEvent {
   const factory GetDataEvent({required final Request request}) = _$GetDataEvent;
 
   @override
@@ -246,7 +246,7 @@ abstract class GetDataEvent implements DetailGuidanceEvent {
 
 /// @nodoc
 abstract class _$$UpdateDataEventCopyWith<$Res>
-    implements $DetailGuidanceEventCopyWith<$Res> {
+    implements $RescheduleEventCopyWith<$Res> {
   factory _$$UpdateDataEventCopyWith(
           _$UpdateDataEvent value, $Res Function(_$UpdateDataEvent) then) =
       __$$UpdateDataEventCopyWithImpl<$Res>;
@@ -260,7 +260,7 @@ abstract class _$$UpdateDataEventCopyWith<$Res>
 
 /// @nodoc
 class __$$UpdateDataEventCopyWithImpl<$Res>
-    extends _$DetailGuidanceEventCopyWithImpl<$Res, _$UpdateDataEvent>
+    extends _$RescheduleEventCopyWithImpl<$Res, _$UpdateDataEvent>
     implements _$$UpdateDataEventCopyWith<$Res> {
   __$$UpdateDataEventCopyWithImpl(
       _$UpdateDataEvent _value, $Res Function(_$UpdateDataEvent) _then)
@@ -290,7 +290,7 @@ class _$UpdateDataEvent implements UpdateDataEvent {
 
   @override
   String toString() {
-    return 'DetailGuidanceEvent.updateData(request: $request)';
+    return 'RescheduleEvent.updateData(request: $request)';
   }
 
   @override
@@ -373,7 +373,7 @@ class _$UpdateDataEvent implements UpdateDataEvent {
   }
 }
 
-abstract class UpdateDataEvent implements DetailGuidanceEvent {
+abstract class UpdateDataEvent implements RescheduleEvent {
   const factory UpdateDataEvent({required final Request request}) =
       _$UpdateDataEvent;
 

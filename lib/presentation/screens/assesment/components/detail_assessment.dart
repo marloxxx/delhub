@@ -647,7 +647,6 @@ class _DetailAssessmentState extends State<DetailAssessment> {
   void storeValues(Kelompok kelompok) {
     // if there textformfield is empty
     if (textEditingControllers.any((element) => element.text.isEmpty)) {
-      debugPrint(textEditingControllers.toString());
       OneContext().showDialog(
         builder: (_) => AlertDialog(
           title: const Text("Error"),

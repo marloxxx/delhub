@@ -80,27 +80,6 @@ abstract class _$FlutterRouter extends RootStackRouter {
         ),
       );
     },
-    RescheduleGuidanceRoute.name: (routeData) {
-      final args = routeData.argsAs<RescheduleGuidanceRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: Reschedule(
-          key: args.key,
-          user: args.user,
-          request: args.request,
-        ),
-      );
-    },
-    StatusUploadRoute.name: (routeData) {
-      final args = routeData.argsAs<StatusUploadRouteArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: StatusUpload(
-          key: args.key,
-          request: args.request,
-        ),
-      );
-    },
     DetailGuidanceRoute.name: (routeData) {
       final args = routeData.argsAs<DetailGuidanceRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -135,6 +114,26 @@ abstract class _$FlutterRouter extends RootStackRouter {
         child: RequestingGuidance(
           key: args.key,
           user: args.user,
+        ),
+      );
+    },
+    RescheduleGuidanceRoute.name: (routeData) {
+      final args = routeData.argsAs<RescheduleGuidanceRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: Reschedule(
+          key: args.key,
+          request: args.request,
+        ),
+      );
+    },
+    StatusUploadRoute.name: (routeData) {
+      final args = routeData.argsAs<StatusUploadRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: StatusUpload(
+          key: args.key,
+          request: args.request,
         ),
       );
     },
@@ -374,88 +373,6 @@ class GroupRouteArgs {
 }
 
 /// generated route for
-/// [Reschedule]
-class RescheduleGuidanceRoute
-    extends PageRouteInfo<RescheduleGuidanceRouteArgs> {
-  RescheduleGuidanceRoute({
-    Key? key,
-    required User user,
-    required Request request,
-    List<PageRouteInfo>? children,
-  }) : super(
-          RescheduleGuidanceRoute.name,
-          args: RescheduleGuidanceRouteArgs(
-            key: key,
-            user: user,
-            request: request,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'RescheduleGuidanceRoute';
-
-  static const PageInfo<RescheduleGuidanceRouteArgs> page =
-      PageInfo<RescheduleGuidanceRouteArgs>(name);
-}
-
-class RescheduleGuidanceRouteArgs {
-  const RescheduleGuidanceRouteArgs({
-    this.key,
-    required this.user,
-    required this.request,
-  });
-
-  final Key? key;
-
-  final User user;
-
-  final Request request;
-
-  @override
-  String toString() {
-    return 'RescheduleGuidanceRouteArgs{key: $key, user: $user, request: $request}';
-  }
-}
-
-/// generated route for
-/// [StatusUpload]
-class StatusUploadRoute extends PageRouteInfo<StatusUploadRouteArgs> {
-  StatusUploadRoute({
-    Key? key,
-    required Request request,
-    List<PageRouteInfo>? children,
-  }) : super(
-          StatusUploadRoute.name,
-          args: StatusUploadRouteArgs(
-            key: key,
-            request: request,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'StatusUploadRoute';
-
-  static const PageInfo<StatusUploadRouteArgs> page =
-      PageInfo<StatusUploadRouteArgs>(name);
-}
-
-class StatusUploadRouteArgs {
-  const StatusUploadRouteArgs({
-    this.key,
-    required this.request,
-  });
-
-  final Key? key;
-
-  final Request request;
-
-  @override
-  String toString() {
-    return 'StatusUploadRouteArgs{key: $key, request: $request}';
-  }
-}
-
-/// generated route for
 /// [Guidance]
 class DetailGuidanceRoute extends PageRouteInfo<DetailGuidanceRouteArgs> {
   DetailGuidanceRoute({
@@ -580,5 +497,82 @@ class RequestGuidanceRouteArgs {
   @override
   String toString() {
     return 'RequestGuidanceRouteArgs{key: $key, user: $user}';
+  }
+}
+
+/// generated route for
+/// [Reschedule]
+class RescheduleGuidanceRoute
+    extends PageRouteInfo<RescheduleGuidanceRouteArgs> {
+  RescheduleGuidanceRoute({
+    Key? key,
+    required Request request,
+    List<PageRouteInfo>? children,
+  }) : super(
+          RescheduleGuidanceRoute.name,
+          args: RescheduleGuidanceRouteArgs(
+            key: key,
+            request: request,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'RescheduleGuidanceRoute';
+
+  static const PageInfo<RescheduleGuidanceRouteArgs> page =
+      PageInfo<RescheduleGuidanceRouteArgs>(name);
+}
+
+class RescheduleGuidanceRouteArgs {
+  const RescheduleGuidanceRouteArgs({
+    this.key,
+    required this.request,
+  });
+
+  final Key? key;
+
+  final Request request;
+
+  @override
+  String toString() {
+    return 'RescheduleGuidanceRouteArgs{key: $key, request: $request}';
+  }
+}
+
+/// generated route for
+/// [StatusUpload]
+class StatusUploadRoute extends PageRouteInfo<StatusUploadRouteArgs> {
+  StatusUploadRoute({
+    Key? key,
+    required Request request,
+    List<PageRouteInfo>? children,
+  }) : super(
+          StatusUploadRoute.name,
+          args: StatusUploadRouteArgs(
+            key: key,
+            request: request,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'StatusUploadRoute';
+
+  static const PageInfo<StatusUploadRouteArgs> page =
+      PageInfo<StatusUploadRouteArgs>(name);
+}
+
+class StatusUploadRouteArgs {
+  const StatusUploadRouteArgs({
+    this.key,
+    required this.request,
+  });
+
+  final Key? key;
+
+  final Request request;
+
+  @override
+  String toString() {
+    return 'StatusUploadRouteArgs{key: $key, request: $request}';
   }
 }

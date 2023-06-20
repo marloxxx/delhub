@@ -406,7 +406,6 @@ class _BodyState extends State<Body> {
                                               .add(
                                             UpdateDataEvent(
                                               request: newRequest,
-                                              file: null,
                                             ),
                                           );
                                           BlocProvider.of<DetailGuidanceBloc>(
@@ -438,7 +437,6 @@ class _BodyState extends State<Body> {
                                               .add(
                                             UpdateDataEvent(
                                               request: newRequest,
-                                              file: null,
                                             ),
                                           );
                                           BlocProvider.of<DetailGuidanceBloc>(
@@ -466,7 +464,6 @@ class _BodyState extends State<Body> {
                                                 AutoRouter.of(context)
                                                     .push(
                                                   RescheduleGuidanceRoute(
-                                                      user: widget.user,
                                                       request: widget.request),
                                                 )
                                                     .then((value) {
@@ -528,10 +525,18 @@ class _BodyState extends State<Body> {
                                                   .isBefore(DateTime.now())
                                           ? ElevatedButton(
                                               onPressed: () {
-                                                AutoRouter.of(context).push(
-                                                    StatusUploadRoute(
+                                                AutoRouter.of(context)
+                                                    .push(StatusUploadRoute(
                                                         request:
-                                                            widget.request));
+                                                            widget.request))
+                                                    .then((value) {
+                                                  BlocProvider.of<
+                                                              DetailGuidanceBloc>(
+                                                          context)
+                                                      .add(GetDataEvent(
+                                                          request:
+                                                              widget.request));
+                                                });
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 foregroundColor: Colors.white,
@@ -548,11 +553,18 @@ class _BodyState extends State<Body> {
                                           : const SizedBox()
                                       : ElevatedButton(
                                           onPressed: () {
-                                            AutoRouter.of(context).push(
+                                            AutoRouter.of(context)
+                                                .push(
                                               RescheduleGuidanceRoute(
-                                                  user: widget.user,
                                                   request: widget.request),
-                                            );
+                                            )
+                                                .then((value) {
+                                              BlocProvider.of<
+                                                          DetailGuidanceBloc>(
+                                                      context)
+                                                  .add(GetDataEvent(
+                                                      request: widget.request));
+                                            });
                                           },
                                           style: ElevatedButton.styleFrom(
                                             foregroundColor: Colors.white,

@@ -11,13 +11,13 @@ import '../presentation/screens/assesment/components/detail_assessment.dart';
 import '../presentation/screens/group/components/detail_group.dart';
 import '../presentation/screens/assesment/assessment.dart';
 import '../presentation/screens/group/components/other.dart';
-import '../presentation/screens/guidance/components/reschedule.dart';
+import '../presentation/screens/reschedule/reschedule.dart';
 import '../presentation/screens/login/login_screen.dart';
 import '../presentation/screens/dashboard_student/dashboard_student.dart';
 import '../presentation/screens/dashboard_lecture/dashboard_lecture.dart';
 import '../presentation/screens/history/history.dart';
 import '../presentation/screens/guidance/guidance.dart';
-import '../presentation/screens/guidance/components/status_upload.dart';
+import '../presentation/screens/status_upload/status_upload.dart';
 import '../presentation/screens/request/request_guidance.dart';
 import '../presentation/screens/group/group.dart';
 

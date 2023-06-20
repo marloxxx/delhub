@@ -12,6 +12,8 @@ import '../../presentation/blocs/group/group_bloc.dart';
 import '../../presentation/blocs/history/history_bloc.dart';
 import '../../presentation/blocs/login/login_bloc.dart';
 import '../../presentation/blocs/request/request_bloc.dart';
+import '../../presentation/blocs/reschedule/reschedule_bloc.dart';
+import '../../presentation/blocs/status_upload/status_upload_bloc.dart';
 import '../../routes/app_routers.dart';
 
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
@@ -30,6 +32,8 @@ class App extends StatelessWidget {
         BlocProvider(create: (_) => HistoryBloc()),
         BlocProvider(create: (_) => DetailGuidanceBloc()),
         BlocProvider(create: (_) => RequestBloc()),
+        BlocProvider(create: (_) => RescheduleBloc()),
+        BlocProvider(create: (_) => StatusUploadBloc()),
         BlocProvider(create: (_) => DashboardLectureBloc()),
         BlocProvider(create: (_) => GroupBloc()),
         BlocProvider(create: (_) => AssessmentBloc()),

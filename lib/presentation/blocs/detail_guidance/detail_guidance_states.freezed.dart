@@ -21,8 +21,7 @@ mixin _$DetailGuidanceState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)
+    required TResult Function(User user, Request request, bool isUpdated)
         loaded,
   }) =>
       throw _privateConstructorUsedError;
@@ -31,9 +30,7 @@ mixin _$DetailGuidanceState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult? Function(User user, Request request, bool isUpdated)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -41,9 +38,7 @@ mixin _$DetailGuidanceState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult Function(User user, Request request, bool isUpdated)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -137,8 +132,7 @@ class _$DetailGuidanceInitialState implements DetailGuidanceInitialState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)
+    required TResult Function(User user, Request request, bool isUpdated)
         loaded,
   }) {
     return initial();
@@ -150,9 +144,7 @@ class _$DetailGuidanceInitialState implements DetailGuidanceInitialState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult? Function(User user, Request request, bool isUpdated)? loaded,
   }) {
     return initial?.call();
   }
@@ -163,9 +155,7 @@ class _$DetailGuidanceInitialState implements DetailGuidanceInitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult Function(User user, Request request, bool isUpdated)? loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -261,8 +251,7 @@ class _$DetailGuidanceLoadingState implements DetailGuidanceLoadingState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)
+    required TResult Function(User user, Request request, bool isUpdated)
         loaded,
   }) {
     return loading();
@@ -274,9 +263,7 @@ class _$DetailGuidanceLoadingState implements DetailGuidanceLoadingState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult? Function(User user, Request request, bool isUpdated)? loaded,
   }) {
     return loading?.call();
   }
@@ -287,9 +274,7 @@ class _$DetailGuidanceLoadingState implements DetailGuidanceLoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult Function(User user, Request request, bool isUpdated)? loaded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -409,8 +394,7 @@ class _$DetailGuidanceErrorState implements DetailGuidanceErrorState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)
+    required TResult Function(User user, Request request, bool isUpdated)
         loaded,
   }) {
     return error(message);
@@ -422,9 +406,7 @@ class _$DetailGuidanceErrorState implements DetailGuidanceErrorState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult? Function(User user, Request request, bool isUpdated)? loaded,
   }) {
     return error?.call(message);
   }
@@ -435,9 +417,7 @@ class _$DetailGuidanceErrorState implements DetailGuidanceErrorState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult Function(User user, Request request, bool isUpdated)? loaded,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -501,7 +481,7 @@ abstract class _$$DetailGuidanceLoadedStateCopyWith<$Res> {
           $Res Function(_$DetailGuidanceLoadedState) then) =
       __$$DetailGuidanceLoadedStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({User user, Request request, List<Room> rooms, bool isUpdated});
+  $Res call({User user, Request request, bool isUpdated});
 
   $UserCopyWith<$Res> get user;
   $RequestCopyWith<$Res> get request;
@@ -520,7 +500,6 @@ class __$$DetailGuidanceLoadedStateCopyWithImpl<$Res>
   $Res call({
     Object? user = null,
     Object? request = null,
-    Object? rooms = null,
     Object? isUpdated = null,
   }) {
     return _then(_$DetailGuidanceLoadedState(
@@ -532,10 +511,6 @@ class __$$DetailGuidanceLoadedStateCopyWithImpl<$Res>
           ? _value.request
           : request // ignore: cast_nullable_to_non_nullable
               as Request,
-      rooms: null == rooms
-          ? _value._rooms
-          : rooms // ignore: cast_nullable_to_non_nullable
-              as List<Room>,
       isUpdated: null == isUpdated
           ? _value.isUpdated
           : isUpdated // ignore: cast_nullable_to_non_nullable
@@ -564,30 +539,18 @@ class __$$DetailGuidanceLoadedStateCopyWithImpl<$Res>
 
 class _$DetailGuidanceLoadedState implements DetailGuidanceLoadedState {
   const _$DetailGuidanceLoadedState(
-      {required this.user,
-      required this.request,
-      required final List<Room> rooms,
-      required this.isUpdated})
-      : _rooms = rooms;
+      {required this.user, required this.request, required this.isUpdated});
 
   @override
   final User user;
   @override
   final Request request;
-  final List<Room> _rooms;
-  @override
-  List<Room> get rooms {
-    if (_rooms is EqualUnmodifiableListView) return _rooms;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_rooms);
-  }
-
   @override
   final bool isUpdated;
 
   @override
   String toString() {
-    return 'DetailGuidanceState.loaded(user: $user, request: $request, rooms: $rooms, isUpdated: $isUpdated)';
+    return 'DetailGuidanceState.loaded(user: $user, request: $request, isUpdated: $isUpdated)';
   }
 
   @override
@@ -597,14 +560,12 @@ class _$DetailGuidanceLoadedState implements DetailGuidanceLoadedState {
             other is _$DetailGuidanceLoadedState &&
             (identical(other.user, user) || other.user == user) &&
             (identical(other.request, request) || other.request == request) &&
-            const DeepCollectionEquality().equals(other._rooms, _rooms) &&
             (identical(other.isUpdated, isUpdated) ||
                 other.isUpdated == isUpdated));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, user, request,
-      const DeepCollectionEquality().hash(_rooms), isUpdated);
+  int get hashCode => Object.hash(runtimeType, user, request, isUpdated);
 
   @JsonKey(ignore: true)
   @override
@@ -619,11 +580,10 @@ class _$DetailGuidanceLoadedState implements DetailGuidanceLoadedState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)
+    required TResult Function(User user, Request request, bool isUpdated)
         loaded,
   }) {
-    return loaded(user, request, rooms, isUpdated);
+    return loaded(user, request, isUpdated);
   }
 
   @override
@@ -632,11 +592,9 @@ class _$DetailGuidanceLoadedState implements DetailGuidanceLoadedState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult? Function(User user, Request request, bool isUpdated)? loaded,
   }) {
-    return loaded?.call(user, request, rooms, isUpdated);
+    return loaded?.call(user, request, isUpdated);
   }
 
   @override
@@ -645,13 +603,11 @@ class _$DetailGuidanceLoadedState implements DetailGuidanceLoadedState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(
-            User user, Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult Function(User user, Request request, bool isUpdated)? loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(user, request, rooms, isUpdated);
+      return loaded(user, request, isUpdated);
     }
     return orElse();
   }
@@ -698,12 +654,10 @@ abstract class DetailGuidanceLoadedState implements DetailGuidanceState {
   const factory DetailGuidanceLoadedState(
       {required final User user,
       required final Request request,
-      required final List<Room> rooms,
       required final bool isUpdated}) = _$DetailGuidanceLoadedState;
 
   User get user;
   Request get request;
-  List<Room> get rooms;
   bool get isUpdated;
   @JsonKey(ignore: true)
   _$$DetailGuidanceLoadedStateCopyWith<_$DetailGuidanceLoadedState>

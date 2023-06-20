@@ -62,14 +62,23 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         '/login',
         data: user.toJson(),
       );
-
       if (response.statusCode == 200) {
         request.updateAuthorization(response.data['data']['access_token']);
         var data = response.data['data']['user'];
         data['token'] = response.data['data']['access_token'];
         return Right(User.fromJson(data));
       } else {
-        return Left(ConnectionFailure(response.data['data']['message']));
+        // check if meta exist
+        if (response.data['meta'] != null) {
+          // check if meta exist
+          if (response.data['meta'] != null) {
+            return Left(ConnectionFailure(response.data['meta']['message']));
+          } else {
+            return Left(ConnectionFailure(response.data['message']));
+          }
+        } else {
+          return Left(ConnectionFailure(response.data['message']));
+        }
       }
     } catch (e) {
       return const Left(
@@ -90,7 +99,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       if (response.statusCode == 200) {
         return const Right(true);
       } else {
-        return Left(ConnectionFailure(response.data['meta']['message']));
+        // check if meta exist
+        if (response.data['meta'] != null) {
+          return Left(ConnectionFailure(response.data['meta']['message']));
+        } else {
+          return Left(ConnectionFailure(response.data['message']));
+        }
       }
     } catch (e) {
       return const Left(
@@ -109,7 +123,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       if (response.statusCode == 200) {
         return const Right(true);
       } else {
-        return Left(ConnectionFailure(response.data['meta']['message']));
+        // check if meta exist
+        if (response.data['meta'] != null) {
+          return Left(ConnectionFailure(response.data['meta']['message']));
+        } else {
+          return Left(ConnectionFailure(response.data['message']));
+        }
       }
     } catch (e) {
       return const Left(
@@ -132,7 +151,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         }
         return Right(requestList);
       } else {
-        return Left(ConnectionFailure(response.data['meta']['message']));
+        // check if meta exist
+        if (response.data['meta'] != null) {
+          return Left(ConnectionFailure(response.data['meta']['message']));
+        } else {
+          return Left(ConnectionFailure(response.data['message']));
+        }
       }
     } catch (e) {
       return const Left(
@@ -155,7 +179,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         }
         return Right(requestList);
       } else {
-        return Left(ConnectionFailure(response.data['meta']['message']));
+        // check if meta exist
+        if (response.data['meta'] != null) {
+          return Left(ConnectionFailure(response.data['meta']['message']));
+        } else {
+          return Left(ConnectionFailure(response.data['message']));
+        }
       }
     } catch (e) {
       return const Left(
@@ -179,7 +208,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       if (response.statusCode == 200) {
         return const Right(true);
       } else {
-        return Left(ConnectionFailure(response.data['meta']['errors']));
+        // check if meta exist
+        if (response.data['meta'] != null) {
+          return Left(ConnectionFailure(response.data['meta']['message']));
+        } else {
+          return Left(ConnectionFailure(response.data['message']));
+        }
       }
     } catch (e) {
       return const Left(
@@ -210,7 +244,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         request.updateContentType('application/json');
         return Right(request_model.Request.fromJson(response.data['data']));
       } else {
-        return Left(ConnectionFailure(response.data['meta']['errors']));
+        // check if meta exist
+        if (response.data['meta'] != null) {
+          return Left(ConnectionFailure(response.data['meta']['message']));
+        } else {
+          return Left(ConnectionFailure(response.data['message']));
+        }
       }
     } catch (e) {
       // return "Terjadi kesalahan pada server, silahkan coba lagi";
@@ -233,7 +272,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         }
         return Right(roomList);
       } else {
-        return Left(ConnectionFailure(response.data['meta']['message']));
+        // check if meta exist
+        if (response.data['meta'] != null) {
+          return Left(ConnectionFailure(response.data['meta']['message']));
+        } else {
+          return Left(ConnectionFailure(response.data['message']));
+        }
       }
     } catch (e) {
       return Left(
@@ -255,7 +299,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         }
         return Right(krsList);
       } else {
-        return Left(ConnectionFailure(response.data['meta']['message']));
+        // check if meta exist
+        if (response.data['meta'] != null) {
+          return Left(ConnectionFailure(response.data['meta']['message']));
+        } else {
+          return Left(ConnectionFailure(response.data['message']));
+        }
       }
     } catch (e) {
       return Left(
@@ -278,7 +327,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         }
         return Right(kelompokList);
       } else {
-        return Left(ConnectionFailure(response.data['meta']['message']));
+        // check if meta exist
+        if (response.data['meta'] != null) {
+          return Left(ConnectionFailure(response.data['meta']['message']));
+        } else {
+          return Left(ConnectionFailure(response.data['message']));
+        }
       }
     } catch (e) {
       return Left(
@@ -301,7 +355,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         }
         return Right(assessmentPointList);
       } else {
-        return Left(ConnectionFailure(response.data['meta']['message']));
+        // check if meta exist
+        if (response.data['meta'] != null) {
+          return Left(ConnectionFailure(response.data['meta']['message']));
+        } else {
+          return Left(ConnectionFailure(response.data['message']));
+        }
       }
     } catch (e) {
       return Left(
@@ -350,7 +409,12 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         }
         return Right(assessmentStudentList);
       } else {
-        return Left(ConnectionFailure(response.data['meta']['message']));
+        // check if meta exist
+        if (response.data['meta'] != null) {
+          return Left(ConnectionFailure(response.data['meta']['message']));
+        } else {
+          return Left(ConnectionFailure(response.data['message']));
+        }
       }
     } catch (e) {
       return Left(

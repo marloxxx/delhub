@@ -1,6 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../data/models/dropped_file_model.dart';
 import '../../../data/models/request_model.dart';
 part 'detail_guidance_event.freezed.dart';
 
@@ -10,6 +9,5 @@ class DetailGuidanceEvent with _$DetailGuidanceEvent {
       GetDataEvent;
   const factory DetailGuidanceEvent.updateData({
     required Request request,
-    required DroppedFile? file,
   }) = UpdateDataEvent;
 }

@@ -20,6 +20,21 @@ class DetailGuidanceBloc
         var request = await serviceLocator<RequestUseCase>()
             .getRequestFromServer(event.request);
         var rooms = await serviceLocator<RoomUsecase>().getRoomsFromServer();
+        if (request.isLeft()) {
+          emit(DetailGuidanceState.error(
+              request.fold((l) => l.toString(), (r) => r.toString())));
+          return;
+        }
+        if (user.isLeft()) {
+          emit(DetailGuidanceState.error(
+              user.fold((l) => l.toString(), (r) => r.toString())));
+          return;
+        }
+        if (rooms.isLeft()) {
+          emit(DetailGuidanceState.error(
+              rooms.fold((l) => l.toString(), (r) => r.toString())));
+          return;
+        }
         // set the data to the state
         emit(DetailGuidanceState.loaded(
           user: user.getOrElse(
@@ -27,9 +42,6 @@ class DetailGuidanceBloc
           ),
           request: request.getOrElse(
             () => Request(),
-          ),
-          rooms: rooms.getOrElse(
-            () => [],
           ),
           isUpdated: false,
         ));
@@ -39,7 +51,7 @@ class DetailGuidanceBloc
       (event, emit) async {
         emit(const DetailGuidanceLoadingState());
         var response = await serviceLocator<RequestUseCase>()
-            .updateRequest(event.request, event.file);
+            .updateRequest(event.request, null);
         var user = await serviceLocator<GetLocalDataUsecase>()
             .getUserFromLocalStorage();
         if (response.isRight()) {
@@ -49,13 +61,19 @@ class DetailGuidanceBloc
               request: response.getOrElse(
                 () => Request(),
               ),
-              rooms: [],
               isUpdated: true,
             ),
           );
         } else {
-          emit(DetailGuidanceState.error(
+          emit(DetailGuidanceErrorState(
               response.fold((l) => l.toString(), (r) => r.toString())));
+          emit(
+            DetailGuidanceLoadedState(
+              user: user.getOrElse(() => User()),
+              request: event.request,
+              isUpdated: false,
+            ),
+          );
         }
       },
     );

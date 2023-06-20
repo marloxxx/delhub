@@ -2,7 +2,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../data/models/user_model.dart';
 import '../../../data/models/request_model.dart';
-import '../../../data/models/room_model.dart';
 part 'detail_guidance_states.freezed.dart';
 
 @freezed
@@ -14,7 +13,6 @@ abstract class DetailGuidanceState with _$DetailGuidanceState {
   const factory DetailGuidanceState.loaded({
     required User user,
     required Request request,
-    required RoomList rooms,
     required bool isUpdated,
   }) = DetailGuidanceLoadedState;
 }
