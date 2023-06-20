@@ -159,7 +159,7 @@ class RecordGuidance extends StatelessWidget {
                                             ? 'Ditolak'
                                             : requestList[index].status ==
                                                     'reschedule'
-                                                ? 'Reschedule'
+                                                ? 'Dijadwalkan Ulang'
                                                 : 'Menunggu',
                                 style: const TextStyle(
                                   color: Colors.white,

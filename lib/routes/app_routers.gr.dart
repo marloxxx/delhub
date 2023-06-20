@@ -80,6 +80,17 @@ abstract class _$FlutterRouter extends RootStackRouter {
         ),
       );
     },
+    RescheduleGuidanceRoute.name: (routeData) {
+      final args = routeData.argsAs<RescheduleGuidanceRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: Reschedule(
+          key: args.key,
+          user: args.user,
+          request: args.request,
+        ),
+      );
+    },
     StatusUploadRoute.name: (routeData) {
       final args = routeData.argsAs<StatusUploadRouteArgs>();
       return AutoRoutePage<dynamic>(
@@ -359,6 +370,50 @@ class GroupRouteArgs {
   @override
   String toString() {
     return 'GroupRouteArgs{key: $key, krs: $krs}';
+  }
+}
+
+/// generated route for
+/// [Reschedule]
+class RescheduleGuidanceRoute
+    extends PageRouteInfo<RescheduleGuidanceRouteArgs> {
+  RescheduleGuidanceRoute({
+    Key? key,
+    required User user,
+    required Request request,
+    List<PageRouteInfo>? children,
+  }) : super(
+          RescheduleGuidanceRoute.name,
+          args: RescheduleGuidanceRouteArgs(
+            key: key,
+            user: user,
+            request: request,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'RescheduleGuidanceRoute';
+
+  static const PageInfo<RescheduleGuidanceRouteArgs> page =
+      PageInfo<RescheduleGuidanceRouteArgs>(name);
+}
+
+class RescheduleGuidanceRouteArgs {
+  const RescheduleGuidanceRouteArgs({
+    this.key,
+    required this.user,
+    required this.request,
+  });
+
+  final Key? key;
+
+  final User user;
+
+  final Request request;
+
+  @override
+  String toString() {
+    return 'RescheduleGuidanceRouteArgs{key: $key, user: $user, request: $request}';
   }
 }
 

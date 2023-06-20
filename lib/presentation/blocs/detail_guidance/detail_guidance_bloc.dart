@@ -5,6 +5,7 @@ import '../../../../data/models/user_model.dart';
 import '../../../../domain/usecases/get_local_data_usecase.dart';
 import '../../../data/models/request_model.dart';
 import '../../../domain/usecases/request_usecase.dart';
+import '../../../domain/usecases/room_usecase.dart';
 import 'detail_guidance_event.dart';
 import 'detail_guidance_states.dart';
 
@@ -18,6 +19,7 @@ class DetailGuidanceBloc
             .getUserFromLocalStorage();
         var request = await serviceLocator<RequestUseCase>()
             .getRequestFromServer(event.request);
+        var rooms = await serviceLocator<RoomUsecase>().getRoomsFromServer();
         // set the data to the state
         emit(DetailGuidanceState.loaded(
           user: user.getOrElse(
@@ -26,6 +28,9 @@ class DetailGuidanceBloc
           request: request.getOrElse(
             () => Request(),
           ),
+          rooms: rooms.getOrElse(
+            () => [],
+          ),
           isUpdated: false,
         ));
       },
@@ -33,8 +38,8 @@ class DetailGuidanceBloc
     on<UpdateDataEvent>(
       (event, emit) async {
         emit(const DetailGuidanceLoadingState());
-        var response = await serviceLocator<RequestUseCase>().updateRequest(
-            event.id, event.status, event.waktu, event.file, event.result);
+        var response = await serviceLocator<RequestUseCase>()
+            .updateRequest(event.request, event.file);
         var user = await serviceLocator<GetLocalDataUsecase>()
             .getUserFromLocalStorage();
         if (response.isRight()) {
@@ -44,6 +49,7 @@ class DetailGuidanceBloc
               request: response.getOrElse(
                 () => Request(),
               ),
+              rooms: [],
               isUpdated: true,
             ),
           );
@@ -51,12 +57,6 @@ class DetailGuidanceBloc
           emit(DetailGuidanceState.error(
               response.fold((l) => l.toString(), (r) => r.toString())));
         }
-      },
-    );
-    on<ResetStateEvent>(
-      (event, emit) async {
-        emit(DetailGuidanceLoadedState(
-            isUpdated: false, request: Request(), user: User()));
       },
     );
   }

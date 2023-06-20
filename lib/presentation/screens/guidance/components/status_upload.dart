@@ -37,36 +37,39 @@ class _StatusUploadState extends State<StatusUpload> {
         onRefresh: () async {
           // set state to loaded state
         },
-        child: Background(
-          child: BlocConsumer<DetailGuidanceBloc, DetailGuidanceState>(
-            listener: (context, state) {
-              if (state is DetailGuidanceErrorState) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(state.message),
-                  ),
-                );
-              } else if (state is DetailGuidanceLoadingState) {
-                const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state is DetailGuidanceLoadedState &&
-                  state.isUpdated) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Berhasil Diperbarui"),
-                  ),
-                );
-                context.router.pop();
-              }
-            },
-            builder: (context, state) {
-              if (state is DetailGuidanceInitialState) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state is DetailGuidanceLoadedState) {
-                return Scaffold(
+        child: BlocConsumer<DetailGuidanceBloc, DetailGuidanceState>(
+          listener: (context, state) {
+            if (state is DetailGuidanceErrorState) {
+              OneContext().showDialog(
+                builder: (_) => AlertDialog(
+                  title: const Text('Warning'),
+                  content: Text(state.message),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(_).pop();
+                      },
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              );
+            } else if (state is DetailGuidanceLoadingState) {
+              const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is DetailGuidanceLoadedState && state.isUpdated) {
+              context.router.pop();
+            }
+          },
+          builder: (context, state) {
+            if (state is DetailGuidanceInitialState) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (state is DetailGuidanceLoadedState) {
+              return Background(
+                child: Scaffold(
                   backgroundColor: Colors.transparent,
                   // Body of Dashboard
                   body: Column(
@@ -430,58 +433,58 @@ class _StatusUploadState extends State<StatusUpload> {
                       ),
                     ],
                   ),
-                );
-              } else if (state is DetailGuidanceErrorState) {
-                return Scaffold(
-                  backgroundColor: Colors.transparent,
-                  body: Column(
-                    children: [
-                      // Header
-                      Container(
-                        padding: const EdgeInsets.all(15.0),
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Text(
-                              'Detail Bimbingan',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 25,
-                                  fontFamily: 'Righteous'),
-                            )
-                          ],
+                ),
+              );
+            } else if (state is DetailGuidanceErrorState) {
+              return Scaffold(
+                backgroundColor: Colors.transparent,
+                body: Column(
+                  children: [
+                    // Header
+                    Container(
+                      padding: const EdgeInsets.all(15.0),
+                      child: const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            'Detail Bimbingan',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 25,
+                                fontFamily: 'Righteous'),
+                          )
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25),
+                        ),
+                        child: Container(
+                          padding: const EdgeInsets.all(15.0),
+                          width: MediaQuery.of(context).size.width,
+                          color: white,
+                          child: Center(
+                            child: Text(state.message),
+                          ),
                         ),
                       ),
-                      Expanded(
-                        child: ClipRRect(
-                          borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(25),
-                            topRight: Radius.circular(25),
-                          ),
-                          child: Container(
-                            padding: const EdgeInsets.all(15.0),
-                            width: MediaQuery.of(context).size.width,
-                            color: white,
-                            child: Center(
-                              child: Text(state.message),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                );
-              } else if (state is DetailGuidanceLoadingState) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else {
-                return const Center(
-                  child: Text('Terjadi Kesalahan'),
-                );
-              }
-            },
-          ),
+                    )
+                  ],
+                ),
+              );
+            } else if (state is DetailGuidanceLoadingState) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return const Center(
+                child: Text('Terjadi Kesalahan'),
+              );
+            }
+          },
         ),
       ),
     );
@@ -523,13 +526,16 @@ class _StatusUploadState extends State<StatusUpload> {
       );
     }
     if (_controller.text.isNotEmpty && droppedFile != null) {
+      final newRequest = Request(
+        id: widget.request.id,
+        waktu: null,
+        status: widget.request.status,
+        result: _controller.text,
+      );
       BlocProvider.of<DetailGuidanceBloc>(context).add(
         UpdateDataEvent(
-          id: widget.request.id,
-          status: widget.request.status,
-          waktu: null,
+          request: newRequest,
           file: droppedFile,
-          result: _controller.text,
         ),
       );
     }

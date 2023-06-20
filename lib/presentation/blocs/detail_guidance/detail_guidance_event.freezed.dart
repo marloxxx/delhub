@@ -19,27 +19,21 @@ mixin _$DetailGuidanceEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Request request) getData,
-    required TResult Function(int id, String status, String? waktu,
-            DroppedFile? file, String? result)
-        updateData,
+    required TResult Function(Request request, DroppedFile? file) updateData,
     required TResult Function() resetState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Request request)? getData,
-    TResult? Function(int id, String status, String? waktu, DroppedFile? file,
-            String? result)?
-        updateData,
+    TResult? Function(Request request, DroppedFile? file)? updateData,
     TResult? Function()? resetState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Request request)? getData,
-    TResult Function(int id, String status, String? waktu, DroppedFile? file,
-            String? result)?
-        updateData,
+    TResult Function(Request request, DroppedFile? file)? updateData,
     TResult Function()? resetState,
     required TResult orElse(),
   }) =>
@@ -161,9 +155,7 @@ class _$GetDataEvent implements GetDataEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Request request) getData,
-    required TResult Function(int id, String status, String? waktu,
-            DroppedFile? file, String? result)
-        updateData,
+    required TResult Function(Request request, DroppedFile? file) updateData,
     required TResult Function() resetState,
   }) {
     return getData(request);
@@ -173,9 +165,7 @@ class _$GetDataEvent implements GetDataEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Request request)? getData,
-    TResult? Function(int id, String status, String? waktu, DroppedFile? file,
-            String? result)?
-        updateData,
+    TResult? Function(Request request, DroppedFile? file)? updateData,
     TResult? Function()? resetState,
   }) {
     return getData?.call(request);
@@ -185,9 +175,7 @@ class _$GetDataEvent implements GetDataEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Request request)? getData,
-    TResult Function(int id, String status, String? waktu, DroppedFile? file,
-            String? result)?
-        updateData,
+    TResult Function(Request request, DroppedFile? file)? updateData,
     TResult Function()? resetState,
     required TResult orElse(),
   }) {
@@ -247,13 +235,9 @@ abstract class _$$UpdateDataEventCopyWith<$Res> {
           _$UpdateDataEvent value, $Res Function(_$UpdateDataEvent) then) =
       __$$UpdateDataEventCopyWithImpl<$Res>;
   @useResult
-  $Res call(
-      {int id,
-      String status,
-      String? waktu,
-      DroppedFile? file,
-      String? result});
+  $Res call({Request request, DroppedFile? file});
 
+  $RequestCopyWith<$Res> get request;
   $DroppedFileCopyWith<$Res>? get file;
 }
 
@@ -268,34 +252,27 @@ class __$$UpdateDataEventCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? id = null,
-    Object? status = null,
-    Object? waktu = freezed,
+    Object? request = null,
     Object? file = freezed,
-    Object? result = freezed,
   }) {
     return _then(_$UpdateDataEvent(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      waktu: freezed == waktu
-          ? _value.waktu
-          : waktu // ignore: cast_nullable_to_non_nullable
-              as String?,
+      request: null == request
+          ? _value.request
+          : request // ignore: cast_nullable_to_non_nullable
+              as Request,
       file: freezed == file
           ? _value.file
           : file // ignore: cast_nullable_to_non_nullable
               as DroppedFile?,
-      result: freezed == result
-          ? _value.result
-          : result // ignore: cast_nullable_to_non_nullable
-              as String?,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RequestCopyWith<$Res> get request {
+    return $RequestCopyWith<$Res>(_value.request, (value) {
+      return _then(_value.copyWith(request: value));
+    });
   }
 
   @override
@@ -314,27 +291,16 @@ class __$$UpdateDataEventCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UpdateDataEvent implements UpdateDataEvent {
-  const _$UpdateDataEvent(
-      {required this.id,
-      required this.status,
-      required this.waktu,
-      required this.file,
-      required this.result});
+  const _$UpdateDataEvent({required this.request, required this.file});
 
   @override
-  final int id;
-  @override
-  final String status;
-  @override
-  final String? waktu;
+  final Request request;
   @override
   final DroppedFile? file;
-  @override
-  final String? result;
 
   @override
   String toString() {
-    return 'DetailGuidanceEvent.updateData(id: $id, status: $status, waktu: $waktu, file: $file, result: $result)';
+    return 'DetailGuidanceEvent.updateData(request: $request, file: $file)';
   }
 
   @override
@@ -342,15 +308,12 @@ class _$UpdateDataEvent implements UpdateDataEvent {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$UpdateDataEvent &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.status, status) || other.status == status) &&
-            (identical(other.waktu, waktu) || other.waktu == waktu) &&
-            (identical(other.file, file) || other.file == file) &&
-            (identical(other.result, result) || other.result == result));
+            (identical(other.request, request) || other.request == request) &&
+            (identical(other.file, file) || other.file == file));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, status, waktu, file, result);
+  int get hashCode => Object.hash(runtimeType, request, file);
 
   @JsonKey(ignore: true)
   @override
@@ -362,38 +325,32 @@ class _$UpdateDataEvent implements UpdateDataEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Request request) getData,
-    required TResult Function(int id, String status, String? waktu,
-            DroppedFile? file, String? result)
-        updateData,
+    required TResult Function(Request request, DroppedFile? file) updateData,
     required TResult Function() resetState,
   }) {
-    return updateData(id, status, waktu, file, result);
+    return updateData(request, file);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Request request)? getData,
-    TResult? Function(int id, String status, String? waktu, DroppedFile? file,
-            String? result)?
-        updateData,
+    TResult? Function(Request request, DroppedFile? file)? updateData,
     TResult? Function()? resetState,
   }) {
-    return updateData?.call(id, status, waktu, file, result);
+    return updateData?.call(request, file);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Request request)? getData,
-    TResult Function(int id, String status, String? waktu, DroppedFile? file,
-            String? result)?
-        updateData,
+    TResult Function(Request request, DroppedFile? file)? updateData,
     TResult Function()? resetState,
     required TResult orElse(),
   }) {
     if (updateData != null) {
-      return updateData(id, status, waktu, file, result);
+      return updateData(request, file);
     }
     return orElse();
   }
@@ -435,17 +392,11 @@ class _$UpdateDataEvent implements UpdateDataEvent {
 
 abstract class UpdateDataEvent implements DetailGuidanceEvent {
   const factory UpdateDataEvent(
-      {required final int id,
-      required final String status,
-      required final String? waktu,
-      required final DroppedFile? file,
-      required final String? result}) = _$UpdateDataEvent;
+      {required final Request request,
+      required final DroppedFile? file}) = _$UpdateDataEvent;
 
-  int get id;
-  String get status;
-  String? get waktu;
+  Request get request;
   DroppedFile? get file;
-  String? get result;
   @JsonKey(ignore: true)
   _$$UpdateDataEventCopyWith<_$UpdateDataEvent> get copyWith =>
       throw _privateConstructorUsedError;
@@ -490,9 +441,7 @@ class _$ResetStateEvent implements ResetStateEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(Request request) getData,
-    required TResult Function(int id, String status, String? waktu,
-            DroppedFile? file, String? result)
-        updateData,
+    required TResult Function(Request request, DroppedFile? file) updateData,
     required TResult Function() resetState,
   }) {
     return resetState();
@@ -502,9 +451,7 @@ class _$ResetStateEvent implements ResetStateEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(Request request)? getData,
-    TResult? Function(int id, String status, String? waktu, DroppedFile? file,
-            String? result)?
-        updateData,
+    TResult? Function(Request request, DroppedFile? file)? updateData,
     TResult? Function()? resetState,
   }) {
     return resetState?.call();
@@ -514,9 +461,7 @@ class _$ResetStateEvent implements ResetStateEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Request request)? getData,
-    TResult Function(int id, String status, String? waktu, DroppedFile? file,
-            String? result)?
-        updateData,
+    TResult Function(Request request, DroppedFile? file)? updateData,
     TResult Function()? resetState,
     required TResult orElse(),
   }) {

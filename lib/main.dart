@@ -12,7 +12,5 @@ Future<void> main() async {
   await FirebaseMessagingService.initialize();
   Intl.defaultLocale = 'id';
   initializeDateFormatting();
-  // await Future.delayed(const Duration(seconds: 8));
-  // FlutterNativeSplash.remove();
   bootstrap(() => const App());
 }

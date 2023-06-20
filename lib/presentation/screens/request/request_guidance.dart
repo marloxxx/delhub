@@ -59,14 +59,13 @@ class _RequestingGuidanceState extends State<RequestingGuidance> {
                     TextButton(
                       onPressed: () {
                         Navigator.of(_).pop();
+                        context.router.pop();
                       },
                       child: const Text("OK"),
                     ),
                   ],
                 ),
               );
-              // go back to previous page and refresh
-              AutoRouter.of(context).pop();
             }
           },
           builder: (context, state) {

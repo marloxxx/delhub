@@ -11,6 +11,7 @@ import '../presentation/screens/assesment/components/detail_assessment.dart';
 import '../presentation/screens/group/components/detail_group.dart';
 import '../presentation/screens/assesment/assessment.dart';
 import '../presentation/screens/group/components/other.dart';
+import '../presentation/screens/guidance/components/reschedule.dart';
 import '../presentation/screens/login/login_screen.dart';
 import '../presentation/screens/dashboard_student/dashboard_student.dart';
 import '../presentation/screens/dashboard_lecture/dashboard_lecture.dart';
@@ -34,6 +35,7 @@ class FlutterRouter extends _$FlutterRouter {
     AutoRoute(path: '/dashboard-lecture', page: DashboardLectureRoute.page),
     AutoRoute(path: '/guidance', page: GuidanceStudentRoute.page),
     AutoRoute(path: '/guidance/detail', page: DetailGuidanceRoute.page),
+    AutoRoute(path: '/guidance/reschedule', page: RescheduleGuidanceRoute.page),
     AutoRoute(path: '/guidance/status', page: StatusUploadRoute.page),
     AutoRoute(path: '/request', page: RequestGuidanceRoute.page),
     AutoRoute(path: '/group', page: GroupRoute.page),

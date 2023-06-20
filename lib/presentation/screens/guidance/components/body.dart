@@ -26,48 +26,6 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  final TextEditingController _dateController = TextEditingController();
-
-  Future<TimeOfDay?> _pickTime(BuildContext context) async {
-    return await showTimePicker(
-      context: context,
-      initialTime: widget.request.waktu != null
-          ? TimeOfDay.fromDateTime(widget.request.waktu!)
-          : TimeOfDay.now(),
-    );
-  }
-
-  Future<DateTime?> _selectDate(BuildContext context) async {
-    return await showDatePicker(
-      context: context,
-      initialDate: widget.request.waktu ?? DateTime.now(),
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2100),
-    );
-  }
-
-  Future<void> _pickDateTime(BuildContext context) async {
-    final pickedDate = await _selectDate(context);
-    final pickedTime = await _pickTime(context);
-    if (pickedDate != null && pickedTime != null) {
-      setState(() {
-        _dateController.text =
-            "${"${pickedDate.toLocal()}".split(' ')[0]} ${pickedTime.format(context)}";
-        BlocProvider.of<DetailGuidanceBloc>(context).add(
-          UpdateDataEvent(
-            id: widget.request.id,
-            status: 'reschedule',
-            waktu: _dateController.text,
-            file: null,
-            result: null,
-          ),
-        );
-        BlocProvider.of<DetailGuidanceBloc>(context)
-            .add(GetDataEvent(request: widget.request));
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Background(
@@ -437,15 +395,18 @@ class _BodyState extends State<Body> {
                                     children: [
                                       ElevatedButton(
                                         onPressed: () {
+                                          final newRequest = Request(
+                                            id: widget.request.id,
+                                            status: 'approve',
+                                            waktu: null,
+                                            result: '',
+                                          );
                                           BlocProvider.of<DetailGuidanceBloc>(
                                                   context)
                                               .add(
                                             UpdateDataEvent(
-                                              id: widget.request.id,
-                                              status: 'approve',
-                                              waktu: null,
+                                              request: newRequest,
                                               file: null,
-                                              result: null,
                                             ),
                                           );
                                           BlocProvider.of<DetailGuidanceBloc>(
@@ -466,15 +427,18 @@ class _BodyState extends State<Body> {
                                       ),
                                       ElevatedButton(
                                         onPressed: () {
+                                          final newRequest = Request(
+                                            id: widget.request.id,
+                                            status: 'reject',
+                                            waktu: null,
+                                            result: '',
+                                          );
                                           BlocProvider.of<DetailGuidanceBloc>(
                                                   context)
                                               .add(
                                             UpdateDataEvent(
-                                              id: widget.request.id,
-                                              status: 'reject',
-                                              waktu: null,
+                                              request: newRequest,
                                               file: null,
-                                              result: null,
                                             ),
                                           );
                                           BlocProvider.of<DetailGuidanceBloc>(
@@ -499,7 +463,20 @@ class _BodyState extends State<Body> {
                                           ? const SizedBox()
                                           : ElevatedButton(
                                               onPressed: () {
-                                                _pickDateTime(context);
+                                                AutoRouter.of(context)
+                                                    .push(
+                                                  RescheduleGuidanceRoute(
+                                                      user: widget.user,
+                                                      request: widget.request),
+                                                )
+                                                    .then((value) {
+                                                  BlocProvider.of<
+                                                              DetailGuidanceBloc>(
+                                                          context)
+                                                      .add(GetDataEvent(
+                                                          request:
+                                                              widget.request));
+                                                });
                                               },
                                               style: ElevatedButton.styleFrom(
                                                 foregroundColor: Colors.white,
@@ -571,7 +548,11 @@ class _BodyState extends State<Body> {
                                           : const SizedBox()
                                       : ElevatedButton(
                                           onPressed: () {
-                                            _pickDateTime(context);
+                                            AutoRouter.of(context).push(
+                                              RescheduleGuidanceRoute(
+                                                  user: widget.user,
+                                                  request: widget.request),
+                                            );
                                           },
                                           style: ElevatedButton.styleFrom(
                                             foregroundColor: Colors.white,

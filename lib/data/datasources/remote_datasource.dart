@@ -26,7 +26,7 @@ abstract class RemoteDataSource {
   Future<Either<Failure, request_model.RequestList>> getRequestsFromServer();
   Future<Either<Failure, bool>> createRequest(request_model.Request request);
   Future<Either<Failure, request_model.Request>> updateRequest(
-      int id, String status, String? waktu, DroppedFile? file, String? result);
+      request_model.Request request, DroppedFile? file);
 
   // Rooms
   Future<Either<Failure, RoomList>> getRoomsFromServer();
@@ -189,21 +189,23 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   }
 
   @override
-  Future<Either<Failure, request_model.Request>> updateRequest(int id,
-      String status, String? waktu, DroppedFile? file, String? result) async {
+  Future<Either<Failure, request_model.Request>> updateRequest(
+      request_model.Request requestModel, DroppedFile? file) async {
     try {
       final Request request = serviceLocator<Request>();
-      debugPrint(status);
       request.updateContentType('multipart/form-data');
+
       FormData data = FormData.fromMap({
-        'status': status,
-        'waktu': waktu,
+        'status': requestModel.status,
+        'waktu': requestModel.waktu?.toString(),
         'file': file?.name != null
             ? await MultipartFile.fromFile(file!.url, filename: file.name)
             : null,
-        'result': result,
+        'result': requestModel.result,
+        'ruangan_id': requestModel.ruangan?.id
       });
-      final response = await request.post('/requests/$id', data: data);
+      final response =
+          await request.post('/requests/${requestModel.id}', data: data);
       if (response.statusCode == 200) {
         request.updateContentType('application/json');
         return Right(request_model.Request.fromJson(response.data['data']));
@@ -212,8 +214,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       }
     } catch (e) {
       // return "Terjadi kesalahan pada server, silahkan coba lagi";
-      return const Left(
-        Exception("Terjadi kesalahan pada server, silahkan coba lagi"),
+      return Left(
+        Exception(e.toString()),
       );
     }
   }

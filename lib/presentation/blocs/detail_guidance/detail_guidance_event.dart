@@ -9,11 +9,7 @@ class DetailGuidanceEvent with _$DetailGuidanceEvent {
   const factory DetailGuidanceEvent.getData({required Request request}) =
       GetDataEvent;
   const factory DetailGuidanceEvent.updateData({
-    required int id,
-    required String status,
-    required String? waktu,
+    required Request request,
     required DroppedFile? file,
-    required String? result,
   }) = UpdateDataEvent;
-  const factory DetailGuidanceEvent.resetState() = ResetStateEvent;
 }
