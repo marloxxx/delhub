@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: <Widget>[
                     SizedBox(height: size.height * 0.03),
                     const Text(
-                      "Aplikasi Perkuliahan Proyek Akhir dan Tugas Akhir",
+                      "Aplikasi Manajemen Proyek Akhir dan Tugas Akhir dan Kerja Praktik Berbasis Mobile",
                       style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 22,
