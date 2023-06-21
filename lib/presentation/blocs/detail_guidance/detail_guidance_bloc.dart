@@ -67,13 +67,6 @@ class DetailGuidanceBloc
         } else {
           emit(DetailGuidanceErrorState(
               response.fold((l) => l.toString(), (r) => r.toString())));
-          emit(
-            DetailGuidanceLoadedState(
-              user: user.getOrElse(() => User()),
-              request: event.request,
-              isUpdated: false,
-            ),
-          );
         }
       },
     );

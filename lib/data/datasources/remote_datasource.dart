@@ -71,11 +71,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
         // check if meta exist
         if (response.data['meta'] != null) {
           // check if meta exist
-          if (response.data['meta'] != null) {
-            return Left(ConnectionFailure(response.data['meta']['message']));
-          } else {
-            return Left(ConnectionFailure(response.data['message']));
-          }
+          return Left(ConnectionFailure(response.data['meta']['message']));
         } else {
           return Left(ConnectionFailure(response.data['message']));
         }
@@ -254,7 +250,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
     } catch (e) {
       // return "Terjadi kesalahan pada server, silahkan coba lagi";
       return Left(
-        Exception(e.toString()),
+        Exception("Terjadi kesalahan pada server, silahkan coba lagi"),
       );
     }
   }

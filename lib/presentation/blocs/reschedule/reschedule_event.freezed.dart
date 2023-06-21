@@ -16,22 +16,21 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$RescheduleEvent {
-  Request get request => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Request request) getData,
+    required TResult Function() getData,
     required TResult Function(Request request) updateData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Request request)? getData,
+    TResult? Function()? getData,
     TResult? Function(Request request)? updateData,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Request request)? getData,
+    TResult Function()? getData,
     TResult Function(Request request)? updateData,
     required TResult orElse(),
   }) =>
@@ -55,10 +54,6 @@ mixin _$RescheduleEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
-  @JsonKey(ignore: true)
-  $RescheduleEventCopyWith<RescheduleEvent> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -66,10 +61,6 @@ abstract class $RescheduleEventCopyWith<$Res> {
   factory $RescheduleEventCopyWith(
           RescheduleEvent value, $Res Function(RescheduleEvent) then) =
       _$RescheduleEventCopyWithImpl<$Res, RescheduleEvent>;
-  @useResult
-  $Res call({Request request});
-
-  $RequestCopyWith<$Res> get request;
 }
 
 /// @nodoc
@@ -81,41 +72,13 @@ class _$RescheduleEventCopyWithImpl<$Res, $Val extends RescheduleEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? request = null,
-  }) {
-    return _then(_value.copyWith(
-      request: null == request
-          ? _value.request
-          : request // ignore: cast_nullable_to_non_nullable
-              as Request,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $RequestCopyWith<$Res> get request {
-    return $RequestCopyWith<$Res>(_value.request, (value) {
-      return _then(_value.copyWith(request: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
-abstract class _$$GetDataEventCopyWith<$Res>
-    implements $RescheduleEventCopyWith<$Res> {
+abstract class _$$GetDataEventCopyWith<$Res> {
   factory _$$GetDataEventCopyWith(
           _$GetDataEvent value, $Res Function(_$GetDataEvent) then) =
       __$$GetDataEventCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({Request request});
-
-  @override
-  $RequestCopyWith<$Res> get request;
 }
 
 /// @nodoc
@@ -125,78 +88,54 @@ class __$$GetDataEventCopyWithImpl<$Res>
   __$$GetDataEventCopyWithImpl(
       _$GetDataEvent _value, $Res Function(_$GetDataEvent) _then)
       : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? request = null,
-  }) {
-    return _then(_$GetDataEvent(
-      request: null == request
-          ? _value.request
-          : request // ignore: cast_nullable_to_non_nullable
-              as Request,
-    ));
-  }
 }
 
 /// @nodoc
 
 class _$GetDataEvent implements GetDataEvent {
-  const _$GetDataEvent({required this.request});
-
-  @override
-  final Request request;
+  const _$GetDataEvent();
 
   @override
   String toString() {
-    return 'RescheduleEvent.getData(request: $request)';
+    return 'RescheduleEvent.getData()';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$GetDataEvent &&
-            (identical(other.request, request) || other.request == request));
+        (other.runtimeType == runtimeType && other is _$GetDataEvent);
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, request);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$GetDataEventCopyWith<_$GetDataEvent> get copyWith =>
-      __$$GetDataEventCopyWithImpl<_$GetDataEvent>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Request request) getData,
+    required TResult Function() getData,
     required TResult Function(Request request) updateData,
   }) {
-    return getData(request);
+    return getData();
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Request request)? getData,
+    TResult? Function()? getData,
     TResult? Function(Request request)? updateData,
   }) {
-    return getData?.call(request);
+    return getData?.call();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Request request)? getData,
+    TResult Function()? getData,
     TResult Function(Request request)? updateData,
     required TResult orElse(),
   }) {
     if (getData != null) {
-      return getData(request);
+      return getData();
     }
     return orElse();
   }
@@ -234,27 +173,17 @@ class _$GetDataEvent implements GetDataEvent {
 }
 
 abstract class GetDataEvent implements RescheduleEvent {
-  const factory GetDataEvent({required final Request request}) = _$GetDataEvent;
-
-  @override
-  Request get request;
-  @override
-  @JsonKey(ignore: true)
-  _$$GetDataEventCopyWith<_$GetDataEvent> get copyWith =>
-      throw _privateConstructorUsedError;
+  const factory GetDataEvent() = _$GetDataEvent;
 }
 
 /// @nodoc
-abstract class _$$UpdateDataEventCopyWith<$Res>
-    implements $RescheduleEventCopyWith<$Res> {
+abstract class _$$UpdateDataEventCopyWith<$Res> {
   factory _$$UpdateDataEventCopyWith(
           _$UpdateDataEvent value, $Res Function(_$UpdateDataEvent) then) =
       __$$UpdateDataEventCopyWithImpl<$Res>;
-  @override
   @useResult
   $Res call({Request request});
 
-  @override
   $RequestCopyWith<$Res> get request;
 }
 
@@ -277,6 +206,14 @@ class __$$UpdateDataEventCopyWithImpl<$Res>
           : request // ignore: cast_nullable_to_non_nullable
               as Request,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $RequestCopyWith<$Res> get request {
+    return $RequestCopyWith<$Res>(_value.request, (value) {
+      return _then(_value.copyWith(request: value));
+    });
   }
 }
 
@@ -313,7 +250,7 @@ class _$UpdateDataEvent implements UpdateDataEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Request request) getData,
+    required TResult Function() getData,
     required TResult Function(Request request) updateData,
   }) {
     return updateData(request);
@@ -322,7 +259,7 @@ class _$UpdateDataEvent implements UpdateDataEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(Request request)? getData,
+    TResult? Function()? getData,
     TResult? Function(Request request)? updateData,
   }) {
     return updateData?.call(request);
@@ -331,7 +268,7 @@ class _$UpdateDataEvent implements UpdateDataEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Request request)? getData,
+    TResult Function()? getData,
     TResult Function(Request request)? updateData,
     required TResult orElse(),
   }) {
@@ -377,9 +314,7 @@ abstract class UpdateDataEvent implements RescheduleEvent {
   const factory UpdateDataEvent({required final Request request}) =
       _$UpdateDataEvent;
 
-  @override
   Request get request;
-  @override
   @JsonKey(ignore: true)
   _$$UpdateDataEventCopyWith<_$UpdateDataEvent> get copyWith =>
       throw _privateConstructorUsedError;

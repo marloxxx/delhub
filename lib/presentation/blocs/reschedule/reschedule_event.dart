@@ -6,8 +6,7 @@ part 'reschedule_event.freezed.dart';
 
 @freezed
 class RescheduleEvent with _$RescheduleEvent {
-  const factory RescheduleEvent.getData({required Request request}) =
-      GetDataEvent;
+  const factory RescheduleEvent.getData() = GetDataEvent;
   const factory RescheduleEvent.updateData({
     required Request request,
   }) = UpdateDataEvent;

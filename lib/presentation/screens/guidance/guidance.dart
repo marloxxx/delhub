@@ -66,11 +66,13 @@ class _GuidanceState extends State<Guidance> {
                   ],
                 ),
               );
+              BlocProvider.of<DetailGuidanceBloc>(context)
+                  .add(GetDataEvent(request: widget.request));
             }
           },
           listenWhen: (previous, current) {
-            if (current is DetailGuidanceLoadedState) {
-              return current.isUpdated;
+            if (current != previous) {
+              return true;
             } else {
               return false;
             }

@@ -22,8 +22,7 @@ class _BodyState extends State<Reschedule> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<RescheduleBloc>(context)
-        .add(GetDataEvent(request: widget.request));
+    BlocProvider.of<RescheduleBloc>(context).add(const GetDataEvent());
   }
 
   @override
@@ -31,8 +30,7 @@ class _BodyState extends State<Reschedule> {
     return SafeArea(
       child: RefreshIndicator(
         onRefresh: () async {
-          BlocProvider.of<RescheduleBloc>(context)
-              .add(GetDataEvent(request: widget.request));
+          BlocProvider.of<RescheduleBloc>(context).add(const GetDataEvent());
         },
         child: BlocConsumer<RescheduleBloc, RescheduleState>(
             listener: (context, state) {
@@ -72,33 +70,22 @@ class _BodyState extends State<Reschedule> {
               ),
             );
           }
-        }, listenWhen: (previous, current) {
-          if (current != previous) {
-            return true;
-          }
-          return false;
         }, builder: (context, state) {
           if (state is RescheduleInitialState) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is RescheduleLoadingState) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state is RescheduleLoadedState && !state.isUpdated) {
-            return Body(
-              request: state.request,
-              roomList: state.rooms,
-            );
           } else if (state is RescheduleErrorState) {
             return Center(
               child: Text(state.message),
             );
-          } else {
-            return const Center(child: CircularProgressIndicator());
+          } else if (state is RescheduleLoadedState) {
+            return Body(
+              request: widget.request,
+              roomList: state.rooms,
+            );
           }
-        }, buildWhen: (previous, current) {
-          if (current is RescheduleLoadedState && !current.isUpdated) {
-            return true;
-          }
-          return false;
+          return const Center(child: CircularProgressIndicator());
         }),
       ),
     );

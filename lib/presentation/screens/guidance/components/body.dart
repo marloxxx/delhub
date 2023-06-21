@@ -31,7 +31,6 @@ class _BodyState extends State<Body> {
     return Background(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-
         // Body of Dashboard
         body: Column(
           children: <Widget>[
@@ -390,8 +389,7 @@ class _BodyState extends State<Body> {
                             ? widget.request.status == 'waiting' ||
                                     widget.request.status == 'reschedule'
                                 ? Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       ElevatedButton(
                                         onPressed: () {
@@ -408,10 +406,6 @@ class _BodyState extends State<Body> {
                                               request: newRequest,
                                             ),
                                           );
-                                          BlocProvider.of<DetailGuidanceBloc>(
-                                                  context)
-                                              .add(GetDataEvent(
-                                                  request: widget.request));
                                         },
                                         style: ElevatedButton.styleFrom(
                                           foregroundColor: Colors.white,
@@ -423,6 +417,9 @@ class _BodyState extends State<Body> {
                                           ),
                                         ),
                                         child: const Text('Terima'),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
                                       ),
                                       ElevatedButton(
                                         onPressed: () {
@@ -439,10 +436,6 @@ class _BodyState extends State<Body> {
                                               request: newRequest,
                                             ),
                                           );
-                                          BlocProvider.of<DetailGuidanceBloc>(
-                                                  context)
-                                              .add(GetDataEvent(
-                                                  request: widget.request));
                                         },
                                         style: ElevatedButton.styleFrom(
                                           foregroundColor: Colors.white,
@@ -454,6 +447,9 @@ class _BodyState extends State<Body> {
                                           ),
                                         ),
                                         child: const Text('Tolak'),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
                                       ),
                                       // if date has passed don't show reschedule button
                                       widget.request.waktu!
@@ -494,7 +490,8 @@ class _BodyState extends State<Body> {
                                                 'reschedule') &&
                                         widget.request.waktu!
                                             .isBefore(DateTime.now())
-                                    ? widget.request.is_done == false
+                                    ? widget.request.is_done == false &&
+                                            widget.user.role == 'mahasiswa'
                                         ? ElevatedButton(
                                             onPressed: () {
                                               AutoRouter.of(context).push(

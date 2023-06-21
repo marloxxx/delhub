@@ -21,8 +21,7 @@ mixin _$RescheduleState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(Request request, List<Room> rooms, bool isUpdated)
-        loaded,
+    required TResult Function(List<Room> rooms, bool isUpdated) loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -30,8 +29,7 @@ mixin _$RescheduleState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult? Function(List<Room> rooms, bool isUpdated)? loaded,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -39,7 +37,7 @@ mixin _$RescheduleState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(Request request, List<Room> rooms, bool isUpdated)? loaded,
+    TResult Function(List<Room> rooms, bool isUpdated)? loaded,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -129,8 +127,7 @@ class _$RescheduleInitialState implements RescheduleInitialState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(Request request, List<Room> rooms, bool isUpdated)
-        loaded,
+    required TResult Function(List<Room> rooms, bool isUpdated) loaded,
   }) {
     return initial();
   }
@@ -141,8 +138,7 @@ class _$RescheduleInitialState implements RescheduleInitialState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult? Function(List<Room> rooms, bool isUpdated)? loaded,
   }) {
     return initial?.call();
   }
@@ -153,7 +149,7 @@ class _$RescheduleInitialState implements RescheduleInitialState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(Request request, List<Room> rooms, bool isUpdated)? loaded,
+    TResult Function(List<Room> rooms, bool isUpdated)? loaded,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -245,8 +241,7 @@ class _$RescheduleLoadingState implements RescheduleLoadingState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(Request request, List<Room> rooms, bool isUpdated)
-        loaded,
+    required TResult Function(List<Room> rooms, bool isUpdated) loaded,
   }) {
     return loading();
   }
@@ -257,8 +252,7 @@ class _$RescheduleLoadingState implements RescheduleLoadingState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult? Function(List<Room> rooms, bool isUpdated)? loaded,
   }) {
     return loading?.call();
   }
@@ -269,7 +263,7 @@ class _$RescheduleLoadingState implements RescheduleLoadingState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(Request request, List<Room> rooms, bool isUpdated)? loaded,
+    TResult Function(List<Room> rooms, bool isUpdated)? loaded,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -388,8 +382,7 @@ class _$RescheduleErrorState implements RescheduleErrorState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(Request request, List<Room> rooms, bool isUpdated)
-        loaded,
+    required TResult Function(List<Room> rooms, bool isUpdated) loaded,
   }) {
     return error(message);
   }
@@ -400,8 +393,7 @@ class _$RescheduleErrorState implements RescheduleErrorState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult? Function(List<Room> rooms, bool isUpdated)? loaded,
   }) {
     return error?.call(message);
   }
@@ -412,7 +404,7 @@ class _$RescheduleErrorState implements RescheduleErrorState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(Request request, List<Room> rooms, bool isUpdated)? loaded,
+    TResult Function(List<Room> rooms, bool isUpdated)? loaded,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -475,9 +467,7 @@ abstract class _$$RescheduleLoadedStateCopyWith<$Res> {
           $Res Function(_$RescheduleLoadedState) then) =
       __$$RescheduleLoadedStateCopyWithImpl<$Res>;
   @useResult
-  $Res call({Request request, List<Room> rooms, bool isUpdated});
-
-  $RequestCopyWith<$Res> get request;
+  $Res call({List<Room> rooms, bool isUpdated});
 }
 
 /// @nodoc
@@ -491,15 +481,10 @@ class __$$RescheduleLoadedStateCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? request = null,
     Object? rooms = null,
     Object? isUpdated = null,
   }) {
     return _then(_$RescheduleLoadedState(
-      request: null == request
-          ? _value.request
-          : request // ignore: cast_nullable_to_non_nullable
-              as Request,
       rooms: null == rooms
           ? _value._rooms
           : rooms // ignore: cast_nullable_to_non_nullable
@@ -510,27 +495,15 @@ class __$$RescheduleLoadedStateCopyWithImpl<$Res>
               as bool,
     ));
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $RequestCopyWith<$Res> get request {
-    return $RequestCopyWith<$Res>(_value.request, (value) {
-      return _then(_value.copyWith(request: value));
-    });
-  }
 }
 
 /// @nodoc
 
 class _$RescheduleLoadedState implements RescheduleLoadedState {
   const _$RescheduleLoadedState(
-      {required this.request,
-      required final List<Room> rooms,
-      required this.isUpdated})
+      {required final List<Room> rooms, required this.isUpdated})
       : _rooms = rooms;
 
-  @override
-  final Request request;
   final List<Room> _rooms;
   @override
   List<Room> get rooms {
@@ -544,7 +517,7 @@ class _$RescheduleLoadedState implements RescheduleLoadedState {
 
   @override
   String toString() {
-    return 'RescheduleState.loaded(request: $request, rooms: $rooms, isUpdated: $isUpdated)';
+    return 'RescheduleState.loaded(rooms: $rooms, isUpdated: $isUpdated)';
   }
 
   @override
@@ -552,15 +525,14 @@ class _$RescheduleLoadedState implements RescheduleLoadedState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RescheduleLoadedState &&
-            (identical(other.request, request) || other.request == request) &&
             const DeepCollectionEquality().equals(other._rooms, _rooms) &&
             (identical(other.isUpdated, isUpdated) ||
                 other.isUpdated == isUpdated));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, request,
-      const DeepCollectionEquality().hash(_rooms), isUpdated);
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_rooms), isUpdated);
 
   @JsonKey(ignore: true)
   @override
@@ -575,10 +547,9 @@ class _$RescheduleLoadedState implements RescheduleLoadedState {
     required TResult Function() initial,
     required TResult Function() loading,
     required TResult Function(String message) error,
-    required TResult Function(Request request, List<Room> rooms, bool isUpdated)
-        loaded,
+    required TResult Function(List<Room> rooms, bool isUpdated) loaded,
   }) {
-    return loaded(request, rooms, isUpdated);
+    return loaded(rooms, isUpdated);
   }
 
   @override
@@ -587,10 +558,9 @@ class _$RescheduleLoadedState implements RescheduleLoadedState {
     TResult? Function()? initial,
     TResult? Function()? loading,
     TResult? Function(String message)? error,
-    TResult? Function(Request request, List<Room> rooms, bool isUpdated)?
-        loaded,
+    TResult? Function(List<Room> rooms, bool isUpdated)? loaded,
   }) {
-    return loaded?.call(request, rooms, isUpdated);
+    return loaded?.call(rooms, isUpdated);
   }
 
   @override
@@ -599,11 +569,11 @@ class _$RescheduleLoadedState implements RescheduleLoadedState {
     TResult Function()? initial,
     TResult Function()? loading,
     TResult Function(String message)? error,
-    TResult Function(Request request, List<Room> rooms, bool isUpdated)? loaded,
+    TResult Function(List<Room> rooms, bool isUpdated)? loaded,
     required TResult orElse(),
   }) {
     if (loaded != null) {
-      return loaded(request, rooms, isUpdated);
+      return loaded(rooms, isUpdated);
     }
     return orElse();
   }
@@ -648,11 +618,9 @@ class _$RescheduleLoadedState implements RescheduleLoadedState {
 
 abstract class RescheduleLoadedState implements RescheduleState {
   const factory RescheduleLoadedState(
-      {required final Request request,
-      required final List<Room> rooms,
+      {required final List<Room> rooms,
       required final bool isUpdated}) = _$RescheduleLoadedState;
 
-  Request get request;
   List<Room> get rooms;
   bool get isUpdated;
   @JsonKey(ignore: true)
