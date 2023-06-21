@@ -35,19 +35,15 @@ class DashboardStudentBloc
     on<LogoutEvent>(
       (event, emit) async {
         emit(const DashboardStudentState.loading());
-        try {
-          final result = await serviceLocator<LoginUserUsecase>().logout();
-          result.fold(
-            (failure) {
-              emit(DashboardStudentState.error(failure.message));
-            },
-            (data) {
-              emit(const DashboardStudentState.logout());
-            },
-          );
-        } catch (e) {
-          emit(DashboardStudentState.error(e.toString()));
-        }
+        final result = await serviceLocator<LoginUserUsecase>().logout();
+        result.fold(
+          (failure) {
+            emit(DashboardStudentState.error(failure.message));
+          },
+          (data) {
+            emit(const DashboardStudentState.logout());
+          },
+        );
       },
     );
   }
