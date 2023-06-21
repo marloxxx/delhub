@@ -249,7 +249,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
       }
     } catch (e) {
       // return "Terjadi kesalahan pada server, silahkan coba lagi";
-      return Left(
+      return const Left(
         Exception("Terjadi kesalahan pada server, silahkan coba lagi"),
       );
     }

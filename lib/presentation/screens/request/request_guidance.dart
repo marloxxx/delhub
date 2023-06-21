@@ -69,19 +69,7 @@ class _RequestingGuidanceState extends State<RequestingGuidance> {
             }
           },
           builder: (context, state) {
-            if (state is RequestErrorState) {
-              return Center(
-                child: Text(
-                  state.message,
-                  style: const TextStyle(
-                    fontFamily: 'Poppins',
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
-              );
-            } else if (state is RequestLoadedState) {
+            if (state is RequestLoadedState) {
               return Body(
                 rooms: state.rooms,
                 user: widget.user,

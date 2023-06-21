@@ -195,6 +195,9 @@ class _BodyState extends State<Body> {
                                     if (value == null || value.isEmpty) {
                                       return 'Mohon isi keperluan bimbingan';
                                     }
+                                    if (value.length < 10) {
+                                      return 'Mohon isi keperluan bimbingan dengan benar';
+                                    }
                                     return null;
                                   },
                                   decoration: InputDecoration(
