@@ -19,7 +19,7 @@ import '../../routes/app_routers.dart';
 final scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
   @override
   Widget build(BuildContext context) {
     final appRouter = serviceLocator<FlutterRouter>();

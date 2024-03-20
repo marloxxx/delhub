@@ -229,7 +229,7 @@ class _BodyState extends State<Body> {
                                                               .styleFrom(
                                                             padding:
                                                                 const EdgeInsets
-                                                                        .symmetric(
+                                                                    .symmetric(
                                                                     horizontal:
                                                                         15.0),
                                                             backgroundColor:
@@ -276,7 +276,7 @@ class _BodyState extends State<Body> {
                                                               .styleFrom(
                                                             padding:
                                                                 const EdgeInsets
-                                                                        .symmetric(
+                                                                    .symmetric(
                                                                     horizontal:
                                                                         15.0),
                                                             backgroundColor:
